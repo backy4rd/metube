@@ -1,0 +1,88 @@
+.VerticalVideo {
+  display: block;
+  position: relative;
+  top: 0;
+  margin: 1px;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: top 100ms linear;
+}
+
+.VerticalVideo:hover {
+  border: 1px solid var(--main-red-1);
+  margin: 0;
+  top: -6px;
+}
+
+.VerticalVideo__Thumbnail {
+  position: relative;
+}
+
+/* .VerticalVideo__Thumbnail:hover::before { */
+/*   content: ''; */
+/*   position: absolute; */
+/*   top: 50%; */
+/*   left: 50%; */
+/*   width: 0; */
+/*   height: 0; */
+/*   border-top: 20px solid transparent; */
+/*   border-bottom: 20px solid transparent; */
+/*   border-left: 40px solid #fffb; */
+/*   transform: translate(-50%, -50%); */
+/*   animation: linear 0.2s showUp80 forwards; */
+/*   z-index: 100; */
+/* } */
+
+.VerticalVideo__Thumbnail-Info {
+  position: absolute;
+  bottom: 5%;
+  right: 3%;
+  display: flex;
+  align-items: center;
+}
+
+.VerticalVideo__Thumbnail-Info > * {
+  margin-right: 4px;
+}
+
+.VerticalVideo__Thumbnail-Info-View {
+  margin-right: 8px;
+}
+
+.VerticalVideo__Thumbnail-Info > svg {
+  font-size: 18px;
+}
+
+.VerticalVideo__Detail {
+  background-color: var(--main-dark-5);
+  display: flex;
+  align-items: center;
+  padding: 12px 12px 16px 12px;
+  height: 51px;
+}
+
+.VerticalVideo__Detail-UserIcon {
+  margin-right: 12px;
+}
+.VerticalVideo__Detail-UserIcon img {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+
+.VerticalVideo__Detail-Info-Title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  /* font-weight: 500; */
+  /* font-size: 13px; */
+  margin-bottom: 6px;
+}
+
+.VerticalVideo__Detail-Info-Username {
+  color: var(--main-grey-2);
+}

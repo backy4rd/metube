@@ -1,0 +1,30 @@
+.SidebarTag {
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  height: 50px;
+}
+
+.SidebarTag-Icon,
+.SidebarTag-Title {
+  color: var(--main-grey-2);
+}
+
+.SidebarTag-Icon {
+  font-size: 20px !important;
+  margin-right: 8px;
+}
+
+.SidebarTag-Title {
+  font-size: 14px;
+}
+
+.SidebarTag:hover .SidebarTag-Icon,
+.SidebarTag:hover .SidebarTag-Title {
+  color: var(--main-red-2);
+}
+
+.SidebarTag.active .SidebarTag-Icon,
+.SidebarTag.active .SidebarTag-Title {
+  color: var(--main-red-2);
+}

@@ -1,0 +1,17 @@
+.SidebarGroup {
+  background-color: var(--main-dark-4);
+  margin: 10px;
+  padding: 15px 10px 10px 10px;
+  border-radius: 4px;
+}
+
+.SidebarGroup-Toggle {
+  /* text-align: center; */
+  color: var(--main-grey-2);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.SidebarGroup-Toggle:hover {
+  color: var(--main-red-1);
+}

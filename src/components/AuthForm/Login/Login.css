@@ -1,0 +1,34 @@
+.login__wrapper {
+  margin: 15px 50px;
+}
+
+.login__wrapper > .field {
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  outline: none;
+}
+
+.login__wrapper > .field:focus {
+  border: 1px solid grey;
+}
+
+.login__wrapper > input[type='submit'] {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: #065fd4;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.login__wrapper > p {
+  text-align: center;
+}

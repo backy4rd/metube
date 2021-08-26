@@ -1,0 +1,55 @@
+.AuthFormWrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  height: 100%;
+  width: 100%;
+  background-color: #0008;
+  color: black;
+  /* animation: 0.2s linear showUp forwards; */
+}
+
+.AuthFormWrapper-enter {
+  opacity: 0;
+}
+.AuthFormWrapper-enter-active {
+  opacity: 1;
+  transition: opacity 200ms;
+}
+.AuthFormWrapper-exit {
+  opacity: 1;
+}
+.AuthFormWrapper-exit-active {
+  opacity: 0;
+  transition: opacity 200ms;
+}
+
+.AuthForm {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 400px;
+  background-color: white;
+  /* border: 1px solid #666; */
+  border-radius: 4px;
+  overflow: hidden;
+  transition: height 0.3s;
+}
+
+.AuthForm__header > h3 {
+  text-align: center;
+  background-color: #f2f4f5;
+  margin: 0;
+  padding: 20px 0;
+  border-bottom: 1px solid #d0d8db;
+}
+
+.AuthForm__header .closeButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  transform: scale(1.3);
+  cursor: pointer;
+}

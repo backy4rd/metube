@@ -1,25 +1,51 @@
 import React from 'react';
-import logo from './logo.svg';
+
+import { ShowAuthFormProvider } from '@contexts/ShowAuthFormContext';
+import { AuthProvider } from '@contexts/AuthContext';
+import { ShowSidebarProvider } from '@contexts/ShowSidebarContext';
+import { LoadingProvider } from '@contexts/LoadingContext';
+import { SubscriptionsProvider } from '@contexts/SubscriptionsContext';
+
+import Header from '@components/Header';
+import PopupWrapper from '@components/PopupWrapper';
+import Sidebar from '@components/Sidebar';
+import Main from '@components/Main';
+
 import './App.css';
 
 function App() {
+  /* return ( */
+  /*   <div className="App"> */
+  /*     <Header /> */
+  /*     <div className="App__Container"> */
+  /*       <Sidebar /> */
+  /*       <Main /> */
+  /*     </div> */
+
+  /*     <PopupWrapper /> */
+  /*   </div> */
+  /* ); */
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthProvider>
+      <ShowAuthFormProvider>
+        <ShowSidebarProvider>
+          <LoadingProvider>
+            <SubscriptionsProvider>
+              <div className="App">
+                <Header />
+                <div className="App__Container">
+                  <Sidebar />
+                  <Main />
+                </div>
+
+                <PopupWrapper />
+              </div>
+            </SubscriptionsProvider>
+          </LoadingProvider>
+        </ShowSidebarProvider>
+      </ShowAuthFormProvider>
+    </AuthProvider>
   );
 }
 

@@ -1,0 +1,52 @@
+.register__wrapper {
+  margin: 15px 50px;
+}
+
+.register__wrapper > span {
+  color: red;
+  font-size: 12px;
+  font-style: italic;
+}
+
+.register__wrapper > input:not([type='radio']) {
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  outline: none;
+}
+
+.register__wrapper > input:not([type='radio']):focus {
+  border: 1px solid grey;
+}
+
+.register__wrapper > .invalid {
+  border: 1px solid red !important;
+}
+
+.register__wrapper > .gender {
+  margin: 10px 0;
+}
+
+.register__wrapper > .gender > label {
+  padding-right: 30%;
+}
+
+.register__wrapper > .submit {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: #065fd4;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.register__wrapper > p {
+  text-align: center;
+}

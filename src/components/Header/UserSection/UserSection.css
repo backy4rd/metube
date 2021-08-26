@@ -1,0 +1,31 @@
+.UserSection {
+  display: flex;
+  align-items: center;
+}
+
+.UserSection:hover .UserSection-Username {
+  color: var(--main-red-1);
+}
+.UserSection:hover .UserSection-ExpandIcon {
+  color: var(--main-red-1) !important;
+}
+
+.UserSection-UserIcon {
+  margin-right: 4px;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  border: 2px solid var(--main-grey-1);
+  cursor: pointer;
+}
+
+.UserSection-Username {
+  color: var(--main-grey-2);
+  cursor: pointer;
+}
+
+.UserSection-ExpandIcon {
+  font-size: 20px;
+  color: var(--main-grey-2) !important;
+  cursor: pointer;
+}

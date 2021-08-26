@@ -1,0 +1,30 @@
+.VideoThumbnail {
+  background-size: cover;
+  background-position: center;
+}
+
+.VideoThumbnail__Wrapper {
+  position: relative;
+  padding-top: 56.25%;
+  width: 100%;
+  background-color: #000d;
+}
+
+.VideoThumbnail__Wrapper > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+}
+
+.VideoThumbnail__Wrapper > div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background-image: linear-gradient(#0000, #0000, #0000, #000e);
+}

@@ -1,0 +1,6 @@
+#Main {
+  flex-grow: 1;
+  background-color: var(--main-dark-3);
+  height: 100%;
+  overflow: auto;
+}

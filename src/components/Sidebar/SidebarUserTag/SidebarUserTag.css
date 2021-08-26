@@ -1,0 +1,31 @@
+.SidebarUserTag {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.SidebarUserTag:hover .SidebarUserTag-Username,
+.SidebarUserTag.active .SidebarUserTag-Username {
+  background-color: var(--main-dark-3);
+  color: var(--main-red-1);
+}
+
+.SidebarUserTag-Icon {
+  border-radius: 50%;
+  height: 32px;
+  width: 32px;
+  z-index: 1;
+}
+.SidebarUserTag-Username {
+  color: var(--main-grey-2);
+  font-size: 12px;
+  margin-left: -16px;
+  padding: 0 12px 0 22px;
+  height: 32px;
+  width: calc(100% - 12px - 22px);
+  line-height: 32px;
+  border-radius: 0 15px 15px 0;
+  background-color: var(--main-dark-5);
+  overflow: hidden;
+}

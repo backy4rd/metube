@@ -1,0 +1,77 @@
+.Header {
+  position: sticky;
+  height: 54px;
+  background-color: var(--main-dark-1);
+  display: flex;
+  padding: 0 18px;
+}
+
+.Header > * {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.Header__SearchSection {
+  width: 50%;
+  justify-content: flex-end;
+}
+
+@media only screen and (max-width: 700px) {
+  .Header__SearchSection {
+    display: none;
+  }
+}
+
+.Header__UserSection {
+  flex-grow: 1;
+  justify-content: flex-end;
+}
+
+.Header__LogoSection-Logo {
+  font-size: 28px !important;
+  color: var(--main-red-1);
+}
+
+.Header__LogoSection-Title {
+  font-size: 17px;
+  font-weight: 500;
+  margin-left: 4px;
+}
+
+.Header__SearchSection-SearchBox {
+  box-sizing: border-box;
+  height: 30px;
+  width: 230px;
+  line-height: 30px;
+  border-radius: 4px;
+  color: white;
+  background-color: var(--main-dark-4);
+  outline: none;
+  border: none;
+  padding: 1px 40px 1px 15px;
+  transition: width 0.3s linear;
+}
+
+.Header__SearchSection-SearchBox:focus {
+  border: 1px solid var(--main-dark-blue-1);
+  width: 250px;
+}
+
+.Header__SearchSection-SearchIcon {
+  margin-left: -30px;
+  color: var(--main-grey-2);
+  cursor: pointer;
+}
+
+.Header__UserSection-UserIcon {
+  margin-right: 4px;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  border: 2px solid var(--main-grey-1);
+  cursor: pointer;
+}
+.Header__UserSection-Username {
+  color: var(--main-grey-2);
+}

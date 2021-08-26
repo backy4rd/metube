@@ -1,0 +1,46 @@
+.Category__Wrapper {
+  display: inline-block;
+  cursor: default;
+}
+
+.Category__Wrapper.active > .Category {
+  background-image: linear-gradient(to right, var(--main-red-2), var(--main-red-3));
+  color: white;
+  /* border: 1px solid var(--main-red-3); */
+}
+
+/* .Category__Wrapper.active > .Category:hover { */
+/*   background-color: grey; */
+/* } */
+
+.Category {
+  position: relative;
+  box-sizing: border-box;
+  display: inline-block;
+  padding: 6px 20px;
+  margin: 4px 6px;
+  /* font-size: 15px; */
+  background-color: var(--main-dark-5);
+  user-select: none;
+  /* border: 1px solid var(--main-dark-5); */
+  border-radius: 50px;
+}
+
+.Category > span {
+  font-size: 13px;
+}
+
+.Category-RemoveIcon {
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translateX(40%) translateY(-25%);
+  font-size: 16px;
+  color: var(--main-red-1);
+}
+
+.Category:hover {
+  color: var(--main-red-3);
+  /* border: 1px solid var(--main-red-1); */
+}
