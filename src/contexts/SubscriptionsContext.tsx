@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import { useAuth } from './AuthContext';
 import IUser from '@interfaces/IUser';
 import userApi from '@api/userApi';
 
@@ -20,9 +21,12 @@ export function useSubscriptions() {
 export function SubscriptionsProvider(props: { children?: React.ReactNode }) {
   const [subscriptions, setSubscriptions] = useState<Array<IUser>>([]);
 
+  const { user } = useAuth();
+
   useEffect(() => {
+    if (!user) return;
     userApi.getSubscriptionUsers().then(setSubscriptions);
-  }, []);
+  }, [user]);
 
   function unsubscribe(user: number | IUser) {
     if (typeof user === 'number') {

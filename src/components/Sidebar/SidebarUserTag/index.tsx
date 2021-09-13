@@ -3,6 +3,8 @@ import { NavLink } from 'react-router-dom';
 
 import IUser from '@interfaces/IUser';
 
+import Avatar from '@components/Avatar';
+
 import './SidebarUserTag.css';
 
 interface SidebarUserTagProps {
@@ -16,7 +18,7 @@ function SidebarUserTag(props: SidebarUserTagProps) {
       activeClassName="active"
       to={`/channel/${props.user.username}`}
     >
-      <img className="SidebarUserTag-Icon" src={props.user.iconPath} alt="" />
+      <Avatar className="SidebarUserTag-Icon" user={props.user} size="32px" />
       <div className="SidebarUserTag-Username">{props.user.username}</div>
     </NavLink>
   );

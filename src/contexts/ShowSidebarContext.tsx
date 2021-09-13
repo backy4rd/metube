@@ -10,12 +10,12 @@ export function useShowSidebar() {
 }
 
 export function ShowSidebarProvider(props: { children?: React.ReactNode }) {
-  const isMobile = useMediaQuery({ maxWidth: 600 });
-  const [showSidebar, setShowSidebar] = useState(!isMobile);
+  const isWidthUnder900 = useMediaQuery({ maxWidth: 900 });
+  const [showSidebar, setShowSidebar] = useState(!isWidthUnder900);
 
   useEffect(() => {
-    setShowSidebar(!isMobile);
-  }, [isMobile]);
+    setShowSidebar(!isWidthUnder900);
+  }, [isWidthUnder900]);
 
   return (
     <ShowSidebarContext.Provider value={[showSidebar, setShowSidebar]}>

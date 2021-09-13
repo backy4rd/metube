@@ -1,0 +1,28 @@
+.ChannelInfo {
+  display: flex;
+  cursor: pointer;
+}
+
+.ChannelInfo:hover .ChannelInfo__Detail-Username,
+.ChannelInfo.active .ChannelInfo__Detail-Username {
+  color: var(--main-red-1);
+}
+
+.ChannelInfo__Icon {
+  margin-right: 10px;
+}
+
+.ChannelInfo__Icon > img {
+  border-radius: 50%;
+  height: 32px;
+  width: 32px;
+}
+
+.ChannelInfo__Detail > * {
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.ChannelInfo__Detail-Subscribers {
+  color: var(--main-grey-2);
+}

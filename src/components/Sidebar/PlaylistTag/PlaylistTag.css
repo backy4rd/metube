@@ -1,0 +1,20 @@
+.PlaylistTag {
+  display: flex;
+  align-items: center;
+  color: var(--main-grey-2);
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.PlaylistTag:hover {
+  color: var(--main-red-1);
+}
+
+.PlaylistTag-Name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1; /* number of lines to show */
+}

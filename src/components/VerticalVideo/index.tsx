@@ -6,6 +6,7 @@ import { useVideo } from '@contexts/VideoContext';
 import { secondToTime, timeDifference } from '@utils/time';
 import { numberWithCommas } from '@utils/number';
 
+import Avatar from '@components/Avatar';
 import VideoThumbnail from '@components/VideoThumbnail';
 
 import './VerticalVideo.css';
@@ -28,7 +29,7 @@ function VerticalVideo() {
 
       <div className="VerticalVideo__Detail">
         <div className="VerticalVideo__Detail-UserIcon">
-          <img src={video.uploadedBy.iconPath} alt="" />
+          <Avatar user={video.uploadedBy} size="40px" />
         </div>
         <div className="VerticalVideo__Detail-Info">
           <div className="VerticalVideo__Detail-Info-Title">{video.title}</div>
@@ -41,4 +42,4 @@ function VerticalVideo() {
   );
 }
 
-export default VerticalVideo;
+export default React.memo(VerticalVideo);

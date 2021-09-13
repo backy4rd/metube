@@ -40,15 +40,12 @@ client.interceptors.request.use((config) => {
 
 function appendUrl(obj: { [key: string]: any }): any {
   for (const key in obj) {
-    if (
-      obj[key] !== null &&
-      Object.getPrototypeOf(obj[key]) === Object.prototype
-    ) {
+    if (obj[key] !== null && Object.getPrototypeOf(obj[key]) === Object.prototype) {
       appendUrl(obj[key]);
       continue;
     }
 
-    if (key.includes('Path')) {
+    if (key.includes('Path') && obj[key] !== null) {
       obj[key] = process.env.REACT_APP_STATIC_URL + obj[key];
     }
   }
@@ -66,7 +63,7 @@ client.interceptors.response.use(
   (error) => {
     if (axios.isCancel(error)) throw error;
     else throw error.response;
-  },
+  }
 );
 
 export default client;

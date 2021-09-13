@@ -13,8 +13,6 @@
 .UserSection-UserIcon {
   margin-right: 4px;
   border-radius: 50%;
-  height: 30px;
-  width: 30px;
   border: 2px solid var(--main-grey-1);
   cursor: pointer;
 }

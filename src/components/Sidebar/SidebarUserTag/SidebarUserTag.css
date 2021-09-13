@@ -12,9 +12,9 @@
 }
 
 .SidebarUserTag-Icon {
-  border-radius: 50%;
-  height: 32px;
-  width: 32px;
+  /* border-radius: 50%; */
+  /* height: 32px; */
+  /* width: 32px; */
   z-index: 1;
 }
 .SidebarUserTag-Username {

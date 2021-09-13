@@ -31,6 +31,8 @@ function Login({ onRegisterClick }: Props) {
         setFailMessage('tài khoản không tồn tại');
       } else if (message === "password don't match") {
         setFailMessage('mật khẩu không chính xác');
+      } else if (message === 'user was blocked') {
+        setFailMessage('tài khoản đã bị khóa');
       } else {
         setFailMessage('lỗi máy chủ');
       }
@@ -42,9 +44,7 @@ function Login({ onRegisterClick }: Props) {
   return (
     <div className="login">
       <form className="login__wrapper" onSubmit={handleLoginSubmit}>
-        {failMessage && (
-          <span style={{ fontSize: 12, fontStyle: 'italic', color: 'red' }}>*{failMessage}</span>
-        )}
+        {failMessage && <span className="login__errorMessage">*{failMessage}</span>}
         <input
           type="text"
           className="field"

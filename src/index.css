@@ -65,17 +65,17 @@ h5 {
     width: 8px;
   }
 
-  /* Track */
+  /* track */
   ::-webkit-scrollbar-track {
     background: #262626;
   }
 
-  /* Handle */
+  /* handle */
   ::-webkit-scrollbar-thumb {
     background: #404040;
   }
 
-  /* Handle on hover */
+  /* handle on hover */
   ::-webkit-scrollbar-thumb:hover {
     background: #555;
   }

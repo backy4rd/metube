@@ -1,6 +1,6 @@
 .SidebarWrapper {
   position: relative;
-  width: 200px;
+  width: 220px;
   flex-shrink: 0;
   background-color: var(--main-dark-2);
   height: 100%;

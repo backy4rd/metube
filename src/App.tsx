@@ -5,6 +5,7 @@ import { AuthProvider } from '@contexts/AuthContext';
 import { ShowSidebarProvider } from '@contexts/ShowSidebarContext';
 import { LoadingProvider } from '@contexts/LoadingContext';
 import { SubscriptionsProvider } from '@contexts/SubscriptionsContext';
+import { PlaylistsProvider } from '@contexts/PlaylistsContext';
 
 import Header from '@components/Header';
 import PopupWrapper from '@components/PopupWrapper';
@@ -13,39 +14,35 @@ import Main from '@components/Main';
 
 import './App.css';
 
-function App() {
-  /* return ( */
-  /*   <div className="App"> */
-  /*     <Header /> */
-  /*     <div className="App__Container"> */
-  /*       <Sidebar /> */
-  /*       <Main /> */
-  /*     </div> */
-
-  /*     <PopupWrapper /> */
-  /*   </div> */
-  /* ); */
-
+function AppContextWrapper({ children }: { children: React.ReactNode }) {
   return (
     <AuthProvider>
       <ShowAuthFormProvider>
         <ShowSidebarProvider>
           <LoadingProvider>
-            <SubscriptionsProvider>
-              <div className="App">
-                <Header />
-                <div className="App__Container">
-                  <Sidebar />
-                  <Main />
-                </div>
-
-                <PopupWrapper />
-              </div>
-            </SubscriptionsProvider>
+            <PlaylistsProvider>{children}</PlaylistsProvider>
           </LoadingProvider>
         </ShowSidebarProvider>
       </ShowAuthFormProvider>
     </AuthProvider>
+  );
+}
+
+function App() {
+  return (
+    <div className="App">
+      <AppContextWrapper>
+        <Header />
+        <div className="App__Container">
+          <SubscriptionsProvider>
+            <Sidebar />
+          </SubscriptionsProvider>
+          <Main />
+        </div>
+
+        <PopupWrapper />
+      </AppContextWrapper>
+    </div>
   );
 }
 

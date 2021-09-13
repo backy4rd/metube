@@ -4,6 +4,7 @@ import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import { useAuth } from '@contexts/AuthContext';
 
 import AuthButton from '@components/AuthButton';
+import Avatar from '@components/Avatar';
 
 import './UserSection.css';
 
@@ -11,6 +12,7 @@ function UserSection() {
   const { user, logout } = useAuth();
   const [isExpand, setIsExpand] = useState(false);
 
+  if (user === undefined) return null;
   if (user === null) {
     return (
       <div className="UserSection">
@@ -19,22 +21,17 @@ function UserSection() {
     );
   }
 
+  const fullName = `${user.firstName} ${user.lastName}`;
+  const displayName = fullName.length > 18 ? user.lastName : fullName;
+
   return (
     <div
       className="UserSection"
       onMouseEnter={() => setIsExpand(true)}
       onMouseLeave={() => setIsExpand(false)}
     >
-      <img
-        className="UserSection-UserIcon"
-        src={user.iconPath}
-        alt="Logout"
-        title="Logout"
-        onClick={logout}
-      />
-      <div className="UserSection-Username">
-        {user.firstName} {user.lastName}
-      </div>
+      <Avatar className="UserSection-UserIcon" user={user} onClick={logout} size="30px" />
+      <div className="UserSection-Username">{displayName}</div>
       {isExpand ? (
         <ExpandLess className="UserSection-ExpandIcon" />
       ) : (

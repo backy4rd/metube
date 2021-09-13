@@ -32,3 +32,10 @@
 .login__wrapper > p {
   text-align: center;
 }
+
+.login__errorMessage {
+  font-size: 12px;
+  font-style: italic;
+  color: red;
+  line-height: 20px;
+}

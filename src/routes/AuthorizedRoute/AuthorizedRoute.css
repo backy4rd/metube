@@ -1,0 +1,22 @@
+.Unauthorized {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Unauthorized__Center {
+  max-width: 512px;
+  text-align: center;
+}
+
+.Unauthorized__Center > * {
+  margin-bottom: 16px;
+}
+
+.Unauthorized__Center > h3 {
+  font-size: 32px;
+}
+
+.Unauthorized__Center-Key {
+  font-size: 128px !important;
+}

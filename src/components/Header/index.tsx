@@ -1,6 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Dehaze, FeaturedVideoOutlined, Search } from '@material-ui/icons';
+import { useMediaQuery } from 'react-responsive';
+import {
+  Dehaze,
+  FeaturedVideoOutlined,
+  Search,
+  RadioButtonChecked,
+  CloudUpload,
+} from '@material-ui/icons';
 
 import { useShowSidebar } from '@contexts/ShowSidebarContext';
 
@@ -10,19 +17,21 @@ import './Header.css';
 
 function Header() {
   const [showSidebar, setShowSidebar] = useShowSidebar();
+  const isWidthUnder700 = useMediaQuery({ maxWidth: 700 });
 
   return (
     <div className="Header">
       <div className="Header__LogoSection">
         <Dehaze
-          style={{ marginRight: 14, cursor: 'pointer' }}
+          style={{ marginRight: 10, cursor: 'pointer' }}
           onClick={() => setShowSidebar(!showSidebar)}
         />
         <Link to="/" style={{ display: 'flex', alignItems: 'center' }}>
           <FeaturedVideoOutlined className="Header__LogoSection-Logo" />
-          <span className="Header__LogoSection-Title">Index.html</span>
+          <span className="Header__LogoSection-Title">index.html</span>
         </Link>
       </div>
+
       <div className="Header__SearchSection">
         <input
           className="Header__SearchSection-SearchBox"
@@ -31,7 +40,20 @@ function Header() {
         />
         <Search className="Header__SearchSection-SearchIcon" />
       </div>
+
       <div className="Header__UserSection">
+        <div className="Header__UserSection-Button">{isWidthUnder700 && <Search />}</div>
+
+        <div className="Header__UserSection-Button">
+          <RadioButtonChecked />
+          {!isWidthUnder700 && <div style={{ marginLeft: 2 }}>Go live</div>}
+        </div>
+
+        <div className="Header__UserSection-Button">
+          <CloudUpload />
+          {!isWidthUnder700 && <div style={{ marginLeft: 4 }}>Upload</div>}
+        </div>
+
         <UserSection />
       </div>
     </div>

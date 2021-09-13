@@ -8,7 +8,7 @@ import Range from '../interfaces/IRange';
 
 class VideoApi {
   public getVideos(range?: Range, category?: string): Promise<Video[]> {
-    return client.get('/videos/', { params: { ...range, category } });
+    return client.get('/videos/', { params: { ...range, category, sort: 'hot' } });
   }
 
   public getSubscriptionVideos(range?: Range): Promise<Video[]> {
@@ -49,7 +49,7 @@ class VideoApi {
       onUploadProgress?: (progressEvent: ProgressEvent) => void;
       onUploadComplete?: (res: Video) => void;
       onUploadError?: (err: Error) => void;
-    },
+    }
   ): () => void {
     const payload = {
       video: data.video,

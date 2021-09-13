@@ -1,11 +1,23 @@
 import React, { useRef } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import Home from '@components/Home';
-import Player from '@components/Player';
+import { HomeVideosProvider } from '@contexts/HomeVideosContext';
+import { CategoriesProvider } from '@contexts/CategoriesContext';
 import ScrollToTop from '@utils/scrollToTop';
 
+import AuthorizedRoute from '@routes/AuthorizedRoute';
+import Home from '@routes/Home';
+import Watch from '@routes/Watch';
+
 import './Main.css';
+
+function RouteContext(props: { children: React.ReactNode }) {
+  return (
+    <CategoriesProvider>
+      <HomeVideosProvider>{props.children}</HomeVideosProvider>
+    </CategoriesProvider>
+  );
+}
 
 function Main() {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -14,8 +26,14 @@ function Main() {
     <div id="Main" ref={mainRef}>
       <ScrollToTop containerRef={mainRef} />
       <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/watch/:id" component={Player} />
+        <RouteContext>
+          <Route exact path="/" component={Home} />
+          <Route path="/watch/:id" component={Watch} />
+          <AuthorizedRoute path="/subscriptions" component={() => <div>subscriptions</div>} />
+          <AuthorizedRoute path="/history" component={() => <div>history</div>} />
+          <AuthorizedRoute path="/playlists" component={() => <div>playlists</div>} />
+          <AuthorizedRoute path="/liked" component={() => <div>liked</div>} />
+        </RouteContext>
       </Switch>
     </div>
   );

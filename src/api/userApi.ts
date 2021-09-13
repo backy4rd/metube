@@ -2,6 +2,7 @@ import client from './client';
 
 import User from '../interfaces/IUser';
 import Video from '../interfaces/IVideo';
+import Playlist from '@interfaces/IPlaylist';
 
 class UserApi {
   public getSubscriptionUsers(): Promise<User[]> {
@@ -18,6 +19,10 @@ class UserApi {
 
   public getUserVideos(username: string): Promise<Video[]> {
     return client.get(`/users/${username}/videos`);
+  }
+
+  public getOwnPlaylists(): Promise<Playlist[]> {
+    return client.get(`/users/playlists`);
   }
 }
 

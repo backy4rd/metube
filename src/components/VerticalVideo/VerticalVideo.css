@@ -65,11 +65,6 @@
 .VerticalVideo__Detail-UserIcon {
   margin-right: 12px;
 }
-.VerticalVideo__Detail-UserIcon img {
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-}
 
 .VerticalVideo__Detail-Info-Title {
   overflow: hidden;

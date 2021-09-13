@@ -1,0 +1,15 @@
+.Watch {
+  margin: 24px 3% 3%;
+}
+
+.Watch__Orther {
+  display: flex;
+}
+
+.Watch__Orther__Left {
+  width: 70%;
+}
+
+.Watch__Orther__Right {
+  width: 30%;
+}

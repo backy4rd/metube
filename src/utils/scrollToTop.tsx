@@ -1,17 +1,19 @@
-import { useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
+import { useEffect, MutableRefObject } from 'react';
+import { useLocation } from 'react-router-dom';
 
-function ScrollToTop({ history, containerRef }: any) {
+interface ScrollToTopProps {
+  containerRef: MutableRefObject<HTMLDivElement | null>;
+}
+
+export default function ScrollToTop({ containerRef }: ScrollToTopProps) {
+  const { pathname } = useLocation();
+
+  //   console.log(useHistory());
+
   useEffect(() => {
     if (containerRef.current === null) return;
-    const unlisten = history.listen(() => containerRef.current.scrollTo(0, 0));
-
-    return () => {
-      unlisten();
-    };
-  }, [history, containerRef]);
+    containerRef.current.scrollTo(0, 0);
+  }, [containerRef, pathname]);
 
   return null;
 }
-
-export default withRouter(ScrollToTop);

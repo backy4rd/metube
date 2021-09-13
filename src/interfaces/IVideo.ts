@@ -1,3 +1,4 @@
+import Category from './ICategory';
 import User from './IUser';
 
 export default interface Video {
@@ -15,4 +16,5 @@ export default interface Video {
   uploadedBy: User;
   react: boolean | null;
   totalComments: number;
+  categories: Array<Category>;
 }
