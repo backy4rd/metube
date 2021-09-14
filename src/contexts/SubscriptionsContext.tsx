@@ -3,11 +3,12 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from './AuthContext';
 import IUser from '@interfaces/IUser';
 import userApi from '@api/userApi';
+import subscriptionApi from '@api/subscriptionApi';
 
 const SubscriptionsContext = React.createContext<{
   subscriptions: Array<IUser>;
   subscribe: (user: IUser) => void;
-  unsubscribe: (user: number | IUser) => void;
+  unsubscribe: (user: string | IUser) => void;
 }>({
   subscriptions: [],
   subscribe: () => {},
@@ -28,15 +29,15 @@ export function SubscriptionsProvider(props: { children?: React.ReactNode }) {
     userApi.getSubscriptionUsers().then(setSubscriptions);
   }, [user]);
 
-  function unsubscribe(user: number | IUser) {
-    if (typeof user === 'number') {
-      setSubscriptions(subscriptions.filter((u) => u.id !== user));
-    } else {
-      setSubscriptions(subscriptions.filter((u) => u.id !== user.id));
-    }
+  async function unsubscribe(user: string | IUser) {
+    const username = typeof user === 'string' ? user : user.username;
+
+    await subscriptionApi.unsubscribe(username);
+    setSubscriptions(subscriptions.filter((u) => u.username !== username));
   }
 
-  function subscribe(user: IUser) {
+  async function subscribe(user: IUser) {
+    await subscriptionApi.subscribe(user.username);
     setSubscriptions([...subscriptions, user]);
   }
 

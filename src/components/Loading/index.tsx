@@ -6,7 +6,7 @@ import { useLoading } from '@contexts/LoadingContext';
 import './Loading.css';
 
 function Loading() {
-  const [loading] = useLoading();
+  const loading = useLoading();
 
   return (
     <CSSTransition

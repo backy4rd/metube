@@ -1,0 +1,70 @@
+.WatchDetail > * {
+  margin-bottom: 12px;
+}
+.WatchDetail__Info-Title {
+  margin-bottom: 8px;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.WatchDetail__Info-UploadedAt {
+  color: var(--main-grey-2);
+}
+
+.WatchDetail__User {
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--main-dark-4);
+  padding-right: 12px;
+}
+
+.WatchDetail__User__Left {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.WatchDetail__User__Left:hover .WatchDetail__User__Left-Username {
+  color: var(--main-red-1);
+}
+
+.WatchDetail__User__Left-Avatar {
+  margin-right: 6px;
+}
+
+.WatchDetail__Statistic {
+  display: flex;
+  align-items: center;
+}
+
+.WatchDetail__Statistic > * {
+  margin: 4px 0;
+}
+
+.WatchDetail__Statistic-Item {
+  margin-right: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.Statistic-Item--Button {
+  cursor: pointer;
+}
+
+.WatchDetail__Statistic-Item > *:nth-child(1) {
+  margin-right: 4px;
+  color: #ddd;
+}
+
+.WatchDetail__Statistic-Disike {
+  color: var(--main-red-1) !important;
+}
+
+.WatchDetail__Statistic-Like {
+  color: var(--main-green-1) !important;
+}
+
+.WatchDetail__Description {
+  margin-left: 32px;
+}

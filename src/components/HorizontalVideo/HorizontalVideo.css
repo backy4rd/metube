@@ -1,0 +1,37 @@
+.HorizontalVideo {
+  /* display: flex; */
+  cursor: pointer;
+  clear: both;
+  margin: 12px 0;
+  overflow: hidden;
+}
+
+.HorizontalVideo:hover .HorizontalVideo__Info-Title {
+  color: var(--main-red-2);
+}
+
+.HorizontalVideo__Thumbnail {
+  width: 40%;
+  float: left;
+}
+
+.HorizontalVideo__Info {
+  float: left;
+  margin-left: 8px;
+  width: calc(60% - 8px);
+}
+
+.HorizontalVideo__Info-Title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  margin-bottom: 4px;
+}
+
+.HorizontalVideo__Info-Author,
+.HorizontalVideo__Info-Views {
+  color: var(--main-grey-2);
+}

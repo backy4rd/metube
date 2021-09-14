@@ -1,5 +1,9 @@
 .Watch {
-  margin: 24px 3% 3%;
+  margin: 18px 3% 3%;
+}
+
+.Watch__Player {
+  margin-bottom: 8px;
 }
 
 .Watch__Orther {
@@ -7,9 +11,30 @@
 }
 
 .Watch__Orther__Left {
-  width: 70%;
+  width: calc(68% - 12px);
+  border-right: 1px solid var(--main-dark-4);
+  margin-right: 12px;
+}
+
+.Watch__Orther__Left-CommentTitle {
+  margin-top: 20px;
+  font-size: 16px;
 }
 
 .Watch__Orther__Right {
-  width: 30%;
+  width: 32%;
+}
+
+@media only screen and (max-width: 800px) {
+  .Watch__Orther {
+    display: block;
+  }
+
+  .Watch__Orther__Left {
+    width: 100%;
+  }
+
+  .Watch__Orther__Right {
+    width: 100%;
+  }
 }

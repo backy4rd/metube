@@ -3,10 +3,11 @@ import { useParams } from 'react-router-dom';
 
 import IVideo from '@interfaces/IVideo';
 import videoApi from '@api/videoApi';
-/* import { useShowSidebar } from '@contexts/ShowSidebarContext'; */
+import { useSetLoading } from '@contexts/LoadingContext';
 
 import Player from '@components/Player';
 import RelateVideos from '@components/RelateVideos';
+import WatchDetail from '@components/WatchDetail';
 import Comments from '@components/Comments';
 
 import './Watch.css';
@@ -14,17 +15,15 @@ import './Watch.css';
 function Watch() {
   const [video, setVideo] = useState<IVideo | null>(null);
   const { id: videoId } = useParams<{ id: string }>();
-  /* const [, setShowSidebar] = useShowSidebar(); */
-
-  /* useEffect(() => { */
-  /*   setShowSidebar(false); */
-  /*   return () => setShowSidebar(true); */
-  /*   // eslint-disable-next-line */
-  /* }, []); */
+  const setLoading = useSetLoading();
 
   useEffect(() => {
-    videoApi.getVideo(videoId).then(setVideo);
-  }, [videoId]);
+    setLoading(true);
+    videoApi
+      .getVideo(videoId)
+      .then(setVideo)
+      .finally(() => setLoading(false));
+  }, [setLoading, videoId]);
 
   if (!video) return null;
 
@@ -35,9 +34,12 @@ function Watch() {
       </div>
       <div className="Watch__Orther">
         <div className="Watch__Orther__Left">
-          <Comments />
+          <WatchDetail video={video} />
+          <div className="Watch__Orther__Left-CommentTitle">{video.totalComments} Comments</div>
+          <Comments video={video} />
         </div>
         <div className="Watch__Orther__Right">
+          <div>Video có liên quan</div>
           <RelateVideos video={video} />
         </div>
       </div>

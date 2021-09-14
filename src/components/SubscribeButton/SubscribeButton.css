@@ -1,0 +1,14 @@
+.SubscribeButton {
+  padding: 0 20px;
+  height: 32px;
+  text-align: center;
+  line-height: 32px;
+  background-color: var(--main-red-1);
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.SubscribeButton:hover {
+  background-color: var(--main-red-3);
+}

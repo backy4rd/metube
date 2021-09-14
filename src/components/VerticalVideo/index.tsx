@@ -1,10 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { VisibilityOutlined, Schedule } from '@material-ui/icons';
 
 import { useVideo } from '@contexts/VideoContext';
-import { secondToTime, timeDifference } from '@utils/time';
-import { numberWithCommas } from '@utils/number';
+import { timeDifference } from '@utils/time';
 
 import Avatar from '@components/Avatar';
 import VideoThumbnail from '@components/VideoThumbnail';
@@ -16,16 +14,7 @@ function VerticalVideo() {
 
   return (
     <Link className="VerticalVideo" to={`/watch/${video.id}`}>
-      <VideoThumbnail className="VerticalVideo__Thumbnail">
-        <div className="VerticalVideo__Thumbnail-Info">
-          <VisibilityOutlined className="VerticalVideo__Thumbnail-Info-ViewIcon" />
-          <div className="VerticalVideo__Thumbnail-Info-View">{numberWithCommas(video.views)}</div>
-          <Schedule className="VerticalVideo__Thumbnail-Info-ClockIcon" />
-          <div className="VerticalVideo__Thumbnail-Info-Duration">
-            {secondToTime(video.duration)}
-          </div>
-        </div>
-      </VideoThumbnail>
+      <VideoThumbnail />
 
       <div className="VerticalVideo__Detail">
         <div className="VerticalVideo__Detail-UserIcon">

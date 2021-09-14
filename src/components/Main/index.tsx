@@ -8,6 +8,7 @@ import ScrollToTop from '@utils/scrollToTop';
 import AuthorizedRoute from '@routes/AuthorizedRoute';
 import Home from '@routes/Home';
 import Watch from '@routes/Watch';
+import Playlist from '@routes/Playlist';
 
 import './Main.css';
 
@@ -29,9 +30,10 @@ function Main() {
         <RouteContext>
           <Route exact path="/" component={Home} />
           <Route path="/watch/:id" component={Watch} />
-          <AuthorizedRoute path="/subscriptions" component={() => <div>subscriptions</div>} />
+          <Route path="/playlist/:id" component={Playlist} />
+          <AuthorizedRoute path="/subscription" component={() => <div>subscriptions</div>} />
           <AuthorizedRoute path="/history" component={() => <div>history</div>} />
-          <AuthorizedRoute path="/playlists" component={() => <div>playlists</div>} />
+          <AuthorizedRoute exact path="/playlist" component={() => <div>playlists</div>} />
           <AuthorizedRoute path="/liked" component={() => <div>liked</div>} />
         </RouteContext>
       </Switch>

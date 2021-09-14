@@ -9,8 +9,14 @@ interface PlayerProps {
 
 function Player(props: PlayerProps) {
   return (
-    <div className="Player">
-      <ReactPlayer url={props.videoUrl} controls width="100%" height="400px"></ReactPlayer>
+    <div className="Player__Container" style={{ backgroundColor: 'black' }}>
+      <ReactPlayer
+        className="Player"
+        url={props.videoUrl}
+        controls
+        height="100%"
+        width="100%"
+      ></ReactPlayer>
     </div>
   );
 }

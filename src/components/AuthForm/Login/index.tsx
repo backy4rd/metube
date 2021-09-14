@@ -2,7 +2,7 @@ import React, { FormEvent, useState } from 'react';
 
 import authApi from '@api/authApi';
 import { useAuth } from '@contexts/AuthContext';
-import { useLoading } from '@contexts/LoadingContext';
+import { useSetLoading } from '@contexts/LoadingContext';
 
 import './Login.css';
 
@@ -14,7 +14,7 @@ function Login({ onRegisterClick }: Props) {
   const [failMessage, setFailMessage] = useState<string | null>(null);
 
   const { login } = useAuth();
-  const [, setLoading] = useLoading();
+  const setLoading = useSetLoading();
 
   async function handleLoginSubmit(e: FormEvent) {
     e.preventDefault();

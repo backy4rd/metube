@@ -15,10 +15,6 @@
   top: -6px;
 }
 
-.VerticalVideo__Thumbnail {
-  position: relative;
-}
-
 /* .VerticalVideo__Thumbnail:hover::before { */
 /*   content: ''; */
 /*   position: absolute; */
@@ -34,25 +30,6 @@
 /*   z-index: 100; */
 /* } */
 
-.VerticalVideo__Thumbnail-Info {
-  position: absolute;
-  bottom: 5%;
-  right: 3%;
-  display: flex;
-  align-items: center;
-}
-
-.VerticalVideo__Thumbnail-Info > * {
-  margin-right: 4px;
-}
-
-.VerticalVideo__Thumbnail-Info-View {
-  margin-right: 8px;
-}
-
-.VerticalVideo__Thumbnail-Info > svg {
-  font-size: 18px;
-}
 
 .VerticalVideo__Detail {
   background-color: var(--main-dark-5);

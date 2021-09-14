@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import queryString from 'query-string';
 
-import { useLoading } from '@contexts/LoadingContext';
+import { useSetLoading } from '@contexts/LoadingContext';
 import { useCategories } from '@contexts/CategoriesContext';
 import { useHomeVideos } from '@contexts/HomeVideosContext';
 import videoApi from '@api/videoApi';
@@ -23,7 +23,7 @@ function Home() {
   const categories = useCategories();
   const isMounting = useRef(true);
 
-  const [, setLoading] = useLoading();
+  const setLoading = useSetLoading();
   const { category: _qCategory } = useQuery();
   const qCategory = _qCategory ? _qCategory.toString() : undefined;
 

@@ -48,14 +48,14 @@ function Sidebar() {
 
         <SidebarNavigationTag to="/history" Icon={TimelineOutlined} title="Lịch sử" />
         <SidebarNavigationTag to="/liked" Icon={ThumbUpOutlined} title="Đã thích" />
-        <SidebarNavigationTag to="/playlists" Icon={QueueOutlined} title="Danh mục phát" />
+        <SidebarNavigationTag to="/playlist" Icon={QueueOutlined} title="Danh mục phát" />
         {user !== null && playlists.length > 0 && (
           <SidebarGroup limit={3}>
             {playlists.length > 0 &&
               playlists.map((playlist) => <PlaylistTag key={playlist.id} playlist={playlist} />)}
           </SidebarGroup>
         )}
-        <SidebarNavigationTag to="/subscriptions" Icon={SubscriptionsOutlined} title="Đã đăng ký" />
+        <SidebarNavigationTag to="/subscription" Icon={SubscriptionsOutlined} title="Đã đăng ký" />
         <SidebarGroup>
           {user !== null ? (
             subscriptions.map((u) => <SidebarUserTag key={u.username} user={u} />)

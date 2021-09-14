@@ -20,7 +20,9 @@ function AppContextWrapper({ children }: { children: React.ReactNode }) {
       <ShowAuthFormProvider>
         <ShowSidebarProvider>
           <LoadingProvider>
-            <PlaylistsProvider>{children}</PlaylistsProvider>
+            <SubscriptionsProvider>
+              <PlaylistsProvider>{children}</PlaylistsProvider>
+            </SubscriptionsProvider>
           </LoadingProvider>
         </ShowSidebarProvider>
       </ShowAuthFormProvider>
@@ -34,9 +36,7 @@ function App() {
       <AppContextWrapper>
         <Header />
         <div className="App__Container">
-          <SubscriptionsProvider>
-            <Sidebar />
-          </SubscriptionsProvider>
+          <Sidebar />
           <Main />
         </div>
 

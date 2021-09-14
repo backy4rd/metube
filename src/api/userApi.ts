@@ -6,7 +6,11 @@ import Playlist from '@interfaces/IPlaylist';
 
 class UserApi {
   public getSubscriptionUsers(): Promise<User[]> {
-    return client.get('/users/subscriptions');
+    return client.get('/users/subscriptions', { params: { limit: 100 } });
+  }
+
+  public getSubscribers(): Promise<User[]> {
+    return client.get('/users/subscribers');
   }
 
   public getUserProfile(username: string): Promise<User> {
