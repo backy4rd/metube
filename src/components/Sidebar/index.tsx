@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  TimelineOutlined,
+  History,
   SubscriptionsOutlined,
   LiveTvOutlined,
   ThumbUpOutlined,
@@ -31,7 +31,7 @@ function Sidebar() {
     return (
       <div className="SidebarWrapper" style={{ width: 0 }}>
         <div className="Sidebar">
-          <div className="Sidebar-Toggle" onClick={() => setShowSidebar(true)}></div>
+          <div className="Sidebar-Toggle expand" onClick={() => setShowSidebar(true)}></div>
         </div>
       </div>
     );
@@ -46,7 +46,7 @@ function Sidebar() {
           </SidebarGroup>
         )}
 
-        <SidebarNavigationTag to="/history" Icon={TimelineOutlined} title="Lịch sử" />
+        <SidebarNavigationTag to="/history" Icon={History} title="Lịch sử" />
         <SidebarNavigationTag to="/liked" Icon={ThumbUpOutlined} title="Đã thích" />
         <SidebarNavigationTag to="/playlist" Icon={QueueOutlined} title="Danh mục phát" />
         {user !== null && playlists.length > 0 && (
@@ -69,7 +69,7 @@ function Sidebar() {
           )}
         </SidebarGroup>
 
-        <div className="Sidebar-Toggle" onClick={() => setShowSidebar(false)}></div>
+        <div className="Sidebar-Toggle colapse" onClick={() => setShowSidebar(false)}></div>
       </div>
     </div>
   );

@@ -1,0 +1,9 @@
+.Comments-Spinner {
+  text-align: center;
+  color: var(--main-blue-1);
+  margin-top: 12px;
+}
+
+.Comments-Input {
+  margin: 24px 12px 12px 0;
+}

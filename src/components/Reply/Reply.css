@@ -1,0 +1,84 @@
+.Reply {
+  display: flex;
+  padding-top: 10px;
+  margin-top: 8px;
+  /* padding-bottom: 8px; */
+  position: relative;
+}
+
+.Reply {
+  border-bottom: 1px solid var(--main-dark-4);
+}
+
+.Reply-Avatar {
+  margin-right: 8px;
+}
+
+.Reply-Input {
+  margin-top: 6px;
+}
+
+.Reply__Main {
+  width: 100%;
+}
+
+.Reply__Main__Info {
+  display: flex;
+  margin-bottom: 2px;
+}
+
+.Reply__Main__Info-Author {
+  margin-right: 4px;
+  font-weight: bold;
+}
+
+.Reply__Main__Info-Author:hover {
+  color: var(--main-red-1);
+  cursor: pointer;
+}
+
+.Reply__Main__Info-CreatedAt {
+  color: var(--main-grey-2);
+}
+
+.Reply__Main .ellipsisText {
+  margin-right: 8px;
+}
+
+.Reply__Main__Buttons {
+  color: #bbb;
+  display: flex;
+  justify-content: flex-end;
+}
+.Reply__Main__Buttons-Reply {
+  margin: 0 8px 0 2px;
+  color: #bbb;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.Reply__Main__Buttons-Reply:hover {
+  color: var(--main-blue-1);
+}
+
+.Reply__Buttons {
+  position: absolute;
+  top: 2px;
+  right: 4px;
+  display: none;
+}
+
+.Reply__Buttons svg {
+  font-size: 18px;
+  color: #bbb;
+  cursor: pointer;
+  margin-left: 4px;
+}
+
+.Reply:hover .Reply__Buttons {
+  display: block;
+}
+
+.Reply__Buttons-Remove:hover {
+  color: var(--main-red-1) !important;
+}

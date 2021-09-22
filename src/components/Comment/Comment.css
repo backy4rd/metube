@@ -1,0 +1,81 @@
+.Comment {
+  display: flex;
+  padding: 12px 0 16px;
+  position: relative;
+}
+
+.Comment {
+  border-bottom: 1px solid var(--main-dark-4);
+}
+
+.Comment-Avatar {
+  margin-right: 8px;
+}
+
+.Comment__Main {
+  width: 100%;
+}
+
+.Comment__Main__Info {
+  display: flex;
+  margin-bottom: 2px;
+}
+
+.Comment__Main__Info-Author {
+  margin-right: 4px;
+  font-weight: bold;
+}
+
+.Comment__Main__Info-Author:hover {
+  color: var(--main-red-1);
+  cursor: pointer;
+}
+
+.Comment__Main__Info-CreatedAt {
+  color: var(--main-grey-2);
+}
+
+.Comment__Main .ellipsisText {
+  margin-right: 8px;
+}
+
+.Comment__Main__Buttons {
+  /* float: right; */
+  margin-top: 4px;
+  color: #bbb;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.Comment__Main__Buttons-Reply {
+  margin: 0 8px 0 2px;
+  color: #bbb;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.Comment__Main__Buttons-Reply:hover {
+  color: var(--main-blue-1);
+}
+
+.Comment__Buttons {
+  position: absolute;
+  top: 2px;
+  right: 4px;
+  display: none;
+}
+
+.Comment__Buttons svg {
+  font-size: 18px;
+  color: #bbb;
+  cursor: pointer;
+  margin-left: 4px;
+}
+
+.Comment:hover .Comment__Buttons {
+  display: block;
+}
+
+.Comment__Buttons-Remove:hover {
+  color: var(--main-red-1) !important;
+}

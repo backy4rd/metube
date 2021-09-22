@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { useShowAuthForm } from '@contexts/ShowAuthFormContext';
+import { useSetShowAuthForm } from '@contexts/ShowAuthFormContext';
 
 import './AuthButton.css';
 
 function AuthButton() {
-  const [, setShowAuthForm] = useShowAuthForm();
+  const setShowAuthForm = useSetShowAuthForm();
 
   return (
     <div className="AuthButton" onClick={() => setShowAuthForm(true)}>

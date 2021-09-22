@@ -13,7 +13,7 @@ import IVideo from '@interfaces/IVideo';
 import { numberWithCommas } from '@utils/number';
 import videoApi from '@api/videoApi';
 import { useAuth } from '@contexts/AuthContext';
-import { useShowAuthForm } from '@contexts/ShowAuthFormContext';
+import { useSetShowAuthForm } from '@contexts/ShowAuthFormContext';
 
 import Avatar from '@components/Avatar';
 import SubscribeButton from '@components/SubscribeButton';
@@ -32,7 +32,7 @@ function WatchDetail({ video }: WatchDetailProps) {
   const reacting = useRef(false);
 
   const { user } = useAuth();
-  const [, setShowAuthForm] = useShowAuthForm();
+  const setShowAuthForm = useSetShowAuthForm();
 
   useEffect(() => {
     setLike(video.like);

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Close } from '@material-ui/icons';
 import { CSSTransition } from 'react-transition-group';
 
-import { useShowAuthForm } from '@contexts/ShowAuthFormContext';
+import { useSetShowAuthForm, useShowAuthForm } from '@contexts/ShowAuthFormContext';
 
 import Login from './Login';
 import Register from './Register';
@@ -19,7 +19,8 @@ enum FormType {
 function AuthForm() {
   const [title, setTitle] = useState('Đăng nhập vào Metube');
   const [form, setForm] = useState<FormType>(FormType.LOGIN);
-  const [showAuthForm, setShowAuthForm] = useShowAuthForm();
+  const showAuthForm = useShowAuthForm();
+  const setShowAuthForm = useSetShowAuthForm();
 
   function handleClickLogin() {
     setForm(FormType.LOGIN);

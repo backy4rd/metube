@@ -1,0 +1,22 @@
+.CommentLikeDislike {
+  display: flex;
+}
+
+.CommentLikeDislike-Button {
+  display: flex;
+  align-items: center;
+  margin-right: 14px;
+  cursor: pointer;
+}
+
+.CommentLikeDislike-Button svg {
+  font-size: 18px;
+  margin-right: 2px;
+}
+
+.CommentLikeDislike-Like {
+  color: var(--main-green-1);
+}
+.CommentLikeDislike-Dislike {
+  color: var(--main-red-1);
+}

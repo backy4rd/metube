@@ -1,13 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
-import {
-  Dehaze,
-  FeaturedVideoOutlined,
-  Search,
-  RadioButtonChecked,
-  CloudUpload,
-} from '@material-ui/icons';
+import { Dehaze, Search, RadioButtonChecked, CloudUpload } from '@material-ui/icons';
 
 import { useShowSidebar } from '@contexts/ShowSidebarContext';
 
@@ -23,12 +17,13 @@ function Header() {
     <div className="Header">
       <div className="Header__LogoSection">
         <Dehaze
+          className="HLS-SidebarToggle"
           style={{ marginRight: 10, cursor: 'pointer' }}
           onClick={() => setShowSidebar(!showSidebar)}
         />
         <Link to="/" style={{ display: 'flex', alignItems: 'center' }}>
-          <FeaturedVideoOutlined className="Header__LogoSection-Logo" />
-          <span className="Header__LogoSection-Title">index.html</span>
+          <img src="/favicon.png" alt="" height="32px" />
+          <span className="Header__LogoSection-Title">wjbu.z</span>
         </Link>
       </div>
 

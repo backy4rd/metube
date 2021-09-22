@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
-import { ExpandLess, ExpandMore } from '@material-ui/icons';
+import React from 'react';
+import { ExpandMore } from '@material-ui/icons';
 
 import { useAuth } from '@contexts/AuthContext';
 
 import AuthButton from '@components/AuthButton';
 import Avatar from '@components/Avatar';
+import Popup from '@components/Popup';
+import UserPopup from '../UserPopup';
 
 import './UserSection.css';
 
 function UserSection() {
-  const { user, logout } = useAuth();
-  const [isExpand, setIsExpand] = useState(false);
+  const { user } = useAuth();
 
   if (user === undefined) return null;
   if (user === null) {
@@ -25,18 +26,14 @@ function UserSection() {
   const displayName = fullName.length > 18 ? user.lastName : fullName;
 
   return (
-    <div
-      className="UserSection"
-      onMouseEnter={() => setIsExpand(true)}
-      onMouseLeave={() => setIsExpand(false)}
-    >
-      <Avatar className="UserSection-UserIcon" user={user} onClick={logout} size="30px" />
+    <div className="UserSection" id="UserSection">
+      <Avatar className="UserSection-UserIcon" user={user} size="30px" />
       <div className="UserSection-Username">{displayName}</div>
-      {isExpand ? (
-        <ExpandLess className="UserSection-ExpandIcon" />
-      ) : (
-        <ExpandMore className="UserSection-ExpandIcon" />
-      )}
+      <ExpandMore className="UserSection-ExpandIcon" />
+
+      <Popup target="UserSection">
+        <UserPopup />
+      </Popup>
     </div>
   );
 }

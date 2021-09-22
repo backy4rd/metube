@@ -8,7 +8,7 @@ import Range from '../interfaces/IRange';
 
 class VideoApi {
   public getVideos(range?: Range, category?: string): Promise<Video[]> {
-    return client.get('/videos/', { params: { ...range, category, sort: 'hot' } });
+    return client.get('/videos/', { params: { ...range, category, sort: 'newest' } });
   }
 
   public getSubscriptionVideos(range?: Range): Promise<Video[]> {

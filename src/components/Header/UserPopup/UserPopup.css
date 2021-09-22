@@ -1,0 +1,50 @@
+.UserPopup {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+.UserPopup__Container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.UserPopup-Logout {
+  background-color: var(--main-dark-3);
+  color: var(--main-grey-2);
+  cursor: pointer;
+  padding: 12px;
+  text-align: center;
+}
+
+.UserPopup-Logout:hover {
+  color: var(--main-red-1);
+}
+
+.UPC-Avatar {
+  padding: 24px 0 12px;
+}
+.UPC-Name {
+  font-size: 16px;
+}
+
+.UPC__Buttons {
+  margin-top: 32px;
+  width: 90%;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.UPC__Buttons-Btn {
+  width: 50%;
+  border-top: 1px solid var(--main-grey-1);
+  padding: 12px 8px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

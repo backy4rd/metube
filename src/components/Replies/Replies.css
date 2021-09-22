@@ -1,0 +1,21 @@
+.Replies__Main {
+  margin-top: 12px;
+  padding: 12px;
+  background-color: var(--main-dark-4);
+}
+
+.Replies-ShowMore {
+  margin-top: 6px;
+  color: var(--main-blue-1);
+  cursor: pointer;
+}
+
+.Replies-ShowMore:hover {
+  color: var(--main-blue-2);
+}
+
+.Replies-Spinner {
+  text-align: center;
+  color: var(--main-blue-1);
+  margin-top: 12px;
+}

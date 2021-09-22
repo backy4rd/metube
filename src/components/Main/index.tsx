@@ -9,6 +9,7 @@ import AuthorizedRoute from '@routes/AuthorizedRoute';
 import Home from '@routes/Home';
 import Watch from '@routes/Watch';
 import Playlist from '@routes/Playlist';
+import Channel from '@routes/Channel';
 
 import './Main.css';
 
@@ -31,6 +32,7 @@ function Main() {
           <Route exact path="/" component={Home} />
           <Route path="/watch/:id" component={Watch} />
           <Route path="/playlist/:id" component={Playlist} />
+          <Route path="/channel/:username" component={Channel} />
           <AuthorizedRoute path="/subscription" component={() => <div>subscriptions</div>} />
           <AuthorizedRoute path="/history" component={() => <div>history</div>} />
           <AuthorizedRoute exact path="/playlist" component={() => <div>playlists</div>} />

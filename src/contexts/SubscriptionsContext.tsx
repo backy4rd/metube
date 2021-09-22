@@ -38,7 +38,7 @@ export function SubscriptionsProvider(props: { children?: React.ReactNode }) {
 
   async function subscribe(user: IUser) {
     await subscriptionApi.subscribe(user.username);
-    setSubscriptions([...subscriptions, user]);
+    setSubscriptions([user, ...subscriptions]);
   }
 
   return (

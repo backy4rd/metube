@@ -6,6 +6,7 @@ import { ShowSidebarProvider } from '@contexts/ShowSidebarContext';
 import { LoadingProvider } from '@contexts/LoadingContext';
 import { SubscriptionsProvider } from '@contexts/SubscriptionsContext';
 import { PlaylistsProvider } from '@contexts/PlaylistsContext';
+import { MessageQueueProvider } from '@contexts/MessageQueueContext';
 
 import Header from '@components/Header';
 import PopupWrapper from '@components/PopupWrapper';
@@ -21,7 +22,9 @@ function AppContextWrapper({ children }: { children: React.ReactNode }) {
         <ShowSidebarProvider>
           <LoadingProvider>
             <SubscriptionsProvider>
-              <PlaylistsProvider>{children}</PlaylistsProvider>
+              <PlaylistsProvider>
+                <MessageQueueProvider timeout={5000}>{children}</MessageQueueProvider>
+              </PlaylistsProvider>
             </SubscriptionsProvider>
           </LoadingProvider>
         </ShowSidebarProvider>

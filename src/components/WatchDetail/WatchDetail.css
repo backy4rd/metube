@@ -1,3 +1,7 @@
+.WatchDetail {
+  border-bottom: 1px solid var(--main-dark-4);
+}
+
 .WatchDetail > * {
   margin-bottom: 12px;
 }

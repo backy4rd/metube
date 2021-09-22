@@ -8,6 +8,7 @@
 }
 .UserSection:hover .UserSection-ExpandIcon {
   color: var(--main-red-1) !important;
+  transform: rotate(180deg);
 }
 
 .UserSection-UserIcon {

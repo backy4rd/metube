@@ -1,0 +1,31 @@
+.ChannelTabs {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 1;
+  padding: 0 3%;
+  height: 48px;
+  background-color: var(--main-dark-2);
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+}
+
+.ChannelTabs-Tab {
+  flex-shrink: 0;
+  line-height: 47px;
+  padding: 0 14px;
+  font-size: 13px;
+  color: #ddd;
+  font-family: Roboto, Helvetica, sans-serif;
+  font-weight: 500;
+}
+
+.ChannelTabs-Tab:hover {
+  color: var(--main-red-1);
+}
+
+.ChannelTabs-Tab.active {
+  color: var(--main-red-1);
+  border-bottom: 1px solid var(--main-red-1);
+}

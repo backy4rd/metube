@@ -1,0 +1,22 @@
+.Popup {
+  z-index: 4;
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  background-color: var(--main-dark-1);
+  border-top: 2px solid var(--main-red-1);
+  border-radius: 4px;
+  box-shadow: -2px 2px 7px 1px #0006;
+}
+
+.Popup-Arrow {
+  height: 8px;
+  width: 100%;
+  bottom: 0;
+  position: absolute;
+  z-index: 5;
+  left: 0;
+  transform: translate(0, 100%);
+  background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSI4Ij48cGF0aCBkYXRhLW5hbWU9IuW9oueKtiAxIOaLt+i0nSA0IiBkPSJNLjM3MSA1Ljg5Mkw3LjEwOS4zNDZhMS4yODkgMS4yODkgMCAwMTEuNzggMGw2LjczOCA1LjU0NmExLjIxMiAxLjIxMiAwIDAxLS44OSAyLjA3OEgxLjI2MWExLjIxMiAxLjIxMiAwIDAxLS44OS0yLjA3OHoiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZmlsbD0iI2UzM2QzZCIvPjxwYXRoIGRhdGEtbmFtZT0i5b2i54q2IDEg5ou36LSdIDUiIGQ9Ik0xIDhsNi4xMDktNC42ODRhMS4yODYgMS4yODYgMCAwMTEuNzggMEwxNSA4SDF6IiBmaWxsPSIjNDA0MDQwIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiLz48L3N2Zz4=)
+    no-repeat center;
+}

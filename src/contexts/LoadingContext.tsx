@@ -1,10 +1,7 @@
-import React, { useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 
 const LoadingContext = React.createContext<boolean>(false);
-
-const SetLoadingContext = React.createContext<React.Dispatch<React.SetStateAction<boolean>>>(
-  (state: React.SetStateAction<boolean>) => {}
-);
+const SetLoadingContext = React.createContext<(loading: boolean) => void>(() => {});
 
 export function useLoading() {
   return React.useContext(LoadingContext);
@@ -15,7 +12,14 @@ export function useSetLoading() {
 }
 
 export function LoadingProvider(props: { children?: React.ReactNode }) {
-  const [loading, setLoading] = useState(false);
+  const [loading, _setLoading] = useState(false);
+  const stack = useRef<Array<any>>([]);
+  const setLoading = useCallback((l) => {
+    if (l) stack.current.push(true);
+    else stack.current.pop();
+    if (stack.current.length === 0) _setLoading(false);
+    else _setLoading(true);
+  }, []);
 
   return (
     <SetLoadingContext.Provider value={setLoading}>

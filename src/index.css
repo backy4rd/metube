@@ -12,8 +12,10 @@ html {
   --main-red-3: #f56161;
   --main-dark-blue-1: #3c5d94;
   --main-blue-1: #3db6e3;
-  --main-green-1: #36884d;
-  --main-green-2: #4bc57e;
+  --main-blue-2: #90e1ff;
+  --main-green-1: #4bc57e;
+  --main-green-2: #36884d;
+  overflow-x: hidden;
 }
 
 body {
@@ -58,25 +60,4 @@ p,
 h5 {
   font-size: 13px;
   /* font-size: 14px; */
-}
-
-@media only screen and (min-width: 700px) {
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  /* track */
-  ::-webkit-scrollbar-track {
-    background: #262626;
-  }
-
-  /* handle */
-  ::-webkit-scrollbar-thumb {
-    background: #404040;
-  }
-
-  /* handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
 }

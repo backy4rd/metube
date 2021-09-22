@@ -10,3 +10,12 @@
 .infinite-scroll-component {
   overflow: unset !important;
 }
+
+.App-BlueClickableText {
+  color: var(--main-blue-1);
+  cursor: pointer;
+}
+
+.App-BlueClickableText:hover {
+  color: var(--main-blue-2);
+}
