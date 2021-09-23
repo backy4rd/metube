@@ -8,6 +8,7 @@ export default interface User {
   avatarPath: string;
   bannerPath: string;
   iconPath: string;
+  joinedAt: Date;
   totalViews: number;
   totalSubscribers: number;
 }

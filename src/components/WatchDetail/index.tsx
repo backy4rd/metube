@@ -70,7 +70,7 @@ function WatchDetail({ video }: WatchDetailProps) {
     reacting.current = false;
   }
 
-  const uploadedAt = new Date(video.uploadedAt).toString();
+  const uploadedAt = video.uploadedAt.toString();
 
   return (
     <div className="WatchDetail">

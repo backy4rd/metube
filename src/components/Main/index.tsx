@@ -10,6 +10,8 @@ import Home from '@routes/Home';
 import Watch from '@routes/Watch';
 import Playlist from '@routes/Playlist';
 import Channel from '@routes/Channel';
+import Subscriptions from '@routes/Subscriptions';
+import History from '@routes/History';
 
 import './Main.css';
 
@@ -33,8 +35,8 @@ function Main() {
           <Route path="/watch/:id" component={Watch} />
           <Route path="/playlist/:id" component={Playlist} />
           <Route path="/channel/:username" component={Channel} />
-          <AuthorizedRoute path="/subscription" component={() => <div>subscriptions</div>} />
-          <AuthorizedRoute path="/history" component={() => <div>history</div>} />
+          <AuthorizedRoute path="/subscription" component={Subscriptions} />
+          <AuthorizedRoute path="/history" component={History} />
           <AuthorizedRoute exact path="/playlist" component={() => <div>playlists</div>} />
           <AuthorizedRoute path="/liked" component={() => <div>liked</div>} />
         </RouteContext>

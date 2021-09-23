@@ -63,7 +63,7 @@ function Comment({ comment, handleRemoveComment }: CommentProps) {
             {comment.user.username} -
           </Link>
           <div className="Comment__Main__Info-CreatedAt">
-            {timeDifference(new Date(), new Date(comment.createdAt))}
+            {timeDifference(new Date(), comment.createdAt)}
           </div>
         </div>
 

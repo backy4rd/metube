@@ -23,7 +23,7 @@ function VerticalVideo() {
         <div className="VerticalVideo__Detail-Info">
           <div className="VerticalVideo__Detail-Info-Title">{video.title}</div>
           <div className="VerticalVideo__Detail-Info-Username">
-            {video.uploadedBy.username} - {timeDifference(new Date(), new Date(video.uploadedAt))}
+            {video.uploadedBy.username} - {timeDifference(new Date(), video.uploadedAt)}
           </div>
         </div>
       </div>

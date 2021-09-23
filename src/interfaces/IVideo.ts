@@ -9,8 +9,8 @@ export default interface Video {
   duration: number;
   views: number;
   description: string | null;
-  uploadedAt: string; // date string
-  watchedAt: string; // date string
+  uploadedAt: Date; // date string
+  watchedAt: Date; // date string
   like: number;
   dislike: number;
   uploadedBy: User;

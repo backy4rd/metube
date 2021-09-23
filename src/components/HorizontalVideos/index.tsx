@@ -9,14 +9,20 @@ import './HorizontalVideos.css';
 
 interface HorizontalVideosProps {
   videos: Array<IVideo>;
+  showWatchTimestamp?: boolean;
+  extend?: boolean;
 }
 
-function HorizontalVideos(props: HorizontalVideosProps) {
+function HorizontalVideos({
+  videos,
+  showWatchTimestamp = false,
+  extend = false,
+}: HorizontalVideosProps) {
   return (
     <div className="HorizontalVideos">
-      {props.videos.map((video) => (
+      {videos.map((video) => (
         <VideoProvider key={video.id} video={video}>
-          <HorizontalVideo />
+          <HorizontalVideo showWatchTimestamp={showWatchTimestamp} extend={extend} />
         </VideoProvider>
       ))}
     </div>

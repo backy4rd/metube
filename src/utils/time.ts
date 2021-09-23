@@ -4,6 +4,17 @@ const msPerDay = msPerHour * 24;
 const msPerMonth = msPerDay * 30;
 const msPerYear = msPerDay * 365;
 
+function weekIdentifier(date: Date): number {
+  // Starting date point for our sequence
+  var lastDayOfWeekZeroTimestamp = new Date('January 5, 1970 00:00:00').getTime() - 1;
+  // Number of week from our starting date
+  var weekNumberdiff = Math.ceil(
+    (date.getTime() - lastDayOfWeekZeroTimestamp) / (24 * 3600 * 1000 * 7)
+  );
+
+  return weekNumberdiff;
+}
+
 export function secondToTime(_second: number): string {
   const second = Math.floor(_second % 60)
     .toString()
@@ -35,4 +46,28 @@ export function timeDifference(current: Date, previous: Date): string {
   } else {
     return Math.round(elapsed / msPerYear) + ' năm trước';
   }
+}
+
+export function isToday(target: Date): boolean {
+  const now = new Date();
+
+  return (
+    target.getDate() === now.getDate() &&
+    target.getMonth() === now.getMonth() &&
+    target.getFullYear() === now.getFullYear()
+  );
+}
+
+export function isYesterday(target: Date): boolean {
+  const yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
+
+  return (
+    target.getDate() === yesterday.getDate() &&
+    target.getMonth() === yesterday.getMonth() &&
+    target.getFullYear() === yesterday.getFullYear()
+  );
+}
+
+export function isThisWeek(target: Date): boolean {
+  return weekIdentifier(target) === weekIdentifier(new Date());
 }

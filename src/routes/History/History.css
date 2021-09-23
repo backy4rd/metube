@@ -1,0 +1,31 @@
+.History__Videos {
+  margin: 0 7%;
+}
+
+@media only screen and (max-width: 700px) {
+  .History__Videos {
+    margin: 0 3%;
+  }
+}
+
+.History__VideoSection p {
+  margin: 8px 0 16px 0;
+}
+
+.History__Function {
+  background-color: var(--main-dark-4);
+  padding: 12px 6%;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.HF__Button {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.HF__Button:hover {
+  color: var(--main-red-1);
+}

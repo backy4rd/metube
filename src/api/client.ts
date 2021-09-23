@@ -38,15 +38,21 @@ client.interceptors.request.use((config) => {
   return config;
 });
 
-function appendUrl(obj: { [key: string]: any }): any {
+function processResponse(obj: { [key: string]: any }): any {
   for (const key in obj) {
     if (obj[key] !== null && Object.getPrototypeOf(obj[key]) === Object.prototype) {
-      appendUrl(obj[key]);
+      processResponse(obj[key]);
       continue;
     }
 
+    // append static url to media resource
     if (key.includes('Path') && obj[key] !== null) {
       obj[key] = process.env.REACT_APP_STATIC_URL + obj[key];
+    }
+
+    // parse string date -> Date
+    if (typeof obj[key] === 'string' && !isNaN(Date.parse(obj[key]))) {
+      obj[key] = new Date(obj[key]);
     }
   }
 
@@ -58,7 +64,7 @@ client.interceptors.response.use(
     const data = response?.data?.data;
     if (!data) return undefined;
 
-    return appendUrl(data);
+    return processResponse(data);
   },
   (error) => {
     if (axios.isCancel(error)) throw error;
