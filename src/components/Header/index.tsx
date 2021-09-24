@@ -44,10 +44,10 @@ function Header() {
           {!isWidthUnder700 && <div style={{ marginLeft: 2 }}>Go live</div>}
         </div>
 
-        <div className="Header__UserSection-Button">
+        <Link className="Header__UserSection-Button" to={'/upload'}>
           <CloudUpload />
           {!isWidthUnder700 && <div style={{ marginLeft: 4 }}>Upload</div>}
-        </div>
+        </Link>
 
         <UserSection />
       </div>

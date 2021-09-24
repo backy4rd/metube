@@ -51,7 +51,7 @@ function processResponse(obj: { [key: string]: any }): any {
     }
 
     // parse string date -> Date
-    if (typeof obj[key] === 'string' && !isNaN(Date.parse(obj[key]))) {
+    if (key.includes('At') && !isNaN(Date.parse(obj[key]))) {
       obj[key] = new Date(obj[key]);
     }
   }

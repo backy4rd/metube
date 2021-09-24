@@ -2,11 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   PlayCircleFilledWhiteOutlined,
-  SmsOutlined,
+  MessageOutlined,
   ThumbUpOutlined,
   ThumbDownOutlined,
   ThumbUp,
   ThumbDown,
+  MoreVert,
 } from '@material-ui/icons';
 
 import IVideo from '@interfaces/IVideo';
@@ -18,6 +19,7 @@ import { useSetShowAuthForm } from '@contexts/ShowAuthFormContext';
 import Avatar from '@components/Avatar';
 import SubscribeButton from '@components/SubscribeButton';
 import EllipsisText from '@components/EllipsisText';
+import ActionPopup from './ActionPopup';
 
 import './WatchDetail.css';
 
@@ -90,38 +92,36 @@ function WatchDetail({ video }: WatchDetailProps) {
       </div>
 
       <div className="WatchDetail__Statistic">
-        <div className="WatchDetail__Statistic-Item">
+        <div className="WDS-Item">
           <PlayCircleFilledWhiteOutlined />
           <div>{numberWithCommas(video.views)}</div>
         </div>
 
-        <div className="WatchDetail__Statistic-Item">
-          <SmsOutlined />
+        <div className="WDS-Item">
+          <MessageOutlined />
           <div>{video.totalComments}</div>
         </div>
 
         <div
-          className="WatchDetail__Statistic-Item Statistic-Item--Button"
+          className="WDS-Item WDS-Item-Button"
           onClick={() => (react === true ? doReact('remove') : doReact('like'))}
         >
-          {react === true ? (
-            <ThumbUp className="WatchDetail__Statistic-Like" />
-          ) : (
-            <ThumbUpOutlined />
-          )}
+          {react === true ? <ThumbUp className="WDS-Like" /> : <ThumbUpOutlined />}
           <div>{like}</div>
         </div>
 
         <div
-          className="WatchDetail__Statistic-Item Statistic-Item--Button"
+          className="WDS-Item WDS-Item-Button"
           onClick={() => (react === false ? doReact('remove') : doReact('dislike'))}
+          style={{ flexGrow: 1 }}
         >
-          {react === false ? (
-            <ThumbDown className="WatchDetail__Statistic-Disike" />
-          ) : (
-            <ThumbDownOutlined />
-          )}
+          {react === false ? <ThumbDown className="WDS-Disike" /> : <ThumbDownOutlined />}
           <div>{dislike}</div>
+        </div>
+
+        <div id="WDS-Item-Actions" className="WDS-Item">
+          <MoreVert />
+          <ActionPopup target="WDS-Item-Actions" />
         </div>
       </div>
 

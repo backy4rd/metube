@@ -46,27 +46,32 @@
   margin: 4px 0;
 }
 
-.WatchDetail__Statistic-Item {
+.WDS-Item {
   margin-right: 16px;
   display: flex;
   align-items: center;
 }
 
-.Statistic-Item--Button {
+.WDS-Item-Button {
   cursor: pointer;
 }
 
-.WatchDetail__Statistic-Item > *:nth-child(1) {
+.WDS-Item > *:nth-child(1) {
   margin-right: 4px;
   color: #ddd;
+  font-size: 22px;
 }
 
-.WatchDetail__Statistic-Disike {
+.WDS-Disike {
   color: var(--main-red-1) !important;
 }
 
-.WatchDetail__Statistic-Like {
+.WDS-Like {
   color: var(--main-green-1) !important;
+}
+
+#WDS-Item-Actions:hover > svg {
+  color: var(--main-red-1) !important;
 }
 
 .WatchDetail__Description {

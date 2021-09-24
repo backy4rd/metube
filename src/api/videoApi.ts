@@ -37,6 +37,10 @@ class VideoApi {
     return client.delete(`/videos/${id}/reaction`);
   }
 
+  public removeVideo(id: string): Promise<ApiMessage> {
+    return client.delete(`/videos/${id}`);
+  }
+
   public postVideo(
     data: {
       video: File;

@@ -6,6 +6,8 @@ import IVideo from '@interfaces/IVideo';
 import { isToday, isYesterday } from '@utils/time';
 import historyApi from '@api/historyApi';
 import { useSetLoading } from '@contexts/LoadingContext';
+import { useShowConfirm } from '@contexts/ConfirmContext';
+import { usePushMessage } from '@contexts/MessageQueueContext';
 
 import HorizontalVideos from '@components/HorizontalVideos';
 
@@ -17,6 +19,8 @@ function History() {
   const [videos, setVideos] = useState<IVideo[]>([]);
 
   const setLoading = useSetLoading();
+  const { showConfirm } = useShowConfirm();
+  const pushMessage = usePushMessage();
 
   async function loadVideos() {
     const _videos = await historyApi.getWatchedVideos({ limit: step, offset: videos.length });
@@ -55,7 +59,18 @@ function History() {
       <div className="History__Function">
         <div className="HF__Button">
           <DeleteForever />
-          <div>XÓA LỊCH SỬ XEM</div>
+          <div
+            onClick={() =>
+              showConfirm('bạn có muốn xóa lịch sử xem không?', () =>
+                historyApi
+                  .clearWatchHistory()
+                  .then(() => setVideos([]))
+                  .catch(() => pushMessage('Xóa lịch sử xem không thành công!'))
+              )
+            }
+          >
+            XÓA LỊCH SỬ XEM
+          </div>
         </div>
       </div>
       <div className="History__Videos">

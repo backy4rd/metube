@@ -52,3 +52,26 @@
 .VideoThumbnail-Info > svg {
   font-size: 18px;
 }
+
+.VideoThumbnail-Buttons {
+  display: none;
+  position: absolute;
+  top: 5%;
+  right: 3%;
+  align-items: center;
+  background-color: #0005;
+  border-radius: 4px;
+  z-index: 10;
+}
+
+.VideoThumbnail:hover .VideoThumbnail-Buttons {
+  display: flex;
+}
+
+.VideoThumbnail-Buttons > svg {
+  font-size: 18px;
+}
+
+.VideoThumbnail-Buttons > svg:hover {
+  color: var(--main-red-2);
+}

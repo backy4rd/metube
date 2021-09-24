@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { TextareaAutosize } from '@material-ui/core';
 
 import { useAuth } from '@contexts/AuthContext';
@@ -32,14 +32,25 @@ function CommentInput({
   className = '',
 }: Props) {
   const [content, setContent] = useState(defaultText);
-  const [loading, setLoading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const { user } = useAuth();
+  const isMounted = useRef(true);
+
+  useEffect(() => {
+    isMounted.current = true;
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
 
   async function _handleSubmit() {
-    setLoading(true);
+    if (submitting) return;
+    setSubmitting(true);
     await handleSubmit(content);
-    setContent('');
-    setLoading(false);
+    if (isMounted.current) {
+      setContent('');
+      setSubmitting(false);
+    }
   }
 
   if (!user) return null;
@@ -68,7 +79,7 @@ function CommentInput({
               Hủy
             </div>
 
-            <Spinner loading={loading} className="commentInput-Spinner" />
+            <Spinner loading={submitting} className="commentInput-Spinner" />
           </div>
         )}
       </div>

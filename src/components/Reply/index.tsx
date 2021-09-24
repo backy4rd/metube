@@ -7,6 +7,7 @@ import { timeDifference } from '@utils/time';
 import { useVideo } from '@contexts/VideoContext';
 import { useAuth } from '@contexts/AuthContext';
 import { usePushMessage } from '@contexts/MessageQueueContext';
+import { useShowConfirm } from '@contexts/ConfirmContext';
 import commentApi from '@api/commentApi';
 
 import Avatar from '@components/Avatar';
@@ -18,7 +19,7 @@ import './Reply.css';
 
 interface ReplyProps {
   reply: IComment;
-  handleRemoveReply: (reply: IComment) => void;
+  handleRemoveReply: (reply: IComment) => Promise<void>;
 }
 
 function Reply({ reply, handleRemoveReply }: ReplyProps) {
@@ -28,6 +29,7 @@ function Reply({ reply, handleRemoveReply }: ReplyProps) {
   const { user } = useAuth();
   const video = useVideo();
   const pushMessage = usePushMessage();
+  const { showConfirm } = useShowConfirm();
 
   async function handleUpdateReply(newContent: string) {
     try {
@@ -85,7 +87,14 @@ function Reply({ reply, handleRemoveReply }: ReplyProps) {
           )}
           {(user.username === reply.user.username ||
             user.username === video.uploadedBy.username) && (
-            <Close className="Reply__Buttons-Remove" onClick={() => handleRemoveReply(reply)} />
+            <Close
+              className="Reply__Buttons-Remove"
+              onClick={() =>
+                showConfirm('Bạn có thực sự muốn xóa trả lời này không?', () =>
+                  handleRemoveReply(reply).catch(() => pushMessage('Xóa trả lời không thành công!'))
+                )
+              }
+            />
           )}
         </div>
       )}

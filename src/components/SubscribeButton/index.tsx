@@ -44,9 +44,9 @@ function SubscribeButton({ targetUser, className }: SubscribeButtonProps) {
   if (user === undefined) return null;
   return (
     <div className={`SubscribeButton ${className || ''}`}>
-      {isChannelOwner ? (
+      {user && isChannelOwner ? (
         <div className="editChannelButton">
-          <Link to="/channel/me/edit">CHỈNH SỬA KÊNH</Link>
+          <Link to={`/channel/${user.username}/edit`}>CHỈNH SỬA KÊNH</Link>
         </div>
       ) : (
         <div

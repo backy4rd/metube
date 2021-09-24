@@ -6,6 +6,7 @@ import { useAuth } from '@contexts/AuthContext';
 import { useVideo } from '@contexts/VideoContext';
 import { usePushMessage } from '@contexts/MessageQueueContext';
 import { useSetShowAuthForm } from '@contexts/ShowAuthFormContext';
+import { useShowConfirm } from '@contexts/ConfirmContext';
 import IComment from '@interfaces/IComment';
 import { timeDifference } from '@utils/time';
 import commentApi from '@api/commentApi';
@@ -20,7 +21,7 @@ import './Comment.css';
 
 interface CommentProps {
   comment: IComment;
-  handleRemoveComment: (comment: IComment) => void;
+  handleRemoveComment: (comment: IComment) => Promise<void>;
 }
 
 function Comment({ comment, handleRemoveComment }: CommentProps) {
@@ -32,6 +33,7 @@ function Comment({ comment, handleRemoveComment }: CommentProps) {
   const video = useVideo();
   const pushMessage = usePushMessage();
   const setShowAuthForm = useSetShowAuthForm();
+  const { showConfirm } = useShowConfirm();
 
   useEffect(() => {
     setContent(comment.content);
@@ -104,7 +106,13 @@ function Comment({ comment, handleRemoveComment }: CommentProps) {
             user.username === video.uploadedBy.username) && (
             <Close
               className="Comment__Buttons-Remove"
-              onClick={() => handleRemoveComment(comment)}
+              onClick={() =>
+                showConfirm('Bạn có thực sự muốn xóa bình luận này không?', () =>
+                  handleRemoveComment(comment).catch(() =>
+                    pushMessage('Xóa bình luận không thành công!')
+                  )
+                )
+              }
             />
           )}
         </div>

@@ -1,0 +1,88 @@
+.ConfirmWrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #0008;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Confirm {
+  min-height: 120px;
+  width: 400px;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -2px 2px 5px 0px #0006;
+}
+
+.Confirm-Header {
+  display: flex;
+  align-items: center;
+  background-color: var(--main-red-1);
+  padding: 4px;
+}
+.Confirm-Header-Text {
+  flex-grow: 1;
+}
+
+.Confirm-Header-Close {
+  cursor: pointer;
+}
+
+.Confirm__Main {
+  background-color: var(--main-dark-1);
+  flex-grow: 1;
+  padding: 12px 24px;
+  display: flex;
+  flex-direction: column;
+}
+.Confirm__Main-Message {
+  flex-grow: 1;
+  margin-bottom: 8px;
+}
+
+.Confirm__Main-Buttons {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.CMB-Confirm,
+.CMB-Cancel {
+  margin-left: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  color: var(--main-grey-2);
+  padding: 6px 12px;
+  border-radius: 4px;
+  background-color: var(--main-dark-4);
+}
+
+.CMB-Confirm:hover,
+.CMB-Cancel:hover {
+  color: var(--main-red-1);
+}
+
+.CMB-Spinner {
+  color: var(--main-blue-1);
+}
+
+.ConfirmWrapper-enter {
+  opacity: 0;
+}
+.ConfirmWrapper-enter-active {
+  opacity: 1;
+  transition: opacity 200ms;
+}
+.ConfirmWrapper-exit {
+  opacity: 1;
+}
+.ConfirmWrapper-exit-active {
+  opacity: 0;
+  transition: opacity 200ms;
+}

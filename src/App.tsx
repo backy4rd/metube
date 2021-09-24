@@ -7,6 +7,7 @@ import { LoadingProvider } from '@contexts/LoadingContext';
 import { SubscriptionsProvider } from '@contexts/SubscriptionsContext';
 import { PlaylistsProvider } from '@contexts/PlaylistsContext';
 import { MessageQueueProvider } from '@contexts/MessageQueueContext';
+import { ConfirmProvider } from '@contexts/ConfirmContext';
 
 import Header from '@components/Header';
 import PopupWrapper from '@components/PopupWrapper';
@@ -23,7 +24,9 @@ function AppContextWrapper({ children }: { children: React.ReactNode }) {
           <LoadingProvider>
             <SubscriptionsProvider>
               <PlaylistsProvider>
-                <MessageQueueProvider timeout={5000}>{children}</MessageQueueProvider>
+                <MessageQueueProvider timeout={5000}>
+                  <ConfirmProvider>{children}</ConfirmProvider>
+                </MessageQueueProvider>
               </PlaylistsProvider>
             </SubscriptionsProvider>
           </LoadingProvider>

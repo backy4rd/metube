@@ -6,7 +6,7 @@
   background-color: var(--main-dark-1);
   border-top: 2px solid var(--main-red-1);
   border-radius: 4px;
-  box-shadow: -2px 2px 7px 1px #0006;
+  box-shadow: -2px 2px 5px 0px #0006;
 }
 
 .Popup-Arrow {
