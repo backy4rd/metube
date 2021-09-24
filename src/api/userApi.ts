@@ -18,6 +18,10 @@ class UserApi {
     return client.get(`/users/${username}/profile`);
   }
 
+  public getOwnProfile(): Promise<User> {
+    return client.get(`/users/profile`);
+  }
+
   public getOwnVideos(range?: Range): Promise<Video[]> {
     return client.get(`/users/videos`, { params: { ...range } });
   }

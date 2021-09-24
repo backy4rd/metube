@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 import { HomeVideosProvider } from '@contexts/HomeVideosContext';
 import { CategoriesProvider } from '@contexts/CategoriesContext';
@@ -13,10 +13,11 @@ import Channel from '@routes/Channel';
 import Subscriptions from '@routes/Subscriptions';
 import History from '@routes/History';
 import Upload from '@components/Upload';
+import NotFound from '@components/NotFound';
 
 import './Main.css';
 
-function RouteContext(props: { children: React.ReactNode }) {
+function MainSwitchContext(props: { children: React.ReactNode }) {
   return (
     <CategoriesProvider>
       <HomeVideosProvider>{props.children}</HomeVideosProvider>
@@ -30,19 +31,21 @@ function Main() {
   return (
     <div id="Main" ref={mainRef}>
       <ScrollToTop containerRef={mainRef} />
-      <Switch>
-        <RouteContext>
+      <MainSwitchContext>
+        <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/watch/:id" component={Watch} />
-          <Route path="/playlist/:id" component={Playlist} />
+          <Route exact path="/watch/:id" component={Watch} />
+          <Route exact path="/playlist/:id" component={Playlist} />
           <Route path="/channel/:username" component={Channel} />
-          <AuthorizedRoute path="/upload" component={Upload} />
-          <AuthorizedRoute path="/subscription" component={Subscriptions} />
-          <AuthorizedRoute path="/history" component={History} />
+          <AuthorizedRoute exact path="/upload" component={Upload} />
+          <AuthorizedRoute exact path="/subscription" component={Subscriptions} />
+          <AuthorizedRoute exact path="/history" component={History} />
           <AuthorizedRoute exact path="/playlist" component={() => <div>playlists</div>} />
-          <AuthorizedRoute path="/liked" component={() => <div>liked</div>} />
-        </RouteContext>
-      </Switch>
+          <AuthorizedRoute exact path="/liked" component={() => <div>liked</div>} />
+          <Route path="/404" component={NotFound} /> {/* may put in some other place*/}
+          <Redirect to="/404" />
+        </Switch>
+      </MainSwitchContext>
     </div>
   );
 }

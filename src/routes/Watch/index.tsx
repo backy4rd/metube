@@ -10,11 +10,12 @@ import Player from '@components/Player';
 import RelateVideos from '@components/RelateVideos';
 import WatchDetail from '@components/WatchDetail';
 import Comments from '@components/Comments';
+import NotFound from '@components/NotFound';
 
 import './Watch.css';
 
 function Watch() {
-  const [video, setVideo] = useState<IVideo | null>(null);
+  const [video, setVideo] = useState<IVideo | null | undefined>(undefined);
   const { id: videoId } = useParams<{ id: string }>();
   const setLoading = useSetLoading();
 
@@ -23,11 +24,12 @@ function Watch() {
     videoApi
       .getVideo(videoId)
       .then(setVideo)
+      .catch(() => setVideo(null))
       .finally(() => setLoading(false));
   }, [setLoading, videoId]);
 
-  if (!video) return null;
-
+  if (video === undefined) return null;
+  if (video === null) return <NotFound />;
   return (
     <VideoProvider video={video}>
       <div className="Watch">

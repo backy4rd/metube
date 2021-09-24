@@ -1,0 +1,23 @@
+.NotFound {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.NotFound-Center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.NotFound-Center-Icon {
+  font-size: 128px !important;
+  margin-bottom: 10%;
+}
+
+.NotFound-Center-Text {
+  font-size: 32px;
+  text-align: center;
+}

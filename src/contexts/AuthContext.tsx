@@ -31,7 +31,10 @@ export function AuthProvider(props: { children?: React.ReactNode }) {
       const parsedToken = jwtDecode(token) as IToken;
       if (parsedToken.exp * 1000 - Date.now() < 0) throw new Error();
 
-      userApi.getUserProfile(parsedToken.username).then(setUser);
+      userApi
+        .getOwnProfile()
+        .then(setUser)
+        .catch(() => setUser(null));
     } catch {
       setUser(null);
     }

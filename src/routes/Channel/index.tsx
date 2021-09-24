@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Route, Switch, useParams, useRouteMatch } from 'react-router-dom';
+import { Route, Switch, useParams, useRouteMatch, Redirect } from 'react-router-dom';
 
 import IUser from '@interfaces/IUser';
 import { useSetLoading } from '@contexts/LoadingContext';
@@ -37,6 +37,13 @@ function Home() {
           <Route exact path={`${path}/`}>
             <ChannelVideos username={username} />
           </Route>
+          <Route path={`${path}/playlist`} component={() => <div>playlist</div>} />
+          <Route path={`${path}/live`} component={() => <div>live</div>} />
+          <Route path={`${path}/subscriber`} component={() => <div>scriptij</div>} />
+          <Route path={`${path}/subscription`} component={() => <div>subscription</div>} />
+          <Route path={`${path}/about`} component={() => <div>info</div>} />
+          <Route path={`${path}/edit`} component={() => <div>edtit</div>} />
+          <Redirect to="/404" />
         </Switch>
       </div>
     </div>
