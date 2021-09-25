@@ -33,7 +33,7 @@ export function AuthProvider(props: { children?: React.ReactNode }) {
 
       userApi
         .getOwnProfile()
-        .then(setUser)
+        .then((_user) => setUser({ ..._user, role: parsedToken.role }))
         .catch(() => setUser(null));
     } catch {
       setUser(null);

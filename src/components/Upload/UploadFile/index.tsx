@@ -42,7 +42,9 @@ function UploadFile({ setVideoFile }: Props) {
       <UploadIcon />
       <h1>Kéo thả video để tải lên</h1>
       <label>
-        <div className="App-GreenButton">Hoặc chọn video để tải lên</div>
+        <div className="App-GreenButton" style={{ padding: '8px 24px' }}>
+          Hoặc chọn video để tải lên
+        </div>
 
         <input
           type="file"

@@ -13,12 +13,13 @@
   background-color: black;
 }
 
-.ChannelHeader__Info > * {
+.CHI-Username {
+  font-size: 20px;
   margin-bottom: 4px;
 }
 
-.CHI-Username {
-  font-size: 20px;
+.CHI-Subscribers {
+  margin-bottom: 8px;
 }
 
 .CHI-SubscribeButton {

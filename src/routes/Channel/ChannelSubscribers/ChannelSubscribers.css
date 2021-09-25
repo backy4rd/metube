@@ -1,0 +1,25 @@
+.ChannelSubscribers {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-column-gap: 12px;
+  grid-row-gap: 12px;
+  justify-items: center;
+}
+
+@media only screen and (max-width: 1500px) {
+  .ChannelSubscribers {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media only screen and (max-width: 1100px) {
+  .ChannelSubscribers {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .ChannelSubscribers {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

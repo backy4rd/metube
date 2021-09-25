@@ -1,21 +1,20 @@
-import userApi from '@api/userApi';
-import VerticalVideos from '@components/VerticalVideos';
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
+import userApi from '@api/userApi';
 import { useSetLoading } from '@contexts/LoadingContext';
 import IVideo from '@interfaces/IVideo';
 
-import './ChannelVideos.css';
+import VerticalVideos from '@components/VerticalVideos';
 
-interface ChannelVideosProps {
-  username: string;
-}
+import './ChannelVideos.css';
 
 const step = 20;
 
-function ChannelVideos({ username }: ChannelVideosProps) {
+function ChannelVideos() {
   const [videos, setVideos] = useState<Array<IVideo>>([]);
+  const { username } = useParams<{ username: string }>();
 
   const setLoading = useSetLoading();
 

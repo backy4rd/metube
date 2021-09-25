@@ -70,6 +70,10 @@
   color: var(--main-green-1) !important;
 }
 
+#WDS-Item-Actions {
+  margin-left: auto;
+}
+
 #WDS-Item-Actions:hover > svg {
   color: var(--main-red-1) !important;
 }

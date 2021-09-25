@@ -6,6 +6,7 @@ import { useAuth } from '@contexts/AuthContext';
 import { useSetShowAuthForm } from '@contexts/ShowAuthFormContext';
 import { useSetLoading } from '@contexts/LoadingContext';
 import IUser from '@interfaces/IUser';
+import { usePushMessage } from '@contexts/MessageQueueContext';
 
 import './SubscribeButton.css';
 
@@ -19,6 +20,7 @@ function SubscribeButton({ targetUser, className }: SubscribeButtonProps) {
   const { user } = useAuth();
   const setShowAuthForm = useSetShowAuthForm();
   const setLoading = useSetLoading();
+  const pushMesage = usePushMessage();
 
   const isSubscribed = subscriptions.some((user) => user.username === targetUser.username);
   const isChannelOwner = user && user.username === targetUser.username;
@@ -33,28 +35,32 @@ function SubscribeButton({ targetUser, className }: SubscribeButtonProps) {
     }
 
     setLoading(true);
-    if (isSubscribed) {
-      await unsubscribe(targetUser);
-    } else {
-      await subscribe(targetUser);
+    try {
+      if (isSubscribed) {
+        await unsubscribe(targetUser);
+      } else {
+        await subscribe(targetUser);
+      }
+    } catch {
+      pushMesage(`${isSubscribed ? 'Hủy đăng ký' : 'Đăng ký'} không thành công!`);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   }
 
   if (user === undefined) return null;
   return (
-    <div className={`SubscribeButton ${className || ''}`}>
+    <div
+      className={`SubscribeButton ${isSubscribed ? 'App-GreyButton' : 'App-RedButton'} ${
+        className || ''
+      }`}
+    >
       {user && isChannelOwner ? (
         <div className="editChannelButton">
           <Link to={`/channel/${user.username}/edit`}>CHỈNH SỬA KÊNH</Link>
         </div>
       ) : (
-        <div
-          className={`${isSubscribed ? ' subscribed' : ''}`}
-          onClick={handleSubscribeButtonClick}
-        >
-          {isSubscribed ? 'ĐÃ ĐĂNG KÝ' : 'ĐĂNG KÝ'}
-        </div>
+        <div onClick={handleSubscribeButtonClick}>{isSubscribed ? 'ĐÃ ĐĂNG KÝ' : 'ĐĂNG KÝ'}</div>
       )}
     </div>
   );

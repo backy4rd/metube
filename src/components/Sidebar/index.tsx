@@ -56,18 +56,20 @@ function Sidebar() {
           </SidebarGroup>
         )}
         <SidebarNavigationTag to="/subscription" Icon={SubscriptionsOutlined} title="Đã đăng ký" />
-        <SidebarGroup>
-          {user !== null ? (
-            subscriptions.map((u) => <SidebarUserTag key={u.username} user={u} />)
-          ) : (
-            <>
-              <div style={{ fontSize: 12, color: 'var(--main-grey-2)', marginBottom: 8 }}>
-                Đăng nhập để tương tác, bình luận và đăng kí những video mới nhất.
-              </div>
-              <AuthButton />
-            </>
-          )}
-        </SidebarGroup>
+        {(user === null || subscriptions.length > 0) && (
+          <SidebarGroup>
+            {user !== null ? (
+              subscriptions.map((u) => <SidebarUserTag key={u.username} user={u} />)
+            ) : (
+              <>
+                <div style={{ fontSize: 12, color: 'var(--main-grey-2)', marginBottom: 8 }}>
+                  Đăng nhập để tương tác, bình luận và đăng kí những video mới nhất.
+                </div>
+                <AuthButton />
+              </>
+            )}
+          </SidebarGroup>
+        )}
 
         <div className="Sidebar-Toggle colapse" onClick={() => setShowSidebar(false)}></div>
       </div>

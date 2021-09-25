@@ -3,11 +3,12 @@ import React, { useMemo, useState } from 'react';
 interface Confirm {
   message: string;
   handler?: () => any;
+  level: 'error' | 'warning';
 }
 
 const ConfirmContext = React.createContext<Confirm | null>(null);
 const ShowConfirmContext = React.createContext<{
-  showConfirm: (message: string, handler?: () => any) => void;
+  showConfirm: (message: string, handler?: () => any, level?: 'error' | 'warning') => void;
   closeConfirm: () => void;
 }>({
   showConfirm: () => {},
@@ -31,7 +32,8 @@ export function ConfirmProvider(props: ConfirmProviderProps) {
 
   const showConfirmValue = useMemo(
     () => ({
-      showConfirm: (message: string, handler?: () => any) => setMessage({ message, handler }),
+      showConfirm: (message: string, handler?: () => any, level?: 'error' | 'warning') =>
+        setMessage({ message, handler, level: level || 'error' }),
       closeConfirm: () => setMessage(null),
     }),
     []

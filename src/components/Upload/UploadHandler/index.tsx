@@ -104,7 +104,8 @@ function UploadHandler({ videoFile, setVideoFile }: Props) {
       {progress !== null && (
         <ProgressBar
           completed={progress}
-          bgColor="var(--main-green-1)"
+          bgColor="var(--main-red-1)"
+          baseBgColor="var(--main-grey-1)"
           borderRadius="3px"
           margin="0 0 12px 0"
           labelColor="#ffffff"
@@ -120,6 +121,7 @@ function UploadHandler({ videoFile, setVideoFile }: Props) {
         </div>
         <div className="inputArea">
           <div className="inputs">
+            <div className="inputs-label">Tiêu đề:</div>
             <input
               className="App-TextInput"
               type="text"
@@ -128,6 +130,7 @@ function UploadHandler({ videoFile, setVideoFile }: Props) {
               onChange={(e) => setTitle(e.target.value)}
             />
 
+            <div className="inputs-label">Mô tả:</div>
             <TextareaAutosize
               className="App-TextInput"
               placeholder="Mô tả"
@@ -135,6 +138,7 @@ function UploadHandler({ videoFile, setVideoFile }: Props) {
               onChange={(e) => setDescription(e.target.value)}
             />
 
+            <div className="inputs-label">Chủ đề:</div>
             <select className="App-TextInput" value="blank" onChange={handleSelectCategory}>
               <option disabled value="blank">
                 -- Chọn chủ đề cho video --
@@ -153,7 +157,7 @@ function UploadHandler({ videoFile, setVideoFile }: Props) {
             <div className="App-GreenButton" onClick={handleUploadClick}>
               Đăng tải
             </div>
-            <div className="App-GreenButton" onClick={handleCancelClick}>
+            <div className="App-GreyButton" onClick={handleCancelClick}>
               Hủy
             </div>
           </div>

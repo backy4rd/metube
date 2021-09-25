@@ -15,6 +15,7 @@ import { numberWithCommas } from '@utils/number';
 import videoApi from '@api/videoApi';
 import { useAuth } from '@contexts/AuthContext';
 import { useSetShowAuthForm } from '@contexts/ShowAuthFormContext';
+import { usePushMessage } from '@contexts/MessageQueueContext';
 
 import Avatar from '@components/Avatar';
 import SubscribeButton from '@components/SubscribeButton';
@@ -35,6 +36,7 @@ function WatchDetail({ video }: WatchDetailProps) {
 
   const { user } = useAuth();
   const setShowAuthForm = useSetShowAuthForm();
+  const pushMessage = usePushMessage();
 
   useEffect(() => {
     setLike(video.like);
@@ -49,25 +51,49 @@ function WatchDetail({ video }: WatchDetailProps) {
     reacting.current = true;
     switch (action) {
       case 'like':
-        await videoApi.reactVideo(video.id, true);
-        if (react === false) setDislike(dislike - 1);
-        setLike(like + 1);
-        setReact(true);
-        break;
+        try {
+          if (react === false) setDislike(dislike - 1);
+          setLike(like + 1);
+          setReact(true);
+          await videoApi.reactVideo(video.id, true);
+        } catch {
+          if (react === false) setDislike(dislike);
+          setLike(like);
+          setReact(react);
+          pushMessage('Like không thành công!');
+        } finally {
+          break;
+        }
 
       case 'dislike':
-        await videoApi.reactVideo(video.id, false);
-        if (react === true) setLike(like - 1);
-        setDislike(dislike + 1);
-        setReact(false);
-        break;
+        try {
+          if (react === true) setLike(like - 1);
+          setDislike(dislike + 1);
+          setReact(false);
+          await videoApi.reactVideo(video.id, false);
+        } catch {
+          if (react === true) setLike(like);
+          setDislike(dislike);
+          setReact(react);
+          pushMessage('Dislike không thành công!');
+        } finally {
+          break;
+        }
 
       case 'remove':
-        await videoApi.removeVideoReaction(video.id);
-        if (react === true) setLike(like - 1);
-        else if (react === false) setDislike(dislike - 1);
-        setReact(null);
-        break;
+        try {
+          if (react === true) setLike(like - 1);
+          else if (react === false) setDislike(dislike - 1);
+          setReact(null);
+          await videoApi.removeVideoReaction(video.id);
+        } catch {
+          if (react === true) setLike(like);
+          else if (react === false) setDislike(dislike);
+          setReact(react);
+          pushMessage(`Bỏ ${react ? 'like' : 'dislike'} không thành công!`);
+        } finally {
+          break;
+        }
     }
     reacting.current = false;
   }
@@ -86,7 +112,9 @@ function WatchDetail({ video }: WatchDetailProps) {
       <div className="WatchDetail__User" style={{ display: 'flex' }}>
         <Link className="WatchDetail__User__Left" to={`/channel/${video.uploadedBy.username}`}>
           <Avatar user={video.uploadedBy} className="WatchDetail__User__Left-Avatar" />
-          <div className="WatchDetail__User__Left-Username">{video.uploadedBy.username}</div>
+          <div className="WatchDetail__User__Left-Username">
+            {video.uploadedBy.username} ({video.uploadedBy.firstName} {video.uploadedBy.lastName})
+          </div>
         </Link>
         <SubscribeButton targetUser={video.uploadedBy} />
       </div>
@@ -113,7 +141,6 @@ function WatchDetail({ video }: WatchDetailProps) {
         <div
           className="WDS-Item WDS-Item-Button"
           onClick={() => (react === false ? doReact('remove') : doReact('dislike'))}
-          style={{ flexGrow: 1 }}
         >
           {react === false ? <ThumbDown className="WDS-Disike" /> : <ThumbDownOutlined />}
           <div>{dislike}</div>

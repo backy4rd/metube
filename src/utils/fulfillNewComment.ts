@@ -3,6 +3,8 @@ import IUser from '@interfaces/IUser';
 
 export default function fulfillNewComment(comment: IComment, user: IUser): IComment {
   comment.user.username = user!.username;
+  comment.user.firstName = user!.firstName;
+  comment.user.lastName = user!.lastName;
   comment.user.iconPath = user!.iconPath;
   comment.like = 0;
   comment.dislike = 0;

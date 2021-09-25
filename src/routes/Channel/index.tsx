@@ -8,6 +8,8 @@ import userApi from '@api/userApi';
 import ChannelHeader from './ChannelHeader';
 import ChannelTabs from './ChannelTabs';
 import ChannelVideos from './ChannelVideos';
+import ChannelSubscribers from './ChannelSubscribers';
+import ChannelSubscriptions from './ChannelSubscriptions';
 
 import './Channel.css';
 
@@ -32,17 +34,15 @@ function Home() {
       <ChannelHeader user={user} />
       <ChannelTabs user={user} />
 
-      <div className="Channel__ChannelVideos">
+      <div className="Channel__Container">
         <Switch>
-          <Route exact path={`${path}/`}>
-            <ChannelVideos username={username} />
-          </Route>
-          <Route path={`${path}/playlist`} component={() => <div>playlist</div>} />
-          <Route path={`${path}/live`} component={() => <div>live</div>} />
-          <Route path={`${path}/subscriber`} component={() => <div>scriptij</div>} />
-          <Route path={`${path}/subscription`} component={() => <div>subscription</div>} />
-          <Route path={`${path}/about`} component={() => <div>info</div>} />
-          <Route path={`${path}/edit`} component={() => <div>edtit</div>} />
+          <Route exact path={`${path}/`} component={ChannelVideos} />
+          <Route exact path={`${path}/playlist`} component={() => <div>playlist</div>} />
+          <Route exact path={`${path}/live`} component={() => <div>live</div>} />
+          <Route exact path={`${path}/subscriber`} component={ChannelSubscribers} />
+          <Route exact path={`${path}/subscription`} component={ChannelSubscriptions} />
+          <Route exact path={`${path}/about`} component={() => <div>info</div>} />
+          <Route exact path={`${path}/edit`} component={() => <div>edtit</div>} />
           <Redirect to="/404" />
         </Switch>
       </div>

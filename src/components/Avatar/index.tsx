@@ -19,10 +19,15 @@ function Avatar({ user, className, onClick, size = '32px' }: AvatarProps) {
       onClick={onClick}
       style={{ height: size, width: size }}
     >
-      {user.iconPath === null ? (
-        <ReactAvatar name={user.firstName + ' ' + user.lastName} size={size} round />
+      {!user.iconPath && !user.avatarPath ? (
+        <ReactAvatar
+          name={user.firstName + ' ' + user.lastName}
+          size={size}
+          round
+          textSizeRatio={3}
+        />
       ) : (
-        <img src={user.iconPath} alt="" height={size} width={size} />
+        <img src={user.avatarPath || user.iconPath} alt="" height={size} width={size} />
       )}
     </div>
   );

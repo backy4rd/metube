@@ -6,12 +6,12 @@ import Playlist from '@interfaces/IPlaylist';
 import Range from '../interfaces/IRange';
 
 class UserApi {
-  public getSubscriptionUsers(): Promise<User[]> {
+  public getOwnSubscription(): Promise<User[]> {
     return client.get('/users/subscriptions', { params: { limit: 100 } });
   }
 
-  public getSubscribers(): Promise<User[]> {
-    return client.get('/users/subscribers');
+  public getOwnSubscribers(range?: Range): Promise<User[]> {
+    return client.get('/users/subscribers', { params: { ...range } });
   }
 
   public getUserProfile(username: string): Promise<User> {

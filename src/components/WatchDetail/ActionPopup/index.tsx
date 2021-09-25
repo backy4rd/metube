@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { PlaylistAdd, Delete, Edit } from '@material-ui/icons';
+import { PlaylistAdd, Delete, Edit, Block, Timeline } from '@material-ui/icons';
 
 import videoApi from '@api/videoApi';
 import { useAuth } from '@contexts/AuthContext';
@@ -36,18 +36,14 @@ function ActionPopup(props: ActionPopupProps) {
   if (!user) return null;
   return (
     <Popup className="ActionPopup" target={props.target}>
+      <div className="ActionPopup-Action">
+        <PlaylistAdd />
+        <div className="ActionPopup-Action-Text">Thêm Vào Danh Sách Phát</div>
+      </div>
       {user.username === video.uploadedBy.username && (
-        <div
-          className="ActionPopup-Action"
-          onClick={() =>
-            showConfirm(
-              'Hành động này sẽ khiến video bị xóa vĩnh viễn, bạn có chắc vẫn muốn thực hiện?',
-              handleRemoveVideo
-            )
-          }
-        >
-          <Delete />
-          <div className="ActionPopup-Action-Text">Xóa Video</div>
+        <div className="ActionPopup-Action">
+          <Timeline />
+          <div className="ActionPopup-Action-Text">Tổng quan Video</div>
         </div>
       )}
       {user.username === video.uploadedBy.username && (
@@ -56,10 +52,26 @@ function ActionPopup(props: ActionPopupProps) {
           <div className="ActionPopup-Action-Text">Sửa Video</div>
         </div>
       )}
-      <div className="ActionPopup-Action">
-        <PlaylistAdd />
-        <div className="ActionPopup-Action-Text">Thêm vào danh sách phát</div>
-      </div>
+      {user.username === video.uploadedBy.username && (
+        <div
+          className="ActionPopup-Action"
+          onClick={() =>
+            showConfirm(
+              'Video của bạn sẽ bị xóa vĩnh viễn, bạn có chắc vẫn muốn thực hiện?',
+              handleRemoveVideo
+            )
+          }
+        >
+          <Delete />
+          <div className="ActionPopup-Action-Text">Xóa Video</div>
+        </div>
+      )}
+      {user.role === 'admin' && (
+        <div className="ActionPopup-Action">
+          <Block />
+          <div className="ActionPopup-Action-Text">Chặn Video</div>
+        </div>
+      )}
     </Popup>
   );
 }

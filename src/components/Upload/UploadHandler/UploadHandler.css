@@ -53,4 +53,5 @@
 
 .uploadHandler .container .inputArea .buttons > * {
   margin-left: 12px;
+  padding: 8px 24px;
 }
