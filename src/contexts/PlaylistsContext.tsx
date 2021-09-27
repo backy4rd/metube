@@ -5,9 +5,16 @@ import userApi from '@api/userApi';
 import { useAuth } from './AuthContext';
 
 const PlaylistsContext = React.createContext<Array<IPlaylist>>([]);
+const SetPlaylistsContext = React.createContext<
+  React.Dispatch<React.SetStateAction<Array<IPlaylist>>>
+>(() => {});
 
 export function usePlaylists() {
   return React.useContext(PlaylistsContext);
+}
+
+export function useSetPlaylists() {
+  return React.useContext(SetPlaylistsContext);
 }
 
 interface PlaylistsProviderProps {
@@ -23,5 +30,9 @@ export function PlaylistsProvider(props: PlaylistsProviderProps) {
     userApi.getOwnPlaylists().then(setPlaylists);
   }, [user]);
 
-  return <PlaylistsContext.Provider value={playlists}>{props.children}</PlaylistsContext.Provider>;
+  return (
+    <SetPlaylistsContext.Provider value={setPlaylists}>
+      <PlaylistsContext.Provider value={playlists}>{props.children}</PlaylistsContext.Provider>;
+    </SetPlaylistsContext.Provider>
+  );
 }

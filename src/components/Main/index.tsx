@@ -12,6 +12,7 @@ import Playlist from '@routes/Playlist';
 import Channel from '@routes/Channel';
 import Subscriptions from '@routes/Subscriptions';
 import History from '@routes/History';
+import Search from '@routes/Search';
 import Upload from '@components/Upload';
 import NotFound from '@components/NotFound';
 
@@ -36,6 +37,7 @@ function Main() {
           <Route exact path="/" component={Home} />
           <Route exact path="/watch/:id" component={Watch} />
           <Route exact path="/playlist/:id" component={Playlist} />
+          <Route exact path="/search" component={Search} />
           <Route path="/channel/:username" component={Channel} />
           <AuthorizedRoute exact path="/upload" component={Upload} />
           <AuthorizedRoute exact path="/subscription" component={Subscriptions} />

@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 import userApi from '@api/userApi';
 import { useSetLoading } from '@contexts/LoadingContext';
@@ -8,7 +10,10 @@ import User from '@components/User';
 
 import './ChannelSubscriptions.css';
 
+const step = 13;
+
 function ChannelSubscriptions() {
+  const { username } = useParams<{ username: string }>();
   const [subscriptions, setSubscriptions] = useState<Array<IUser>>([]);
 
   const setLoading = useSetLoading();
@@ -16,17 +21,33 @@ function ChannelSubscriptions() {
   useEffect(() => {
     setLoading(true);
     userApi
-      .getOwnSubscription()
+      .getUserSubscription(username, { offset: 0, limit: step })
       .then(setSubscriptions)
       .finally(() => setLoading(false));
-  }, [setLoading]);
+  }, [setLoading, username]);
+
+  async function loadSubscriptions() {
+    const _subscribers = await userApi.getOwnSubscribers({
+      offset: subscriptions.length,
+      limit: step,
+    });
+    setSubscriptions([...subscriptions, ..._subscribers]);
+  }
 
   return (
-    <div className="ChannelSubscriptions">
-      {subscriptions.map((subscriber) => (
-        <User user={subscriber} />
-      ))}
-    </div>
+    <InfiniteScroll
+      dataLength={subscriptions.length}
+      next={loadSubscriptions}
+      hasMore={true}
+      loader={null}
+      scrollableTarget="Main"
+    >
+      <div className="ChannelSubscriptions">
+        {subscriptions.map((subscription) => (
+          <User user={subscription} />
+        ))}
+      </div>
+    </InfiniteScroll>
   );
 }
 

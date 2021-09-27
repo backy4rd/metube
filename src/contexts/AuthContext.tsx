@@ -8,7 +8,7 @@ import userApi from '@api/userApi';
 const AuthContext = React.createContext<{
   // undefined means the app is loading user credential
   // null is unauthorize
-  user: IUser | null | undefined;
+  user: (IUser & IToken) | null | undefined;
   logout: () => void;
   login: (token: string) => void;
 }>({
@@ -22,7 +22,7 @@ export function useAuth() {
 }
 
 export function AuthProvider(props: { children?: React.ReactNode }) {
-  const [user, setUser] = useState<IUser | null | undefined>(undefined);
+  const [user, setUser] = useState<(IUser & IToken) | null | undefined>(undefined);
 
   useEffect(() => {
     const token = window.localStorage.getItem('token');
@@ -33,7 +33,7 @@ export function AuthProvider(props: { children?: React.ReactNode }) {
 
       userApi
         .getOwnProfile()
-        .then((_user) => setUser({ ..._user, role: parsedToken.role }))
+        .then((_user) => setUser({ ...parsedToken, ..._user }))
         .catch(() => setUser(null));
     } catch {
       setUser(null);

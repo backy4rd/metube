@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { Dehaze, Search, RadioButtonChecked, CloudUpload } from '@material-ui/icons';
 
@@ -10,8 +10,12 @@ import UserSection from './UserSection';
 import './Header.css';
 
 function Header() {
+  const [query, setQuery] = useState('');
+
   const [showSidebar, setShowSidebar] = useShowSidebar();
   const isWidthUnder700 = useMediaQuery({ maxWidth: 700 });
+
+  const history = useHistory();
 
   return (
     <div className="Header">
@@ -27,14 +31,25 @@ function Header() {
         </Link>
       </div>
 
-      <div className="Header__SearchSection">
+      <form
+        className="Header__SearchSection"
+        onSubmit={(e) => {
+          e.preventDefault();
+          history.push(`/search?q=${query}`);
+        }}
+      >
         <input
           className="Header__SearchSection-SearchBox"
           type="text"
+          onChange={(e) => setQuery(e.target.value)}
+          value={query}
           placeholder="Search video/channel"
         />
-        <Search className="Header__SearchSection-SearchIcon" />
-      </div>
+        <label>
+          <input type="submit" hidden />
+          <Search className="Header__SearchSection-SearchIcon" />
+        </label>
+      </form>
 
       <div className="Header__UserSection">
         <div className="Header__UserSection-Button">{isWidthUnder700 && <Search />}</div>

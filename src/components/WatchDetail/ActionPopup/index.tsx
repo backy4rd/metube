@@ -7,6 +7,7 @@ import { useAuth } from '@contexts/AuthContext';
 import { useVideo } from '@contexts/VideoContext';
 import { useShowConfirm } from '@contexts/ConfirmContext';
 import { usePushMessage } from '@contexts/MessageQueueContext';
+import { usePlaylistPopup } from '@contexts/PlaylistPopupContext';
 
 import Popup from '@components/Popup';
 
@@ -22,6 +23,7 @@ function ActionPopup(props: ActionPopupProps) {
   const { showConfirm } = useShowConfirm();
   const pushMessage = usePushMessage();
   const history = useHistory();
+  const { showPlaylistPopup } = usePlaylistPopup();
 
   async function handleRemoveVideo() {
     try {
@@ -36,7 +38,7 @@ function ActionPopup(props: ActionPopupProps) {
   if (!user) return null;
   return (
     <Popup className="ActionPopup" target={props.target}>
-      <div className="ActionPopup-Action">
+      <div className="ActionPopup-Action" onClick={() => showPlaylistPopup(video.id)}>
         <PlaylistAdd />
         <div className="ActionPopup-Action-Text">Thêm Vào Danh Sách Phát</div>
       </div>

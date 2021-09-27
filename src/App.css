@@ -64,11 +64,12 @@
   line-height: 20px;
   background: var(--main-dark-4);
   resize: none;
-  padding: 6px 4px;
+  padding: 4px 8px;
   color: white;
   border: 1px solid var(--main-grey-1);
   border-radius: 3px;
   transition: border 0.1s linear;
+  box-sizing: border-box;
 }
 
 .App-TextInput:focus {

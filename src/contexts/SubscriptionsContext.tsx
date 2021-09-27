@@ -26,7 +26,7 @@ export function SubscriptionsProvider(props: { children?: React.ReactNode }) {
 
   useEffect(() => {
     if (!user) return;
-    userApi.getOwnSubscription().then(setSubscriptions);
+    userApi.getOwnSubscription({ offset: 0, limit: 100 }).then(setSubscriptions);
   }, [user]);
 
   async function unsubscribe(user: string | IUser) {

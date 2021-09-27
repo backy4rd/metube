@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import userApi from '@api/userApi';
@@ -12,6 +13,7 @@ import './ChannelSubscribers.css';
 const step = 13;
 
 function ChannelSubscribers() {
+  const { username } = useParams<{ username: string }>();
   const [subscribers, setSubscribers] = useState<Array<IUser>>([]);
 
   const setLoading = useSetLoading();
@@ -19,10 +21,10 @@ function ChannelSubscribers() {
   useEffect(() => {
     setLoading(true);
     userApi
-      .getOwnSubscribers({ offset: 0, limit: step })
+      .getUserSubscribers(username, { offset: 0, limit: step })
       .then(setSubscribers)
       .finally(() => setLoading(false));
-  }, [setLoading]);
+  }, [setLoading, username]);
 
   async function loadSubscribers() {
     const _subscribers = await userApi.getOwnSubscribers({

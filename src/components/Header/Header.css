@@ -73,6 +73,10 @@
   cursor: pointer;
 }
 
+.Header__SearchSection-SearchIcon:hover {
+  color: var(--main-red-1);
+}
+
 .Header__UserSection-Button {
   margin-right: 14px;
   display: flex;

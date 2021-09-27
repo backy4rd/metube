@@ -1,0 +1,99 @@
+.PlaylistPopupWrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #0008;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.PlaylistPopup {
+  min-width: 280px;
+  background-color: var(--main-dark-3);
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -2px 2px 5px 0px #0006;
+}
+
+.PlaylistPopup-Header {
+  display: flex;
+  align-items: center;
+  background-color: var(--main-green-1);
+  padding: 4px;
+}
+
+.PlaylistPopup-Header-Text {
+  flex-grow: 1;
+}
+
+.PlaylistPopup-Header-Close {
+  cursor: pointer;
+}
+
+.PlaylistPopup-Main {
+  margin-bottom: 8px;
+}
+
+.PlaylistPopup-Playlists {
+  margin: 8px 0;
+}
+
+.PPP-Item {
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.PPP-Item > svg {
+  font-size: 22px;
+  margin-right: 8px;
+}
+
+.PPP-Item:hover {
+  background-color: var(--main-grey-1);
+}
+
+.PlaylistPopup-Create {
+  border-top: 1px solid var(--main-grey-1);
+  padding: 8px;
+}
+
+.PPC-Label {
+  margin-bottom: 8px;
+}
+
+.PPC-PlaylistName {
+  width: 100%;
+}
+
+.PlaylistPopup-Buttons {
+  display: flex;
+  flex-direction: row-reverse;
+  margin: 8px;
+}
+
+.PPB-Button {
+  padding: 6px 12px;
+}
+
+.PlaylistPopupWrapper-enter {
+  opacity: 0;
+}
+.PlaylistPopupWrapper-enter-active {
+  opacity: 1;
+  transition: opacity 200ms;
+}
+.PlaylistPopupWrapper-exit {
+  opacity: 1;
+}
+.PlaylistPopupWrapper-exit-active {
+  opacity: 0;
+  transition: opacity 200ms;
+}

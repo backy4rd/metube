@@ -11,5 +11,4 @@ export default interface User {
   joinedAt: Date;
   totalViews: number;
   totalSubscribers: number;
-  role: string;
 }

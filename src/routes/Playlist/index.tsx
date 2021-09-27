@@ -12,7 +12,7 @@ function Playlist() {
   const { id: playlistId } = useParams<{ id: string }>();
 
   useEffect(() => {
-    playlistApi.getPlaylistVideos(playlistId).then(setVideos);
+    playlistApi.getPlaylistVideos(+playlistId).then(setVideos);
   }, [playlistId]);
 
   return (
