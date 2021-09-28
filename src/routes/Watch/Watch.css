@@ -2,8 +2,26 @@
   margin: 18px 3% 3%;
 }
 
-.Watch__Player {
+.Watch__PlaylistPlayer,
+.Watch__VideoPlayer {
   margin-bottom: 8px;
+}
+
+.Watch__VideoPlayer {
+  width: 100%;
+}
+
+.Watch__PlaylistPlayer {
+  width: 100%;
+  display: flex;
+}
+
+.Watch__PlaylistPlayer .Watch-Player {
+  width: 70%;
+}
+.Watch__PlaylistPlayer .Watch-Playlist {
+  width: 30%;
+  height: 100%;
 }
 
 .Watch__Orther {
@@ -35,6 +53,18 @@
   }
 
   .Watch__Orther__Right {
+    width: 100%;
+  }
+
+  .Watch__PlaylistPlayer {
+    display: block;
+  }
+
+  .Watch__PlaylistPlayer .Watch-Player {
+    width: 100%;
+  }
+
+  .Watch__PlaylistPlayer .Watch-Playlist {
     width: 100%;
   }
 }

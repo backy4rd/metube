@@ -26,6 +26,7 @@ function Search() {
 
   return (
     <div className="Search">
+      <div style={{ fontSize: '15px' }}>Kết quả tìm kiếm:</div>
       <HorizontalVideos videos={videos} extend />
     </div>
   );

@@ -2,7 +2,7 @@ import React from 'react';
 
 import IVideo from '@interfaces/IVideo';
 
-const VideoContext = React.createContext<IVideo>({} as IVideo);
+const VideoContext = React.createContext<IVideo>(null as any);
 
 export function useVideo() {
   return React.useContext(VideoContext);

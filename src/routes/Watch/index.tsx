@@ -11,12 +11,13 @@ import RelateVideos from '@components/RelateVideos';
 import WatchDetail from '@components/WatchDetail';
 import Comments from '@components/Comments';
 import NotFound from '@components/NotFound';
+import PlaylistVideos from '@components/PlaylistVideos';
 
 import './Watch.css';
 
 function Watch() {
   const [video, setVideo] = useState<IVideo | null | undefined>(undefined);
-  const { id: videoId } = useParams<{ id: string }>();
+  const { videoId, playlistId } = useParams<{ videoId: string; playlistId: string }>();
   const setLoading = useSetLoading();
 
   useEffect(() => {
@@ -33,8 +34,9 @@ function Watch() {
   return (
     <VideoProvider video={video}>
       <div className="Watch">
-        <div className="Watch__Player">
-          <Player videoUrl={video.videoPath} />
+        <div className={playlistId ? 'Watch__PlaylistPlayer' : 'Watch__VideoPlayer'}>
+          <Player className="Watch-Player" videoUrl={video.videoPath} />
+          {playlistId && <PlaylistVideos className="Watch-Playlist" playlistId={+playlistId} />}
         </div>
         <div className="Watch__Orther">
           <div className="Watch__Orther__Left">

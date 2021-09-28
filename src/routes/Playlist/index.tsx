@@ -1,23 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import IVideo from '@interfaces/IVideo';
-import playlistApi from '@api/playlistApi';
+import PlaylistVideos from '@components/PlaylistVideos';
 
 import './Playlist.css';
-import HorizontalVideos from '@components/HorizontalVideos';
 
 function Playlist() {
-  const [videos, setVideos] = useState<Array<IVideo>>([]);
-  const { id: playlistId } = useParams<{ id: string }>();
-
-  useEffect(() => {
-    playlistApi.getPlaylistVideos(+playlistId).then(setVideos);
-  }, [playlistId]);
+  const { playlistId } = useParams<{ playlistId: string }>();
 
   return (
     <div className="Playlist">
-      <HorizontalVideos videos={videos} />
+      <div className="Playlist__Modify"></div>
+      <PlaylistVideos playlistId={+playlistId} />
     </div>
   );
 }

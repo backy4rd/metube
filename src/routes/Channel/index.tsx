@@ -21,7 +21,7 @@ function Home() {
   const setLoading = useSetLoading();
 
   useEffect(() => {
-    setLoading(false);
+    setLoading(true);
     userApi
       .getUserProfile(username)
       .then(setUser)

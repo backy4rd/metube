@@ -12,7 +12,7 @@ const client = axios.create({
 });
 
 client.interceptors.request.use((config) => {
-  if (config.method === 'post' || config.method === 'patch') {
+  if (config.method === 'post' || config.method === 'patch' || config.method === 'delete') {
     switch (config.headers['Content-Type']) {
       case 'application/x-www-form-urlencoded':
         config.data = qs.stringify(config.data);

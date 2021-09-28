@@ -21,7 +21,7 @@ function HorizontalVideo({ showWatchTimestamp = false, extend = false }: Horizon
   return (
     <Link to={`/watch/${video.id}`}>
       <div className="HorizontalVideo">
-        <VideoThumbnail className="HorizontalVideo__Thumbnail" showViews={false} />
+        <VideoThumbnail className="HorizontalVideo__Thumbnail" video={video} showViews={false} />
         <div className="HorizontalVideo__Info">
           <div className="HorizontalVideo__Info-Title">{video.title}</div>
           {showWatchTimestamp && (

@@ -1,0 +1,9 @@
+.Playlist {
+  display: flex;
+  padding: 0 3%;
+  margin-top: 24px;
+}
+
+.Playlist__Modify {
+  width: 60%;
+}

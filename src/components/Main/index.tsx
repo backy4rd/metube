@@ -35,8 +35,9 @@ function Main() {
       <MainSwitchContext>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/watch/:id" component={Watch} />
-          <Route exact path="/playlist/:id" component={Playlist} />
+          <Route exact path="/watch/:videoId" component={Watch} />
+          <Route exact path="/playlist/:playlistId" component={Playlist} />
+          <Route exact path="/playlist/:playlistId/watch/:videoId" component={Watch} />
           <Route exact path="/search" component={Search} />
           <Route path="/channel/:username" component={Channel} />
           <AuthorizedRoute exact path="/upload" component={Upload} />

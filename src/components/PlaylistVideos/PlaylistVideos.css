@@ -1,0 +1,27 @@
+.PlaylistVideos__Header {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--main-dark-2);
+  padding: 8px 16px;
+  height: 38px;
+}
+
+.playlistVideos__Container {
+  overflow-y: auto;
+  height: calc(100% - 38px);
+  background-color: var(--main-dark-4);
+}
+
+.PVH-Name {
+  font-size: 17px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1; /* number of lines to show */
+}
+
+.PVH-TotalVideos {
+  color: var(--main-grey-2);
+}

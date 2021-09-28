@@ -1,20 +1,19 @@
 import React from 'react';
 import { Schedule, VisibilityOutlined } from '@material-ui/icons';
 
-import { useVideo } from '@contexts/VideoContext';
 import { numberWithCommas } from '@utils/number';
 import { secondToTime } from '@utils/time';
+import IVideo from '@interfaces/IVideo';
 
 import './VideoThumbnail.css';
 
 interface VideoThumbnailProps {
   className?: string;
   showViews?: boolean;
+  video: IVideo;
 }
 
-function VideoThumbnail({ className, showViews = true }: VideoThumbnailProps) {
-  const video = useVideo();
-
+function VideoThumbnail({ video, className, showViews = true }: VideoThumbnailProps) {
   return (
     <div
       className={'VideoThumbnail ' + className}

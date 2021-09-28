@@ -14,7 +14,7 @@ function VerticalVideo() {
 
   return (
     <Link className="VerticalVideo" to={`/watch/${video.id}`}>
-      <VideoThumbnail />
+      <VideoThumbnail video={video} />
 
       <div className="VerticalVideo__Detail">
         <div className="VerticalVideo__Detail-UserIcon">
