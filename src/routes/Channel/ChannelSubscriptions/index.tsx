@@ -27,11 +27,11 @@ function ChannelSubscriptions() {
   }, [setLoading, username]);
 
   async function loadSubscriptions() {
-    const _subscribers = await userApi.getOwnSubscribers({
+    const _subscriptions = await userApi.getOwnSubscription({
       offset: subscriptions.length,
       limit: step,
     });
-    setSubscriptions([...subscriptions, ..._subscribers]);
+    setSubscriptions([...subscriptions, ..._subscriptions]);
   }
 
   return (
@@ -44,7 +44,7 @@ function ChannelSubscriptions() {
     >
       <div className="ChannelSubscriptions">
         {subscriptions.map((subscription) => (
-          <User user={subscription} />
+          <User key={subscription.username} user={subscription} />
         ))}
       </div>
     </InfiniteScroll>

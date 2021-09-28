@@ -1,9 +1,17 @@
 .Playlist {
   display: flex;
   padding: 0 3%;
-  margin-top: 24px;
+  margin: 24px 0;
+  height: calc(100% - 48px);
 }
 
-.Playlist__Modify {
-  width: 60%;
+.Playlist-Edit {
+  width: calc(50% - 24px);
+  margin-right: 24px;
+}
+.Playlist-Videos {
+  height: 100%;
+  width: 50%;
+  border-radius: 4px;
+  overflow: hidden;
 }

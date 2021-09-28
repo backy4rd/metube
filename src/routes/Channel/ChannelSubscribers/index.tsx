@@ -44,7 +44,7 @@ function ChannelSubscribers() {
     >
       <div className="ChannelSubscribers">
         {subscribers.map((subscriber) => (
-          <User user={subscriber} />
+          <User key={subscriber.username} user={subscriber} />
         ))}
       </div>
     </InfiniteScroll>

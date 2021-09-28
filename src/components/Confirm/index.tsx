@@ -12,6 +12,7 @@ function Confirm() {
   const confirm = useConfirm();
   const [message, setMessage] = useState<string>(confirm ? confirm.message : '');
   const [confirming, setConfirming] = useState(false);
+  const ref = React.useRef<HTMLDivElement>(null);
 
   const { closeConfirm } = useShowConfirm();
 
@@ -40,8 +41,14 @@ function Confirm() {
   }
 
   return (
-    <CSSTransition in={confirm !== null} timeout={200} classNames="ConfirmWrapper" unmountOnExit>
-      <div className="ConfirmWrapper">
+    <CSSTransition
+      nodeRef={ref}
+      in={confirm !== null}
+      timeout={200}
+      classNames="ConfirmWrapper"
+      unmountOnExit
+    >
+      <div ref={ref} className="ConfirmWrapper">
         <div className="Confirm">
           <div className="Confirm-Header">
             <WarningRounded />

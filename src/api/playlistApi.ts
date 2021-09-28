@@ -3,6 +3,7 @@ import client from './client';
 import Video from '@interfaces/IVideo';
 import Playlist from '@interfaces/IPlaylist';
 import ApiMessage from '@interfaces/IApiMessage';
+import Range from '@interfaces/IRange';
 
 class PlaylistApi {
   public createPlaylist(playlist: Partial<Playlist> & Pick<Playlist, 'name'>): Promise<Playlist> {
@@ -24,8 +25,8 @@ class PlaylistApi {
     return client.delete(`/playlists/${playlistId}`);
   }
 
-  public getPlaylistVideos(playlistId: number): Promise<Video[]> {
-    return client.get(`/playlists/${playlistId}/videos`);
+  public getPlaylistVideos(playlistId: number, range?: Range): Promise<Video[]> {
+    return client.get(`/playlists/${playlistId}/videos`, { params: { ...range } });
   }
 
   public addVideoToPlaylist(

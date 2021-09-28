@@ -23,7 +23,7 @@ function PlaylistVideo({
 }: PlaylistVideoProps) {
   const { pathname } = useLocation();
 
-  const to = `/playlist/${playlistId}/watch/${video.id}`;
+  const to = `/watch/${video.id}/playlist/${playlistId}`;
 
   return (
     <div className={`PlaylistVideoWrapper ${pathname === to ? 'active' : ''}`}>
@@ -31,7 +31,7 @@ function PlaylistVideo({
       <Link to={to} className="PlaylistVideo">
         <VideoThumbnail className="PlaylistVideo-Thumbnail" video={video} showViews={false} />
         <div className="PlaylistVideo__Detail">
-          <div className="PlaylistVideo__Detail-Title">{video.title}</div>
+          <div className="PlaylistVideo__Detail-Title App-Text2Line">{video.title}</div>
           <div className="PlaylistVideo__Detail-Username">{video.uploadedBy.username}</div>
         </div>
       </Link>

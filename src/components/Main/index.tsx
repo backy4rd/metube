@@ -36,8 +36,8 @@ function Main() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/watch/:videoId" component={Watch} />
+          <Route exact path="/watch/:videoId/playlist/:playlistId" component={Watch} />
           <Route exact path="/playlist/:playlistId" component={Playlist} />
-          <Route exact path="/playlist/:playlistId/watch/:videoId" component={Watch} />
           <Route exact path="/search" component={Search} />
           <Route path="/channel/:username" component={Channel} />
           <AuthorizedRoute exact path="/upload" component={Upload} />

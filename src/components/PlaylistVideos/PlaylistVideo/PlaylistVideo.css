@@ -12,21 +12,21 @@
 
 .PlaylistVideo {
   display: flex;
-  width: 84%;
-  flex-grow: 1;
+  flex-basis: 84%;
 }
+
 .PlaylistVideo-Thumbnail {
-  width: 30%;
-  margin: calc(3% + 2px) 2px;
+  flex-basis: 30%;
+  margin: 10px 2px;
 }
 
 .PlaylistVideoWrapper.active .PlaylistVideo-Thumbnail {
-  margin: 3% 0;
+  margin: 8px 0;
   border: 2px solid var(--main-green-1);
 }
 
 .PlaylistVideo__Detail {
-  width: 70%;
+  flex-basis: calc(70% - 8px);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -35,13 +35,6 @@
 
 .PlaylistVideo__Detail-Title {
   margin-bottom: 4px;
-
-  overflow: hidden;
-  text-overflow: ellipsis;
-  word-break: break-word;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2; /* number of lines to show */
 }
 
 .PlaylistVideo__Detail-Username {
@@ -51,7 +44,7 @@
 .PlaylistVideo-Number {
   display: flex;
   align-items: center;
-  width: 8%;
+  flex-basis: 8%;
   justify-content: center;
 }
 
@@ -62,12 +55,12 @@
 .PlaylistVideo-Remove {
   display: flex;
   align-items: center;
-  width: 8%;
   justify-content: center;
+  flex-basis: 8%;
+  opacity: 0;
 }
 
 .PlaylistVideo-Remove svg {
-  opacity: 0;
   cursor: pointer;
   color: var(--main-grey-2);
 }
@@ -76,6 +69,6 @@
   color: var(--main-red-1);
 }
 
-.PlaylistVideoWrapper:hover .PlaylistVideo-Remove svg {
+.PlaylistVideoWrapper:hover .PlaylistVideo-Remove {
   opacity: 1;
 }

@@ -2,18 +2,29 @@
   margin: 18px 3% 3%;
 }
 
-.Watch__PlaylistPlayer,
-.Watch__VideoPlayer {
-  margin-bottom: 8px;
+@media only screen and (min-width: 1400px) {
+  .Watch {
+    margin: 18px 10% 10%;
+  }
+}
+
+.Watch__VideoPlayer,
+.Watch__PlaylistPlayer {
+  margin-bottom: 16px;
 }
 
 .Watch__VideoPlayer {
+  display: flex;
+  max-height: 500px;
+}
+
+.Watch__VideoPlayer .Watch-Player {
   width: 100%;
 }
 
 .Watch__PlaylistPlayer {
-  width: 100%;
   display: flex;
+  height: 500px;
 }
 
 .Watch__PlaylistPlayer .Watch-Player {
@@ -29,7 +40,7 @@
 }
 
 .Watch__Orther__Left {
-  width: calc(68% - 12px);
+  width: calc(70% - 12px);
   border-right: 1px solid var(--main-dark-4);
   margin-right: 12px;
 }
@@ -40,16 +51,17 @@
 }
 
 .Watch__Orther__Right {
-  width: 32%;
+  width: 30%;
 }
 
 @media only screen and (max-width: 800px) {
   .Watch__Orther {
-    display: block;
+    flex-direction: column;
   }
 
   .Watch__Orther__Left {
     width: 100%;
+    margin-bottom: 32px;
   }
 
   .Watch__Orther__Right {
@@ -57,7 +69,8 @@
   }
 
   .Watch__PlaylistPlayer {
-    display: block;
+    flex-direction: column;
+    height: auto;
   }
 
   .Watch__PlaylistPlayer .Watch-Player {
@@ -66,5 +79,6 @@
 
   .Watch__PlaylistPlayer .Watch-Playlist {
     width: 100%;
+    height: 50vh;
   }
 }

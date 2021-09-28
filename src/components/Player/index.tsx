@@ -10,13 +10,13 @@ interface PlayerProps {
 
 function Player({ className, videoUrl }: PlayerProps) {
   return (
-    <div className={`Player__Container ${className || ''}`} style={{ backgroundColor: 'black' }}>
+    <div className={`PlayerWrapper ${className || ''}`}>
       <ReactPlayer
-        className="Player"
+        className={`Player`}
         url={videoUrl}
         controls
-        height="100%"
         width="100%"
+        height="100%"
       ></ReactPlayer>
     </div>
   );

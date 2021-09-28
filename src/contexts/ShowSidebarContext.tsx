@@ -1,5 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
+
+import useUpdateEffect from '@hooks/useUpdateEffect';
 
 const ShowSidebarContext = React.createContext<
   [boolean, React.Dispatch<React.SetStateAction<boolean>>]
@@ -13,7 +16,10 @@ export function ShowSidebarProvider(props: { children?: React.ReactNode }) {
   const isWidthUnder900 = useMediaQuery({ maxWidth: 900 });
   const [showSidebar, setShowSidebar] = useState(!isWidthUnder900);
 
-  useEffect(() => {
+  const { pathname } = useLocation();
+
+  useUpdateEffect(() => {
+    if (pathname.match(/^\/watch\/\w+\/playlist\/\d+$/g)) return;
     setShowSidebar(!isWidthUnder900);
   }, [isWidthUnder900]);
 

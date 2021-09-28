@@ -10,14 +10,16 @@ import PlaylistVideo from './PlaylistVideo';
 
 import './PlaylistVideos.css';
 import { useSetLoading } from '@contexts/LoadingContext';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 interface PlaylistVideosProps {
-  playlistId: number;
+  playlist: IPlaylist;
   className?: string;
 }
 
-function PlaylistVideos({ playlistId, className }: PlaylistVideosProps) {
-  const [playlist, setPlaylist] = useState<IPlaylist | null>(null);
+const step = 10;
+
+function PlaylistVideos({ playlist, className }: PlaylistVideosProps) {
   const [videos, setVideos] = useState<Array<IVideo>>([]);
 
   const { showConfirm } = useShowConfirm();
@@ -27,21 +29,16 @@ function PlaylistVideos({ playlistId, className }: PlaylistVideosProps) {
   useEffect(() => {
     setLoading(true);
     playlistApi
-      .getPlaylistVideos(+playlistId)
+      .getPlaylistVideos(playlist.id, { offset: 0, limit: step })
       .then(setVideos)
       .finally(() => setLoading(false));
-    setLoading(true);
-    playlistApi
-      .getPlaylist(+playlistId)
-      .then(setPlaylist)
-      .finally(() => setLoading(false));
-  }, [playlistId, setLoading]);
+  }, [playlist.id, setLoading]);
 
   function handleRemovePlaylistVideo(video: IVideo) {
     if (playlist === null) return;
-    showConfirm('Bạn có muốn xóa Video này khỏi Playlist ' + playlist.name, () =>
+    showConfirm(`Bạn có muốn xóa Video ${video.title} khỏi Playlist <${playlist.name}>`, () =>
       playlistApi
-        .removeVideoFromPlaylist(playlistId, video.id)
+        .removeVideoFromPlaylist(playlist.id, video.id)
         .then(() => {
           setVideos(videos.filter((v) => v.id !== video.id));
           pushMessage('Đã xóa Video khỏi Playlist');
@@ -50,23 +47,39 @@ function PlaylistVideos({ playlistId, className }: PlaylistVideosProps) {
     );
   }
 
+  async function loadPlaylistVideos() {
+    const _videos = await playlistApi.getPlaylistVideos(playlist.id, {
+      limit: step,
+      offset: videos.length,
+    });
+    setVideos([...videos, ..._videos]);
+  }
+
   if (playlist === null) return null;
   return (
     <div className={`PlaylistVideos ${className || ''}`}>
       <div className="PlaylistVideos__Header">
-        <div className="PVH-Name">{playlist.name}</div>
+        <div className="PVH-Name App-Text1Line">{playlist.name}</div>
         <div className="PVH-TotalVideos">{playlist.totalVideos} videos</div>
       </div>
-      <div className="playlistVideos__Container">
-        {videos.map((video, i) => (
-          <PlaylistVideo
-            key={video.id}
-            video={video}
-            playlistId={playlistId}
-            number={i + 1}
-            handleRemovePlaylistVideo={handleRemovePlaylistVideo}
-          />
-        ))}
+      <div id="playlistVideos__Container">
+        <InfiniteScroll
+          dataLength={videos.length}
+          next={loadPlaylistVideos}
+          hasMore={true}
+          loader={null}
+          scrollableTarget="playlistVideos__Container"
+        >
+          {videos.map((video, i) => (
+            <PlaylistVideo
+              key={video.id}
+              video={video}
+              playlistId={playlist.id}
+              number={i + 1}
+              handleRemovePlaylistVideo={handleRemovePlaylistVideo}
+            />
+          ))}
+        </InfiniteScroll>
       </div>
     </div>
   );

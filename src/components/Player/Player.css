@@ -1,11 +1,3 @@
-.Player__Container {
-  position: relative;
-  padding-top: 47%;
-  height: 0px;
-}
-
 .Player {
-  position: absolute;
-  top: 0;
-  left: 0;
+  background-color: black;
 }
