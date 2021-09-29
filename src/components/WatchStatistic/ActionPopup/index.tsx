@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { PlaylistAdd, Delete, Edit, Block, Timeline } from '@material-ui/icons';
+import { PlaylistAdd, Delete, Block, Timeline } from '@material-ui/icons';
 
 import videoApi from '@api/videoApi';
 import { useAuth } from '@contexts/AuthContext';
@@ -46,12 +46,6 @@ function ActionPopup(props: ActionPopupProps) {
         <div className="ActionPopup-Action">
           <Timeline />
           <div className="ActionPopup-Action-Text">Tổng quan Video</div>
-        </div>
-      )}
-      {user.username === video.uploadedBy.username && (
-        <div className="ActionPopup-Action">
-          <Edit />
-          <div className="ActionPopup-Action-Text">Sửa Video</div>
         </div>
       )}
       {user.username === video.uploadedBy.username && (

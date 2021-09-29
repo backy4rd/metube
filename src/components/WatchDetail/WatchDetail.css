@@ -5,6 +5,9 @@
 .WatchDetail > * {
   margin-bottom: 12px;
 }
+.WatchDetail__Info {
+  margin-right: 12px;
+}
 .WatchDetail__Info-Title {
   margin-bottom: 8px;
   font-size: 18px;
@@ -29,6 +32,34 @@
   flex-grow: 1;
 }
 
+.WatchDetail__StatisticAndAction {
+  display: flex;
+  align-items: center;
+}
+
+.WDSAA__Actions {
+  margin-left: auto;
+  margin-right: 8px;
+  display: flex;
+  align-items: center;
+}
+
+/* edit button */
+.WDSAA__Actions-Item.App-GreenButton,
+.WDSAA__Actions-Item.App-GreyButton {
+  padding: 6px 12px;
+  margin: 0 4px;
+}
+
+.WDSAA__Actions-Item {
+  cursor: pointer;
+  margin: 0 4px;
+}
+
+#WDSAA-Actions:hover > svg {
+  color: var(--main-red-1);
+}
+
 .WatchDetail__User__Left:hover .WatchDetail__User__Left-Username {
   color: var(--main-red-1);
 }
@@ -37,47 +68,22 @@
   margin-right: 6px;
 }
 
-.WatchDetail__Statistic {
-  display: flex;
-  align-items: center;
-}
-
-.WatchDetail__Statistic > * {
-  margin: 4px 0;
-}
-
-.WDS-Item {
-  margin-right: 16px;
-  display: flex;
-  align-items: center;
-}
-
-.WDS-Item-Button {
-  cursor: pointer;
-}
-
-.WDS-Item > *:nth-child(1) {
-  margin-right: 4px;
-  color: #ddd;
-  font-size: 22px;
-}
-
-.WDS-Disike {
-  color: var(--main-red-1) !important;
-}
-
-.WDS-Like {
-  color: var(--main-green-1) !important;
-}
-
-#WDS-Item-Actions {
-  margin-left: auto;
-}
-
-#WDS-Item-Actions:hover > svg {
-  color: var(--main-red-1) !important;
-}
-
 .WatchDetail__Description {
-  margin-left: 32px;
+  margin: 0 12px 8px 32px;
+}
+
+.WatchDetail input.App-TextInput,
+.WatchDetail textarea.App-TextInput {
+  width: 100%;
+}
+
+.WDC-Select {
+  margin: 0 12px 12px 32px;
+}
+
+.WatchDetail-ThumbnailUpload {
+  padding: 6px 12px;
+  margin: 0 12px 12px 32px;
+  width: fit-content;
+  display: block;
 }

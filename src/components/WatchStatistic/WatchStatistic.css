@@ -1,0 +1,40 @@
+.WatchStatistic {
+  display: flex;
+  align-items: center;
+}
+
+.WatchStatistic > * {
+  margin: 4px 0;
+}
+
+.WatchStatistic-Item {
+  margin-right: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.WatchStatistic-Item-Button {
+  cursor: pointer;
+}
+
+.WatchStatistic-Item > *:nth-child(1) {
+  margin-right: 4px;
+  color: #ddd;
+  font-size: 22px;
+}
+
+.WatchStatistic-Disike {
+  color: var(--main-red-1) !important;
+}
+
+.WatchStatistic-Like {
+  color: var(--main-green-1) !important;
+}
+
+#WatchStatistic-Item-Actions {
+  margin-left: auto;
+}
+
+#WatchStatistic-Item-Actions:hover > svg {
+  color: var(--main-red-1) !important;
+}

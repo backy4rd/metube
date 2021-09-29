@@ -21,7 +21,9 @@ client.interceptors.request.use((config) => {
       case 'multipart/form-data':
         const form = new FormData();
         for (const key in config.data) {
-          form.append(key, config.data[key]);
+          if (config.data[key]) {
+            form.append(key, config.data[key]);
+          }
         }
         config.data = form;
         break;

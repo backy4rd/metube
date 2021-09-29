@@ -34,25 +34,27 @@ function UploadFile({ setVideoFile }: Props) {
 
   return (
     <div
-      className={'uploadFile' + (isDragIn ? ' dragIn' : '')}
+      className={'uploadFileWrapper' + (isDragIn ? ' dragIn' : '')}
       onDragOver={handleDragOver}
       onDrop={handleDropFile}
       onDragLeave={handleDragLeave}
     >
-      <UploadIcon />
-      <h1>Kéo thả video để tải lên</h1>
-      <label>
-        <div className="App-GreenButton" style={{ padding: '8px 24px' }}>
-          Hoặc chọn video để tải lên
-        </div>
+      <div className="uploadFile">
+        <UploadIcon />
+        <h1>Kéo thả video để tải lên</h1>
+        <label>
+          <div className="App-GreenButton" style={{ padding: '8px 24px' }}>
+            Hoặc chọn video để tải lên
+          </div>
 
-        <input
-          type="file"
-          accept="video/*"
-          onChange={(e) => setVideoFile(e.target.files ? e.target.files[0] : null)}
-          style={{ display: 'none' }}
-        />
-      </label>
+          <input
+            type="file"
+            accept="video/*"
+            onChange={(e) => setVideoFile(e.target.files ? e.target.files[0] : null)}
+            style={{ display: 'none' }}
+          />
+        </label>
+      </div>
     </div>
   );
 }

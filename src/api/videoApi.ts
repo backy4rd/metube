@@ -6,6 +6,13 @@ import Category from '../interfaces/ICategory';
 import ApiMessage from '../interfaces/IApiMessage';
 import Range from '../interfaces/IRange';
 
+interface PatchVideoPayload {
+  title: string;
+  description: string;
+  categories: string;
+  thumbnail: File;
+}
+
 class VideoApi {
   public getVideos(range?: Range, category?: string): Promise<Video[]> {
     return client.get('/videos/', { params: { ...range, category, sort: 'newest' } });
@@ -76,6 +83,12 @@ class VideoApi {
       .catch(options?.onUploadError);
 
     return () => source.cancel('Upload cancelled');
+  }
+
+  public updateVideo(videoId: string, data: Partial<PatchVideoPayload>): Promise<ApiMessage> {
+    return client.patch('/videos/' + videoId, data, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
   }
 }
 

@@ -1,109 +1,115 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  PlayCircleFilledWhiteOutlined,
-  MessageOutlined,
-  ThumbUpOutlined,
-  ThumbDownOutlined,
-  ThumbUp,
-  ThumbDown,
-  MoreVert,
-} from '@material-ui/icons';
+import queryString from 'query-string';
+import { MoreVert } from '@material-ui/icons';
 
+import ICategory from '@interfaces/ICategory';
 import IVideo from '@interfaces/IVideo';
-import { numberWithCommas } from '@utils/number';
-import videoApi from '@api/videoApi';
 import { useAuth } from '@contexts/AuthContext';
-import { useSetShowAuthForm } from '@contexts/ShowAuthFormContext';
-import { usePushMessage } from '@contexts/MessageQueueContext';
 
 import Avatar from '@components/Avatar';
 import SubscribeButton from '@components/SubscribeButton';
 import EllipsisText from '@components/EllipsisText';
-import ActionPopup from './ActionPopup';
+import Categories from '@components/Categories';
+import WatchStatistic from '@components/WatchStatistic';
+import ActionPopup from '@components/WatchStatistic/ActionPopup';
 
 import './WatchDetail.css';
+import { TextareaAutosize } from '@material-ui/core';
+import { useSetLoading } from '@contexts/LoadingContext';
+import videoApi from '@api/videoApi';
+import { usePushMessage } from '@contexts/MessageQueueContext';
+import { useCategories } from '@contexts/CategoriesContext';
 
 interface WatchDetailProps {
   video: IVideo;
 }
 
 function WatchDetail({ video }: WatchDetailProps) {
-  const [react, setReact] = useState<null | boolean>(video.react);
-  const [like, setLike] = useState<number>(video.like);
-  const [dislike, setDislike] = useState<number>(video.dislike);
-  const reacting = useRef(false);
+  const [title, setTitle] = useState(video.title);
+  const [categories, setCategories] = useState<Array<ICategory>>(video.categories);
+  const [description, setDescription] = useState<string>(video.description || '');
+  const [thumbnail, setThumbnail] = useState<File | null>(null);
+  const [editing, setEditing] = useState(false);
 
   const { user } = useAuth();
-  const setShowAuthForm = useSetShowAuthForm();
+  const setLoading = useSetLoading();
   const pushMessage = usePushMessage();
+  const allCategories = useCategories();
 
   useEffect(() => {
-    setLike(video.like);
-    setDislike(video.dislike);
-    setReact(video.react);
+    setTitle(video.title);
+    setDescription(video.description || '');
+    setCategories(video.categories);
+    setThumbnail(null);
+    setEditing(false);
   }, [video]);
 
-  async function doReact(action: 'like' | 'dislike' | 'remove') {
-    if (!user) return setShowAuthForm(true);
-    if (reacting.current === true) return;
+  function handleDiscardEditing() {
+    setTitle(video.title);
+    setDescription(video.description || '');
+    setCategories(video.categories);
+    setThumbnail(null);
+    setEditing(false);
+  }
 
-    reacting.current = true;
-    switch (action) {
-      case 'like':
-        try {
-          if (react === false) setDislike(dislike - 1);
-          setLike(like + 1);
-          setReact(true);
-          await videoApi.reactVideo(video.id, true);
-        } catch {
-          if (react === false) setDislike(dislike);
-          setLike(like);
-          setReact(react);
-          pushMessage('Like không thành công!');
-        } finally {
-          break;
-        }
+  function handleSelectCategory(e: React.ChangeEvent<HTMLSelectElement>) {
+    const category = allCategories.find((c) => c.category === e.target.value) as ICategory;
+    if (categories.find((c) => c.id === category.id)) return;
+    setCategories([category, ...categories]);
+  }
 
-      case 'dislike':
-        try {
-          if (react === true) setLike(like - 1);
-          setDislike(dislike + 1);
-          setReact(false);
-          await videoApi.reactVideo(video.id, false);
-        } catch {
-          if (react === true) setLike(like);
-          setDislike(dislike);
-          setReact(react);
-          pushMessage('Dislike không thành công!');
-        } finally {
-          break;
-        }
+  function handleRemoveCategory(category: ICategory) {
+    setCategories(categories.filter((c) => c !== category));
+  }
 
-      case 'remove':
-        try {
-          if (react === true) setLike(like - 1);
-          else if (react === false) setDislike(dislike - 1);
-          setReact(null);
-          await videoApi.removeVideoReaction(video.id);
-        } catch {
-          if (react === true) setLike(like);
-          else if (react === false) setDislike(dislike);
-          setReact(react);
-          pushMessage(`Bỏ ${react ? 'like' : 'dislike'} không thành công!`);
-        } finally {
-          break;
-        }
+  async function handleSaveChange() {
+    try {
+      setLoading(true);
+      if (title === '') throw new Error();
+      await videoApi.updateVideo(video.id, {
+        title: title,
+        description: description,
+        categories: categories.map((c) => c.category).join(','),
+        thumbnail: thumbnail || undefined,
+      });
+      video.title = title;
+      video.description = description;
+      video.categories = categories;
+      setEditing(false);
+      pushMessage('Cập nhật Video thành công!');
+    } catch {
+      pushMessage('Cập nhật Video không thành công!');
+    } finally {
+      setLoading(false);
     }
-    reacting.current = false;
+  }
+
+  function processPath(category: ICategory): string {
+    const query = {
+      category: category.category,
+    };
+    return '/?' + queryString.stringify(query);
   }
 
   const uploadedAt = video.uploadedAt.toString();
+  const isOwner = user && user.username === video.uploadedBy.username;
 
   return (
     <div className="WatchDetail">
       <div className="WatchDetail__Info">
-        <div className="WatchDetail__Info-Title">{video.title}</div>
+        {editing ? (
+          <input
+            type="text"
+            className="App-TextInput WatchDetail__Info-Title"
+            placeholder="Description"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            autoFocus
+          />
+        ) : (
+          <div className="WatchDetail__Info-Title">{video.title}</div>
+        )}
         <div className="WatchDetail__Info-UploadedAt">
           {uploadedAt.slice(0, uploadedAt.indexOf(' GMT'))}
         </div>
@@ -119,45 +125,83 @@ function WatchDetail({ video }: WatchDetailProps) {
         <SubscribeButton targetUser={video.uploadedBy} />
       </div>
 
-      <div className="WatchDetail__Statistic">
-        <div className="WDS-Item">
-          <PlayCircleFilledWhiteOutlined />
-          <div>{numberWithCommas(video.views)}</div>
-        </div>
+      <div className="WatchDetail__StatisticAndAction">
+        <WatchStatistic video={video} />
 
-        <div className="WDS-Item">
-          <MessageOutlined />
-          <div>{video.totalComments}</div>
-        </div>
+        <div className="WDSAA__Actions">
+          {isOwner &&
+            (editing ? (
+              <>
+                <div className="WDSAA__Actions-Item App-GreenButton" onClick={handleSaveChange}>
+                  Lưu Thay Đổi
+                </div>
+                <div className="WDSAA__Actions-Item App-GreyButton" onClick={handleDiscardEditing}>
+                  Hủy
+                </div>
+              </>
+            ) : (
+              <div className="WDSAA__Actions-Item App-GreenButton" onClick={() => setEditing(true)}>
+                Chỉnh Sửa Video
+              </div>
+            ))}
 
-        <div
-          className="WDS-Item WDS-Item-Button"
-          onClick={() => (react === true ? doReact('remove') : doReact('like'))}
-        >
-          {react === true ? <ThumbUp className="WDS-Like" /> : <ThumbUpOutlined />}
-          <div>{like}</div>
-        </div>
-
-        <div
-          className="WDS-Item WDS-Item-Button"
-          onClick={() => (react === false ? doReact('remove') : doReact('dislike'))}
-        >
-          {react === false ? <ThumbDown className="WDS-Disike" /> : <ThumbDownOutlined />}
-          <div>{dislike}</div>
-        </div>
-
-        <div id="WDS-Item-Actions" className="WDS-Item">
-          <MoreVert />
-          <ActionPopup target="WDS-Item-Actions" />
+          <div id="WDSAA-Actions" className="WDSAA__Actions-Item">
+            <MoreVert />
+            <ActionPopup target="WDSAA-Actions" />
+          </div>
         </div>
       </div>
 
+      {editing && (
+        <label className="WatchDetail-ThumbnailUpload App-GreenButton">
+          <input
+            type="file"
+            hidden
+            accept="image/*"
+            onChange={(e) => setThumbnail(e.target.files?.[0] || null)}
+          />
+          <div style={{ cursor: 'pointer' }}>{thumbnail ? thumbnail.name : 'Đổi Thumbnail...'}</div>
+        </label>
+      )}
+
       <div className="WatchDetail__Description">
-        <EllipsisText
-          text={video.description || ''}
-          lines={5}
-          ellipsis={<div className="SidebarGroup-Toggle">show more »</div>}
-        />
+        {editing ? (
+          <TextareaAutosize
+            className="App-TextInput"
+            placeholder="Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        ) : (
+          <EllipsisText
+            text={video.description || ''}
+            lines={5}
+            ellipsis={<div className="SidebarGroup-Toggle">show more »</div>}
+          />
+        )}
+      </div>
+      <div className="WatchDetail__Categories">
+        {editing ? (
+          <>
+            <select
+              className="App-TextInput WDC-Select"
+              value="blank"
+              onChange={handleSelectCategory}
+            >
+              <option disabled value="blank">
+                -- Chọn chủ đề cho video --
+              </option>
+              {allCategories.map((category) => (
+                <option key={category.id} value={category.category}>
+                  {category.category}
+                </option>
+              ))}
+            </select>
+            <Categories categories={categories} handleRemoveCategory={handleRemoveCategory} />
+          </>
+        ) : (
+          <Categories categories={video.categories} processPath={processPath} />
+        )}
       </div>
     </div>
   );

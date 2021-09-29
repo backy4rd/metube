@@ -1,19 +1,30 @@
-.uploadFile {
+.uploadFileWrapper {
   height: 100%;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
   background-color: var(--main-dark-3);
   transition: background-color 0.2s;
 }
 
-.uploadFile.dragIn {
+.uploadFileWrapper.dragIn {
   background-color: var(--main-dark-4);
-  /* border: 5px solid var(--main-light-blue); */
-  /* height: calc(100% - 10px); */
-  /* width: calc(100% - 10px); */
+}
+
+.uploadFileWrapper.dragIn .uploadFile {
+  border: 2px dashed var(--main-green-1);
+}
+
+.uploadFile {
+  padding: 8% 16%;
+  border: 2px dashed var(--main-grey-1);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  transition: border 0.2s;
 }
 
 .uploadFile h1 {
