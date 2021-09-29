@@ -16,7 +16,7 @@ class PlaylistApi {
 
   public updatePlaylist(
     playlistId: number,
-    data: Pick<Playlist, 'name'> & Pick<Playlist, 'description'>
+    data: Partial<Playlist>
   ): Promise<ApiMessage> {
     return client.patch(`/playlists/${playlistId}`, data);
   }

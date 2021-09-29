@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { useLocation } from 'react-router-dom';
 
 import IVideo from '@interfaces/IVideo';
 import IPlaylist from '@interfaces/IPlaylist';
 import playlistApi from '@api/playlistApi';
 import { useShowConfirm } from '@contexts/ConfirmContext';
 import { usePushMessage } from '@contexts/MessageQueueContext';
+import { useSetLoading } from '@contexts/LoadingContext';
+import { useSetNextVideo } from '@contexts/NextVideoContext';
 
 import PlaylistVideo from './PlaylistVideo';
 
 import './PlaylistVideos.css';
-import { useSetLoading } from '@contexts/LoadingContext';
-import InfiniteScroll from 'react-infinite-scroll-component';
 
 interface PlaylistVideosProps {
   playlist: IPlaylist;
@@ -25,6 +27,8 @@ function PlaylistVideos({ playlist, className }: PlaylistVideosProps) {
   const { showConfirm } = useShowConfirm();
   const pushMessage = usePushMessage();
   const setLoading = useSetLoading();
+  const { pathname } = useLocation();
+  const setNextVideo = useSetNextVideo();
 
   useEffect(() => {
     setLoading(true);
@@ -33,6 +37,18 @@ function PlaylistVideos({ playlist, className }: PlaylistVideosProps) {
       .then(setVideos)
       .finally(() => setLoading(false));
   }, [playlist.id, setLoading]);
+
+  useEffect(() => {
+    const playingVideoIndex = videos.findIndex(
+      (v) => `/watch/${v.id}/playlist/${playlist.id}` === pathname
+    );
+
+    if (playingVideoIndex === -1) {
+      setNextVideo(videos[0] || null);
+    } else if (playingVideoIndex + 1 < videos.length) {
+      setNextVideo(videos[playingVideoIndex + 1]);
+    }
+  }, [pathname, playlist.id, setNextVideo, videos]);
 
   function handleRemovePlaylistVideo(video: IVideo) {
     if (playlist === null) return;
@@ -74,7 +90,7 @@ function PlaylistVideos({ playlist, className }: PlaylistVideosProps) {
             <PlaylistVideo
               key={video.id}
               video={video}
-              playlistId={playlist.id}
+              playlist={playlist}
               number={i + 1}
               handleRemovePlaylistVideo={handleRemovePlaylistVideo}
             />

@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { useParams } from 'react-router-dom';
 
 import IVideo from '@interfaces/IVideo';
+import IPlaylist from '@interfaces/IPlaylist';
 import videoApi from '@api/videoApi';
+import playlistApi from '@api/playlistApi';
 import { useSetLoading } from '@contexts/LoadingContext';
 import { VideoProvider } from '@contexts/VideoContext';
+import { useShowSidebar } from '@contexts/ShowSidebarContext';
+import { NextVideoProvider } from '@contexts/NextVideoContext';
 
 import Player from '@components/Player';
 import RelateVideos from '@components/RelateVideos';
@@ -14,10 +19,6 @@ import NotFound from '@components/NotFound';
 import PlaylistVideos from '@components/PlaylistVideos';
 
 import './Watch.css';
-import { useShowSidebar } from '@contexts/ShowSidebarContext';
-import playlistApi from '@api/playlistApi';
-import IPlaylist from '@interfaces/IPlaylist';
-import { useMediaQuery } from 'react-responsive';
 
 function Watch() {
   const [video, setVideo] = useState<IVideo | null | undefined>(undefined);
@@ -64,8 +65,14 @@ function Watch() {
     <VideoProvider video={video}>
       <div className="Watch">
         <div className={playlist ? 'Watch__PlaylistPlayer' : 'Watch__VideoPlayer'}>
-          <Player className="Watch-Player" videoUrl={video.videoPath} />
-          {playlist && <PlaylistVideos className="Watch-Playlist" playlist={playlist} />}
+          <NextVideoProvider>
+            <Player
+              className="Watch-Player"
+              videoUrl={video.videoPath}
+              playlist={playlist || undefined}
+            />
+            {playlist && <PlaylistVideos className="Watch-Playlist" playlist={playlist} />}
+          </NextVideoProvider>
         </div>
         <div className="Watch__Orther">
           <div className="Watch__Orther__Left">

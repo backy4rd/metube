@@ -3,6 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { Delete, PlayArrowOutlined } from '@material-ui/icons';
 
 import IVideo from '@interfaces/IVideo';
+import { useAuth } from '@contexts/AuthContext';
+import IPlaylist from '@interfaces/IPlaylist';
 
 import VideoThumbnail from '@components/VideoThumbnail';
 
@@ -10,20 +12,16 @@ import './PlaylistVideo.css';
 
 interface PlaylistVideoProps {
   video: IVideo;
-  playlistId: number;
+  playlist: IPlaylist;
   number: number;
   handleRemovePlaylistVideo?: (video: IVideo) => void;
 }
 
-function PlaylistVideo({
-  video,
-  playlistId,
-  number,
-  handleRemovePlaylistVideo,
-}: PlaylistVideoProps) {
+function PlaylistVideo({ video, playlist, number, handleRemovePlaylistVideo }: PlaylistVideoProps) {
   const { pathname } = useLocation();
+  const { user } = useAuth();
 
-  const to = `/watch/${video.id}/playlist/${playlistId}`;
+  const to = `/watch/${video.id}/playlist/${playlist.id}`;
 
   return (
     <div className={`PlaylistVideoWrapper ${pathname === to ? 'active' : ''}`}>
@@ -36,7 +34,9 @@ function PlaylistVideo({
         </div>
       </Link>
       <div className="PlaylistVideo-Remove">
-        <Delete onClick={() => handleRemovePlaylistVideo?.(video)} />
+        {user && user.username === playlist.createdBy.username && (
+          <Delete onClick={() => handleRemovePlaylistVideo?.(video)} />
+        )}
       </div>
     </div>
   );

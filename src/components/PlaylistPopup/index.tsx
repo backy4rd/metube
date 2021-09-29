@@ -32,6 +32,7 @@ function PlaylistPopup() {
       await playlistApi.addVideoToPlaylist(playlist.id, videoId);
       hidePlaylistPopup();
       pushMessage('Đã thêm vào ' + playlist.name);
+      setPlaylistName('');
     } catch (err) {
       if (err.data?.fail?.message === 'video already exist in playlist') {
         pushMessage('Video đã tồn tại trong playlist');

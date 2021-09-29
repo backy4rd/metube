@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import IPlaylist from '@interfaces/IPlaylist';
-import { useSetLoading } from '@contexts/LoadingContext';
 import playlistApi from '@api/playlistApi';
+import { useSetLoading } from '@contexts/LoadingContext';
+import { NextVideoProvider } from '@contexts/NextVideoContext';
 
 import PlaylistVideos from '@components/PlaylistVideos';
-import PlaylistInfo from './PlaylistEdit';
+import PlaylistInfo from './PlaylistInfo';
 
 import './Playlist.css';
 
@@ -27,8 +28,10 @@ function Playlist() {
   if (playlist === null) return null;
   return (
     <div className="Playlist">
-      <PlaylistInfo className="Playlist-Edit" playlist={playlist} />
-      <PlaylistVideos className="Playlist-Videos" playlist={playlist} />
+      <NextVideoProvider>
+        <PlaylistInfo className="Playlist-Edit" playlist={playlist} />
+        <PlaylistVideos className="Playlist-Videos" playlist={playlist} />
+      </NextVideoProvider>
     </div>
   );
 }

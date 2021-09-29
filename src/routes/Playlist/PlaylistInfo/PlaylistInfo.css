@@ -1,0 +1,31 @@
+.PlaylistEdit-Item {
+  margin-bottom: 8px;
+}
+
+.PlaylistInfo-Label {
+  margin-bottom: 4px;
+}
+
+.PlaylistEdit-Text {
+  width: 100%;
+}
+
+.PlaylistInfo__Buttons {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.PIB-Button svg {
+  font-size: 20px;
+}
+
+.PIB-Button {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+.PIB-Button:hover {
+  color: var(--main-red-1);
+}
