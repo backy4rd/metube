@@ -6,6 +6,7 @@ import { useSetLoading } from '@contexts/LoadingContext';
 import { useCategories } from '@contexts/CategoriesContext';
 import { useHomeVideos } from '@contexts/HomeVideosContext';
 import IVideo from '@interfaces/IVideo';
+import { isSkeleton } from '@interfaces/ISkeleton';
 import videoApi from '@api/videoApi';
 import useQuery from '@hooks/useQuery';
 import ICategory from '@interfaces/ICategory';
@@ -42,7 +43,7 @@ function Home() {
     }
 
     if (
-      detectCategory(videos.filter((v) => !!v) as Array<IVideo>) !== qCategory ||
+      detectCategory(videos.filter((v) => !isSkeleton(v)) as Array<IVideo>) !== qCategory ||
       !isMounting.current ||
       videos.length === 0
     ) {
@@ -74,7 +75,7 @@ function Home() {
 
       <div className="Home__Container">
         <InfiniteScroll
-          dataLength={videos.filter((v) => !!v).length}
+          dataLength={videos.filter((v) => !isSkeleton(v)).length}
           next={loadVideos}
           hasMore={true}
           loader={null}

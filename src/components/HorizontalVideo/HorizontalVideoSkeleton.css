@@ -1,0 +1,36 @@
+.HorizontalVideoSkeleton {
+  clear: both;
+  margin: 12px 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.HorizontalVideoSkeleton-Left {
+  width: 40%;
+  float: left;
+}
+
+.HorizontalVideoSkeleton-ThumbnailWrapper {
+  position: relative;
+  padding-top: 56.25%;
+  width: 100%;
+}
+
+.HorizontalVideoSkeleton-Thumbnail {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.HorizontalVideoSkeleton-Right {
+  float: left;
+  margin-left: 8px;
+  width: calc(60% - 8px);
+}
+.HorizontalVideoSkeleton-User {
+  margin: 4px 0;
+  display: flex;
+  align-items: center;
+}

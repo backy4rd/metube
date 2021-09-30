@@ -3,7 +3,9 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { DeleteForever } from '@material-ui/icons';
 
 import IVideo from '@interfaces/IVideo';
+import ISkeleton, { isSkeleton } from '@interfaces/ISkeleton';
 import { isToday, isYesterday } from '@utils/time';
+import generateSkeletons from '@utils/generateSkeleton';
 import historyApi from '@api/historyApi';
 import { useSetLoading } from '@contexts/LoadingContext';
 import { useShowConfirm } from '@contexts/ConfirmContext';
@@ -16,19 +18,21 @@ import './History.css';
 const step = 10;
 
 function History() {
-  const [videos, setVideos] = useState<IVideo[]>([]);
+  const [videos, setVideos] = useState<Array<IVideo | ISkeleton>>([]);
 
   const setLoading = useSetLoading();
   const { showConfirm } = useShowConfirm();
   const pushMessage = usePushMessage();
 
   async function loadVideos() {
+    setVideos([...videos, ...generateSkeletons(step / 2)]);
     const _videos = await historyApi.getWatchedVideos({ limit: step, offset: videos.length });
     setVideos([...videos, ..._videos]);
   }
 
   useEffect(() => {
     setLoading(true);
+    setVideos(generateSkeletons(step));
     historyApi
       .getWatchedVideos({ limit: step, offset: 0 })
       .then(setVideos)
@@ -36,17 +40,17 @@ function History() {
     // eslint-disable-next-line
   }, []);
 
-  let todayVideos = [];
-  let yesterdayVideos = [];
-  let olderVideos = [];
+  let todayVideos: Array<IVideo> = [];
+  let yesterdayVideos: Array<IVideo> = [];
+  let olderVideos: Array<IVideo | ISkeleton> = [];
 
   for (const video of videos) {
-    if (isToday(video.watchedAt)) {
+    if (!isSkeleton(video) && isToday(video.watchedAt)) {
       todayVideos.push(video);
       continue;
     }
 
-    if (isYesterday(video.watchedAt)) {
+    if (!isSkeleton(video) && isYesterday(video.watchedAt)) {
       yesterdayVideos.push(video);
       continue;
     }
@@ -75,7 +79,7 @@ function History() {
       </div>
       <div className="History__Videos">
         <InfiniteScroll
-          dataLength={videos.length}
+          dataLength={videos.filter((v) => !isSkeleton(v)).length}
           next={loadVideos}
           hasMore={true}
           loader={<></>}

@@ -1,14 +1,14 @@
 import React from 'react';
 
 import IVideo from '@interfaces/IVideo';
+import ISkeleton, { isSkeleton } from '@interfaces/ISkeleton';
 
-import { VideoProvider } from '@contexts/VideoContext';
 import HorizontalVideo from '@components/HorizontalVideo';
 
 import './HorizontalVideos.css';
 
 interface HorizontalVideosProps {
-  videos: Array<IVideo>;
+  videos: Array<IVideo | ISkeleton>;
   showWatchTimestamp?: boolean;
   extend?: boolean;
 }
@@ -21,9 +21,12 @@ function HorizontalVideos({
   return (
     <div className="HorizontalVideos">
       {videos.map((video) => (
-        <VideoProvider key={video.id} video={video}>
-          <HorizontalVideo showWatchTimestamp={showWatchTimestamp} extend={extend} />
-        </VideoProvider>
+        <HorizontalVideo
+          key={isSkeleton(video) ? video.bone : video.id}
+          video={video}
+          showWatchTimestamp={showWatchTimestamp}
+          extend={extend}
+        />
       ))}
     </div>
   );

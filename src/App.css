@@ -11,9 +11,9 @@
   overflow: unset !important;
 }
 
-/* .MuiSkeleton-root { */
-/*   background-color: var(--main-dark-4) !important; */
-/* } */
+.MuiSkeleton-root {
+  background-color: rgba(255, 255, 255, 0.11) !important;
+}
 
 .App-BlueClickableText {
   color: var(--main-blue-1);
@@ -80,20 +80,22 @@
   border: 1px solid var(--main-green-1);
 }
 
-.App-Text2Line {
+.App-Text1Line,
+.App-Text2Line,
+.App-Text3Line {
   overflow: hidden;
   text-overflow: ellipsis;
   word-break: break-word;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2; /* number of lines to show */
 }
 
 .App-Text1Line {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  word-break: break-word;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
   -webkit-line-clamp: 1; /* number of lines to show */
+}
+.App-Text2Line {
+  -webkit-line-clamp: 2; /* number of lines to show */
+}
+.App-Text3Line {
+  -webkit-line-clamp: 3; /* number of lines to show */
 }

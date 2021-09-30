@@ -1,0 +1,29 @@
+
+.WatchSkeleton {
+  margin: 18px 3% 3%;
+}
+
+@media only screen and (min-width: 1400px) {
+  .WatchSkeleton {
+    margin: 18px 10% 10%;
+  }
+}
+
+.WatchSkeleton-PlayerWrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 500px;
+  margin-bottom: 16px;
+}
+
+@media only screen and (max-width: 800px) {
+  .WatchSkeleton-PlayerWrapper {
+    padding-top: 48%;
+  }
+}
+
+.WatchSkeleton-Player {
+  position: absolute;
+  left: 0;
+  top: 0;
+}

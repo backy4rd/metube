@@ -25,7 +25,11 @@ function ActionPopup(props: ActionPopupProps) {
   const history = useHistory();
   const { showPlaylistPopup } = usePlaylistPopup();
 
+  if (!user) return null;
+  if (!video) return null;
+
   async function handleRemoveVideo() {
+    if (!video) return;
     try {
       videoApi.removeVideo(video.id);
       pushMessage('Xóa video thành công!');
@@ -35,7 +39,6 @@ function ActionPopup(props: ActionPopupProps) {
     }
   }
 
-  if (!user) return null;
   return (
     <Popup className="ActionPopup" target={props.target}>
       <div className="ActionPopup-Action" onClick={() => showPlaylistPopup(video.id)}>

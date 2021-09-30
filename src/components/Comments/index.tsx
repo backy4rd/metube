@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-import IVideo from '@interfaces/IVideo';
 import IComment from '@interfaces/IComment';
 import commentApi from '@api/commentApi';
-import { VideoProvider } from '@contexts/VideoContext';
 import { useAuth } from '@contexts/AuthContext';
 import { usePushMessage } from '@contexts/MessageQueueContext';
 import fulfillNewComment from '@utils/fulfillNewComment';
@@ -13,28 +11,24 @@ import CommentInput from '@components/CommentInput';
 import Spinner from '@components/Spinner';
 
 import './Comments.css';
-
-interface CommentsProps {
-  video: IVideo;
-}
+import { useVideo } from '@contexts/VideoContext';
 
 const step = 10;
 
-function Comments({ video }: CommentsProps) {
+function Comments() {
   const [comments, setComments] = useState<Array<IComment>>([]);
   const [isLoadable, setIsLoadable] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const video = useVideo();
   const { user } = useAuth();
   const pushMessage = usePushMessage();
 
   useEffect(() => {
+    if (!video) return;
     setComments([]);
-    setIsLoadable(false);
-  }, [video.id]);
-
-  useEffect(() => {
     setLoading(true);
+    setIsLoadable(false);
     commentApi
       .getComments(video.id, { offset: 0, limit: step })
       .then((_comments) => {
@@ -42,9 +36,10 @@ function Comments({ video }: CommentsProps) {
         setComments(_comments);
       })
       .finally(() => setLoading(false));
-  }, [video.id]);
+  }, [video]);
 
   async function loadComments() {
+    if (!video) return;
     setLoading(true);
     const _comments = await commentApi.getComments(video.id, {
       offset: comments.length,
@@ -56,7 +51,7 @@ function Comments({ video }: CommentsProps) {
   }
 
   async function handleSubbmitNewComment(content: string) {
-    if (!user) return;
+    if (!user || !video) return;
     try {
       let newComment = await commentApi.postComment(video.id, content);
       setComments([fulfillNewComment(newComment, user), ...comments]);
@@ -66,6 +61,7 @@ function Comments({ video }: CommentsProps) {
   }
 
   async function handleRemoveComment(comment: IComment) {
+    if (!video) return;
     try {
       await commentApi.removeComment(video.id, comment.id);
       setComments(comments.filter((c) => c !== comment));
@@ -74,6 +70,7 @@ function Comments({ video }: CommentsProps) {
     }
   }
 
+  if (!video) return null;
   return (
     <div className="Comments">
       {user && (
@@ -84,11 +81,14 @@ function Comments({ video }: CommentsProps) {
         />
       )}
 
-      <VideoProvider video={video}>
-        {comments.map((comment) => (
-          <Comment key={comment.id} comment={comment} handleRemoveComment={handleRemoveComment} />
-        ))}
-      </VideoProvider>
+      {comments.map((comment) => (
+        <Comment
+          key={comment.id}
+          video={video}
+          comment={comment}
+          handleRemoveComment={handleRemoveComment}
+        />
+      ))}
 
       {isLoadable && !loading && (
         <div onClick={loadComments} className="App-BlueClickableText" style={{ marginTop: 6 }}>

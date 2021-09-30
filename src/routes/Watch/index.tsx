@@ -59,30 +59,27 @@ function Watch() {
       .finally(() => setLoading(false));
   }, [playlistId, setLoading]);
 
-  if (video === undefined || (playlistId && playlist === undefined)) return null;
   if (video === null || (playlistId && playlist === null)) return <NotFound />;
   return (
     <VideoProvider video={video}>
       <div className="Watch">
-        <div className={playlist ? 'Watch__PlaylistPlayer' : 'Watch__VideoPlayer'}>
+        <div className={playlistId ? 'Watch__PlaylistPlayer' : 'Watch__VideoPlayer'}>
           <NextVideoProvider>
-            <Player
-              className="Watch-Player"
-              videoUrl={video.videoPath}
-              playlist={playlist || undefined}
-            />
+            <Player className="Watch-Player" playlist={playlist || undefined} />
             {playlist && <PlaylistVideos className="Watch-Playlist" playlist={playlist} />}
           </NextVideoProvider>
         </div>
         <div className="Watch__Orther">
           <div className="Watch__Orther__Left">
-            <WatchDetail video={video} />
-            <div className="Watch__Orther__Left-CommentTitle">{video.totalComments} Comments</div>
-            <Comments video={video} />
+            <WatchDetail />
+            <div className="Watch__Orther__Left-CommentTitle">
+              {video?.totalComments || ''} Comments
+            </div>
+            <Comments />
           </div>
           <div className="Watch__Orther__Right">
             <div>Video có liên quan</div>
-            <RelateVideos video={video} />
+            <RelateVideos videoId={videoId} />
           </div>
         </div>
       </div>

@@ -1,10 +1,12 @@
 import React from 'react';
 import { Route, RouteProps } from 'react-router-dom';
 import { AccountCircleOutlined } from '@material-ui/icons';
+import { Skeleton } from '@mui/material';
 
 import { useAuth } from '@contexts/AuthContext';
 
 import './AuthorizedRoute.css';
+
 
 function Unauthorized() {
   return (
@@ -18,12 +20,24 @@ function Unauthorized() {
   );
 }
 
+function AuthorizedRouteSkeleton() {
+  return (
+    <Skeleton
+      id="AuthorizedRouteSkeleton"
+      variant="rectangular"
+      animation="wave"
+      height="100%"
+      width="100%"
+    />
+  );
+}
+
 function AuthorizedRoute(props: RouteProps) {
   const { user } = useAuth();
 
   let component;
   if (user === undefined) {
-    component = undefined;
+    component = AuthorizedRouteSkeleton;
   } else if (user === null) {
     component = Unauthorized;
   } else {

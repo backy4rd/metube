@@ -3,8 +3,8 @@ import { ThumbUpOutlined, ThumbDownOutlined, ThumbUp, ThumbDown } from '@materia
 
 import commentApi from '@api/commentApi';
 import IComment from '@interfaces/IComment';
+import IVideo from '@interfaces/IVideo';
 import { useAuth } from '@contexts/AuthContext';
-import { useVideo } from '@contexts/VideoContext';
 import { useSetShowAuthForm } from '@contexts/ShowAuthFormContext';
 import { usePushMessage } from '@contexts/MessageQueueContext';
 
@@ -12,16 +12,16 @@ import './CommentLikeDislike.css';
 
 interface CommentLikeDislikeProps {
   comment: IComment;
+  video: IVideo;
 }
 
-function CommentLikeDislike({ comment }: CommentLikeDislikeProps) {
+function CommentLikeDislike({ video, comment }: CommentLikeDislikeProps) {
   const [react, setReact] = useState<null | boolean>(comment.react);
   const [like, setLike] = useState<number>(comment.like);
   const [dislike, setDislike] = useState<number>(comment.dislike);
   const reacting = useRef(false);
 
   const { user } = useAuth();
-  const video = useVideo();
   const setShowAuthForm = useSetShowAuthForm();
   const pushMessage = usePushMessage();
 

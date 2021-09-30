@@ -40,7 +40,7 @@ function ChannelSubscriptions() {
 
   return (
     <InfiniteScroll
-      dataLength={subscriptions.length}
+      dataLength={subscriptions.filter((s) => !isSkeleton(s)).length}
       next={loadSubscriptions}
       hasMore={true}
       loader={null}

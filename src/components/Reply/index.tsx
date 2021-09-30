@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Edit, Close } from '@material-ui/icons';
 
+import IVideo from '@interfaces/IVideo';
 import IComment from '@interfaces/IComment';
 import { timeDifference } from '@utils/time';
-import { useVideo } from '@contexts/VideoContext';
 import { useAuth } from '@contexts/AuthContext';
 import { usePushMessage } from '@contexts/MessageQueueContext';
 import { useShowConfirm } from '@contexts/ConfirmContext';
@@ -18,18 +18,18 @@ import CommentInput from '@components/CommentInput';
 import './Reply.css';
 
 interface ReplyProps {
+  video: IVideo;
   reply: IComment;
   handleRemoveReply: (reply: IComment) => Promise<void>;
 }
 
-function Reply({ reply, handleRemoveReply }: ReplyProps) {
+function Reply({ video, reply, handleRemoveReply }: ReplyProps) {
   const [editable, setEditable] = useState(false);
   const [content, setContent] = useState(reply.content);
 
   const { user } = useAuth();
-  const video = useVideo();
-  const pushMessage = usePushMessage();
   const { showConfirm } = useShowConfirm();
+  const pushMessage = usePushMessage();
 
   async function handleUpdateReply(newContent: string) {
     try {
@@ -76,7 +76,7 @@ function Reply({ reply, handleRemoveReply }: ReplyProps) {
         )}
 
         <div className="Reply__Main__Buttons">
-          <CommentLikeDislike comment={reply} />
+          <CommentLikeDislike video={video} comment={reply} />
         </div>
       </div>
 

@@ -40,7 +40,7 @@ function ChannelSubscribers() {
 
   return (
     <InfiniteScroll
-      dataLength={subscribers.filter((s) => !!s).length}
+      dataLength={subscribers.filter((s) => !isSkeleton(s)).length}
       next={loadSubscribers}
       hasMore={true}
       loader={null}

@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Close, Edit } from '@material-ui/icons';
 
+import IVideo from '@interfaces/IVideo';
+import IComment from '@interfaces/IComment';
+import commentApi from '@api/commentApi';
 import { useAuth } from '@contexts/AuthContext';
-import { useVideo } from '@contexts/VideoContext';
 import { usePushMessage } from '@contexts/MessageQueueContext';
 import { useSetShowAuthForm } from '@contexts/ShowAuthFormContext';
 import { useShowConfirm } from '@contexts/ConfirmContext';
-import IComment from '@interfaces/IComment';
 import { timeDifference } from '@utils/time';
-import commentApi from '@api/commentApi';
 
 import Avatar from '@components/Avatar';
 import Replies from '@components/Replies';
@@ -21,16 +21,16 @@ import './Comment.css';
 
 interface CommentProps {
   comment: IComment;
+  video: IVideo;
   handleRemoveComment: (comment: IComment) => Promise<void>;
 }
 
-function Comment({ comment, handleRemoveComment }: CommentProps) {
+function Comment({ video, comment, handleRemoveComment }: CommentProps) {
   const [editable, setEditable] = useState(false);
   const [content, setContent] = useState(comment.content);
   const [replying, setReplying] = useState(false);
 
   const { user } = useAuth();
-  const video = useVideo();
   const pushMessage = usePushMessage();
   const setShowAuthForm = useSetShowAuthForm();
   const { showConfirm } = useShowConfirm();
@@ -88,13 +88,13 @@ function Comment({ comment, handleRemoveComment }: CommentProps) {
         )}
 
         <div className="Comment__Main__Buttons">
-          <CommentLikeDislike comment={comment} />
+          <CommentLikeDislike video={video} comment={comment} />
           <div className="Comment__Main__Buttons-Reply" onClick={handleReplyClick}>
             Trả lời
           </div>
         </div>
 
-        <Replies comment={comment} replying={replying} setReplying={setReplying} />
+        <Replies video={video} comment={comment} replying={replying} setReplying={setReplying} />
       </div>
 
       {user && (

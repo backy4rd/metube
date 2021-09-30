@@ -4,10 +4,11 @@ import queryString from 'query-string';
 import { TextareaAutosize } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 
-import ICategory from '@interfaces/ICategory';
 import IVideo from '@interfaces/IVideo';
+import ICategory from '@interfaces/ICategory';
 import videoApi from '@api/videoApi';
 import { useAuth } from '@contexts/AuthContext';
+import { useVideo } from '@contexts/VideoContext';
 import { useSetLoading } from '@contexts/LoadingContext';
 import { usePushMessage } from '@contexts/MessageQueueContext';
 import { useCategories } from '@contexts/CategoriesContext';
@@ -18,18 +19,11 @@ import EllipsisText from '@components/EllipsisText';
 import Categories from '@components/Categories';
 import WatchStatistic from '@components/WatchStatistic';
 import ActionPopup from '@components/WatchStatistic/ActionPopup';
+import WatchDetailSkeleton from './WatchDetailSkeleton';
 
 import './WatchDetail.css';
 
-interface WatchDetailProps {
-  video: IVideo;
-}
-
-export function WatchDetailSkeleton() {
-  return <div></div>;
-}
-
-function WatchDetail({ video }: WatchDetailProps) {
+function WatchDetailBody({ video }: { video: IVideo }) {
   const [title, setTitle] = useState(video.title);
   const [categories, setCategories] = useState<Array<ICategory>>(video.categories);
   const [description, setDescription] = useState<string>(video.description || '');
@@ -209,6 +203,14 @@ function WatchDetail({ video }: WatchDetailProps) {
       </div>
     </div>
   );
+}
+
+function WatchDetail() {
+  const video = useVideo();
+
+  if (video === null) return null;
+  if (video === undefined) return <WatchDetailSkeleton />;
+  return <WatchDetailBody video={video} />;
 }
 
 export default WatchDetail;

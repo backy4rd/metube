@@ -20,7 +20,7 @@ export function useSubscriptions() {
 }
 
 export function SubscriptionsProvider(props: { children?: React.ReactNode }) {
-  const [subscriptions, setSubscriptions] = useState<Array<IUser> | null | undefined>(null);
+  const [subscriptions, setSubscriptions] = useState<Array<IUser> | null | undefined>(undefined);
 
   const { user } = useAuth();
 

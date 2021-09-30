@@ -5,7 +5,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import userApi from '@api/userApi';
 import { useSetLoading } from '@contexts/LoadingContext';
 import IVideo from '@interfaces/IVideo';
-import ISkeleton from '@interfaces/ISkeleton';
+import ISkeleton, { isSkeleton } from '@interfaces/ISkeleton';
 import generateSkeletons from '@utils/generateSkeleton';
 
 import VerticalVideos from '@components/VerticalVideos';
@@ -39,7 +39,7 @@ function ChannelVideos() {
   return (
     <div className="ChannelVideos">
       <InfiniteScroll
-        dataLength={videos.filter((v) => !!v).length}
+        dataLength={videos.filter((v) => !isSkeleton(v)).length}
         next={loadVideos}
         hasMore={true}
         loader={null}

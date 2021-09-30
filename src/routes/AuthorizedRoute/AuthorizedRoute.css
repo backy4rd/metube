@@ -20,3 +20,7 @@
 .Unauthorized__Center-Key {
   font-size: 128px !important;
 }
+
+#AuthorizedRouteSkeleton {
+  background-color: #ffffff02 !important;
+}

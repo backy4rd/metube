@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
+import IVideo from '@interfaces/IVideo';
 import IComment from '@interfaces/IComment';
 import commentApi from '@api/commentApi';
 import { useAuth } from '@contexts/AuthContext';
-import { useVideo } from '@contexts/VideoContext';
 import { usePushMessage } from '@contexts/MessageQueueContext';
 import fulfillNewComment from '@utils/fulfillNewComment';
 
@@ -14,6 +14,7 @@ import CommentInput from '@components/CommentInput';
 import './Replies.css';
 
 interface RepliesProps {
+  video: IVideo;
   comment: IComment;
   replying: boolean;
   setReplying: React.Dispatch<React.SetStateAction<boolean>>;
@@ -21,13 +22,12 @@ interface RepliesProps {
 
 const step = 2;
 
-function Replies({ comment, replying, setReplying }: RepliesProps) {
+function Replies({ video, comment, replying, setReplying }: RepliesProps) {
   const [replies, setReplies] = useState<Array<IComment>>([]);
   const [isLoadable, setIsLoadable] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const { user } = useAuth();
-  const video = useVideo();
   const pushMessage = usePushMessage();
 
   async function loadReplies() {
@@ -92,7 +92,12 @@ function Replies({ comment, replying, setReplying }: RepliesProps) {
           )}
 
           {replies.map((reply) => (
-            <Reply key={reply.id} reply={reply} handleRemoveReply={handleRemoveReply} />
+            <Reply
+              key={reply.id}
+              video={video}
+              reply={reply}
+              handleRemoveReply={handleRemoveReply}
+            />
           ))}
 
           {isLoadable && !loading && (

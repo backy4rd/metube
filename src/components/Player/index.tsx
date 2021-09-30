@@ -2,20 +2,23 @@ import React from 'react';
 import ReactPlayer from 'react-player';
 import { useHistory } from 'react-router-dom';
 
-import { useNextVideo } from '@contexts/NextVideoContext';
 import IPlaylist from '@interfaces/IPlaylist';
+import { useVideo } from '@contexts/VideoContext';
+import { useNextVideo } from '@contexts/NextVideoContext';
+
+import PlayerSkeleton from './PlayerSkeleton';
 
 import './Player.css';
 
 interface PlayerProps {
-  videoUrl: string;
   playlist?: IPlaylist;
   className?: string;
 }
 
-function Player({ className, videoUrl, playlist }: PlayerProps) {
+function Player({ className, playlist }: PlayerProps) {
   const history = useHistory();
   const nextVideo = useNextVideo();
+  const video = useVideo();
 
   function handleVideoEnded() {
     if (!nextVideo) return;
@@ -23,11 +26,12 @@ function Player({ className, videoUrl, playlist }: PlayerProps) {
     history.push(nextVideoUrl);
   }
 
+  if (!video) return <PlayerSkeleton />;
   return (
     <div className={`PlayerWrapper ${className || ''}`}>
       <ReactPlayer
         className={`Player`}
-        url={videoUrl}
+        url={video.videoPath}
         controls
         onEnded={handleVideoEnded}
         width="100%"
