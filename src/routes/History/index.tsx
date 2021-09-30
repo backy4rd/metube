@@ -25,14 +25,14 @@ function History() {
   const pushMessage = usePushMessage();
 
   async function loadVideos() {
-    setVideos([...videos, ...generateSkeletons(step / 2)]);
+    setVideos([...videos, ...generateSkeletons(step / 4)]);
     const _videos = await historyApi.getWatchedVideos({ limit: step, offset: videos.length });
     setVideos([...videos, ..._videos]);
   }
 
   useEffect(() => {
     setLoading(true);
-    setVideos(generateSkeletons(step));
+    setVideos(generateSkeletons(step / 2));
     historyApi
       .getWatchedVideos({ limit: step, offset: 0 })
       .then(setVideos)

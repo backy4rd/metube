@@ -21,7 +21,7 @@ function ChannelVideos() {
   const setLoading = useSetLoading();
 
   useEffect(() => {
-    setVideos(generateSkeletons(step));
+    setVideos(generateSkeletons(step / 2));
     setLoading(true);
     userApi
       .getUserVideos(username, { limit: step, offset: 0 })
@@ -31,7 +31,7 @@ function ChannelVideos() {
   }, [username]);
 
   async function loadVideos() {
-    setVideos([...videos, ...generateSkeletons(step / 2)]);
+    setVideos([...videos, ...generateSkeletons(step / 4)]);
     const _videos = await userApi.getUserVideos(username, { limit: step, offset: videos.length });
     setVideos([...videos, ..._videos]);
   }

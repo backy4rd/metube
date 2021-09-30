@@ -22,7 +22,7 @@ function ChannelSubscribers() {
 
   useEffect(() => {
     setLoading(true);
-    setSubscribers(generateSkeletons(step));
+    setSubscribers(generateSkeletons(step / 2));
     userApi
       .getUserSubscribers(username, { offset: 0, limit: step })
       .then(setSubscribers)
@@ -30,7 +30,7 @@ function ChannelSubscribers() {
   }, [setLoading, username]);
 
   async function loadSubscribers() {
-    setSubscribers([...subscribers, ...generateSkeletons(step / 2)]);
+    setSubscribers([...subscribers, ...generateSkeletons(step / 4)]);
     const _subscribers = await userApi.getOwnSubscribers({
       offset: subscribers.length,
       limit: step,

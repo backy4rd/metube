@@ -33,7 +33,7 @@ function Home() {
     async function initalVideos() {
       try {
         setLoading(true);
-        setVideos(generateSkeletons(step));
+        setVideos(generateSkeletons(step / 2));
         const _videos = await videoApi.getVideos({ limit: step, offset: 0 }, qCategory);
         setVideos(_videos);
       } catch {
@@ -57,7 +57,7 @@ function Home() {
   }, []);
 
   async function loadVideos() {
-    setVideos([...videos, ...generateSkeletons(step / 2)]);
+    setVideos([...videos, ...generateSkeletons(step / 4)]);
     const _videos = await videoApi.getVideos({ limit: step, offset: videos.length }, qCategory);
     setVideos([...videos, ..._videos]);
   }

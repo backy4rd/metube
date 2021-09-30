@@ -20,12 +20,12 @@ function RelateVideos({ videoId }: RelateVideosProps) {
   const [videos, setVideos] = useState<Array<IVideo | ISkeleton>>([]);
 
   useEffect(() => {
-    setVideos(generateSkeletons(step));
+    setVideos(generateSkeletons(step / 2));
     videoApi.getRelateVideos(videoId, { limit: step, offset: 0 }).then(setVideos);
   }, [videoId]);
 
   async function loadVideos() {
-    setVideos([...videos, ...generateSkeletons(step / 2)]);
+    setVideos([...videos, ...generateSkeletons(step / 4)]);
     const _videos = await videoApi.getRelateVideos(videoId, {
       offset: videos.length,
       limit: step,
