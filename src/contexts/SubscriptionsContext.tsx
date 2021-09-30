@@ -6,11 +6,11 @@ import userApi from '@api/userApi';
 import subscriptionApi from '@api/subscriptionApi';
 
 const SubscriptionsContext = React.createContext<{
-  subscriptions: Array<IUser>;
+  subscriptions: Array<IUser> | null | undefined;
   subscribe: (user: IUser) => void;
   unsubscribe: (user: string | IUser) => void;
 }>({
-  subscriptions: [],
+  subscriptions: null,
   subscribe: () => {},
   unsubscribe: () => {},
 });
@@ -20,7 +20,7 @@ export function useSubscriptions() {
 }
 
 export function SubscriptionsProvider(props: { children?: React.ReactNode }) {
-  const [subscriptions, setSubscriptions] = useState<Array<IUser>>([]);
+  const [subscriptions, setSubscriptions] = useState<Array<IUser> | null | undefined>(null);
 
   const { user } = useAuth();
 
@@ -30,6 +30,7 @@ export function SubscriptionsProvider(props: { children?: React.ReactNode }) {
   }, [user]);
 
   async function unsubscribe(user: string | IUser) {
+    if (!subscriptions) return;
     const username = typeof user === 'string' ? user : user.username;
 
     await subscriptionApi.unsubscribe(username);
@@ -37,6 +38,7 @@ export function SubscriptionsProvider(props: { children?: React.ReactNode }) {
   }
 
   async function subscribe(user: IUser) {
+    if (!subscriptions) return;
     await subscriptionApi.subscribe(user.username);
     setSubscriptions([user, ...subscriptions]);
   }

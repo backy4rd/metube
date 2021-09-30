@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 
 import IVideo from '@interfaces/IVideo';
+import ISkeleton from '@interfaces/ISkeleton';
 
 const HomeVideosContext = React.createContext<
-  [Array<IVideo>, React.Dispatch<React.SetStateAction<Array<IVideo>>>]
+  [Array<IVideo | ISkeleton>, React.Dispatch<React.SetStateAction<Array<IVideo | ISkeleton>>>]
 >([[], () => {}]);
 
 export function useHomeVideos() {
@@ -15,7 +16,7 @@ interface HomeVideoProviderProps {
 }
 
 export function HomeVideosProvider(props: HomeVideoProviderProps) {
-  const videoState = useState<Array<IVideo>>([]);
+  const videoState = useState<Array<IVideo | ISkeleton>>([]);
 
   return (
     <HomeVideosContext.Provider value={videoState}>{props.children}</HomeVideosContext.Provider>

@@ -9,6 +9,7 @@ import IUser from '@interfaces/IUser';
 import { usePushMessage } from '@contexts/MessageQueueContext';
 
 import './SubscribeButton.css';
+import { Skeleton } from '@mui/material';
 
 interface SubscribeButtonProps {
   targetUser: IUser;
@@ -22,7 +23,9 @@ function SubscribeButton({ targetUser, className }: SubscribeButtonProps) {
   const setLoading = useSetLoading();
   const pushMesage = usePushMessage();
 
-  const isSubscribed = subscriptions.some((user) => user.username === targetUser.username);
+  if (user === undefined) return null;
+
+  const isSubscribed = subscriptions?.some((user) => user.username === targetUser.username);
   const isChannelOwner = user && user.username === targetUser.username;
 
   async function handleSubscribeButtonClick() {
@@ -48,7 +51,6 @@ function SubscribeButton({ targetUser, className }: SubscribeButtonProps) {
     }
   }
 
-  if (user === undefined) return null;
   return (
     <div
       className={`SubscribeButton ${isSubscribed ? 'App-GreyButton' : 'App-RedButton'} ${
@@ -60,7 +62,9 @@ function SubscribeButton({ targetUser, className }: SubscribeButtonProps) {
           <Link to={`/channel/${user.username}/edit`}>CHỈNH SỬA KÊNH</Link>
         </div>
       ) : (
-        <div onClick={handleSubscribeButtonClick}>{isSubscribed ? 'ĐÃ ĐĂNG KÝ' : 'ĐĂNG KÝ'}</div>
+        <div onClick={handleSubscribeButtonClick}>
+          {subscriptions === null ? <Skeleton /> : isSubscribed ? 'ĐÃ ĐĂNG KÝ' : 'ĐĂNG KÝ'}
+        </div>
       )}
     </div>
   );

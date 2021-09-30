@@ -14,7 +14,7 @@ import IPlaylist from '@interfaces/IPlaylist';
 function PlaylistPopup() {
   const [playlistName, setPlaylistName] = useState('');
 
-  const playlists = usePlaylists();
+  const playlists = usePlaylists() || [];
   const videoId = usePlaylistVideoId();
   const { hidePlaylistPopup } = usePlaylistPopup();
   const pushMessage = usePushMessage();

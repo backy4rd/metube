@@ -32,7 +32,7 @@ function PlaylistInfo({ className, playlist }: PlaylistInfoProps) {
   const { showConfirm } = useShowConfirm();
   const setLoading = useSetLoading();
   const pushMessage = usePushMessage();
-  const playlists = usePlaylists();
+  const playlists = usePlaylists() || [];
   const setPlaylists = useSetPlaylists();
   const nextVideo = useNextVideo();
   const history = useHistory();

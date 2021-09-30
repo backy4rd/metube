@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import queryString from 'query-string';
+import { TextareaAutosize } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 
 import ICategory from '@interfaces/ICategory';
 import IVideo from '@interfaces/IVideo';
+import videoApi from '@api/videoApi';
 import { useAuth } from '@contexts/AuthContext';
+import { useSetLoading } from '@contexts/LoadingContext';
+import { usePushMessage } from '@contexts/MessageQueueContext';
+import { useCategories } from '@contexts/CategoriesContext';
 
 import Avatar from '@components/Avatar';
 import SubscribeButton from '@components/SubscribeButton';
@@ -15,14 +20,13 @@ import WatchStatistic from '@components/WatchStatistic';
 import ActionPopup from '@components/WatchStatistic/ActionPopup';
 
 import './WatchDetail.css';
-import { TextareaAutosize } from '@material-ui/core';
-import { useSetLoading } from '@contexts/LoadingContext';
-import videoApi from '@api/videoApi';
-import { usePushMessage } from '@contexts/MessageQueueContext';
-import { useCategories } from '@contexts/CategoriesContext';
 
 interface WatchDetailProps {
   video: IVideo;
+}
+
+export function WatchDetailSkeleton() {
+  return <div></div>;
 }
 
 function WatchDetail({ video }: WatchDetailProps) {

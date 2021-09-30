@@ -5,13 +5,14 @@ import queryString from 'query-string';
 import { useSetLoading } from '@contexts/LoadingContext';
 import { useCategories } from '@contexts/CategoriesContext';
 import { useHomeVideos } from '@contexts/HomeVideosContext';
+import IVideo from '@interfaces/IVideo';
 import videoApi from '@api/videoApi';
 import useQuery from '@hooks/useQuery';
 import ICategory from '@interfaces/ICategory';
 import detectCategory from '@utils/detectCategory';
+import generateSkeletons from '@utils/generateSkeleton';
 
 import VerticalVideos from '@components/VerticalVideos';
-
 import CategoriesBar from './CategoriesBar';
 
 import './Home.css';
@@ -28,13 +29,25 @@ function Home() {
   const qCategory = _qCategory ? _qCategory.toString() : undefined;
 
   useEffect(() => {
-    if (detectCategory(videos) === qCategory && isMounting.current && videos.length !== 0) return;
-    setLoading(true);
-    setVideos([]); // prevent showing old video
-    videoApi
-      .getVideos({ limit: step, offset: 0 }, qCategory)
-      .then(setVideos)
-      .finally(() => setLoading(false));
+    async function initalVideos() {
+      try {
+        setLoading(true);
+        setVideos(generateSkeletons(step));
+        const _videos = await videoApi.getVideos({ limit: step, offset: 0 }, qCategory);
+        setVideos(_videos);
+      } catch {
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    if (
+      detectCategory(videos.filter((v) => !!v) as Array<IVideo>) !== qCategory ||
+      !isMounting.current ||
+      videos.length === 0
+    ) {
+      initalVideos();
+    }
     // eslint-disable-next-line
   }, [qCategory]);
 
@@ -43,6 +56,7 @@ function Home() {
   }, []);
 
   async function loadVideos() {
+    setVideos([...videos, ...generateSkeletons(step / 2)]);
     const _videos = await videoApi.getVideos({ limit: step, offset: videos.length }, qCategory);
     setVideos([...videos, ..._videos]);
   }
@@ -60,7 +74,7 @@ function Home() {
 
       <div className="Home__Container">
         <InfiniteScroll
-          dataLength={videos.length}
+          dataLength={videos.filter((v) => !!v).length}
           next={loadVideos}
           hasMore={true}
           loader={null}

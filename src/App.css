@@ -11,6 +11,10 @@
   overflow: unset !important;
 }
 
+/* .MuiSkeleton-root { */
+/*   background-color: var(--main-dark-4) !important; */
+/* } */
+
 .App-BlueClickableText {
   color: var(--main-blue-1);
   cursor: pointer;

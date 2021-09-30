@@ -1,4 +1,5 @@
 import React from 'react';
+import { Skeleton } from '@mui/material';
 import { ExpandMore } from '@material-ui/icons';
 
 import { useAuth } from '@contexts/AuthContext';
@@ -10,10 +11,24 @@ import UserPopup from '../UserPopup';
 
 import './UserSection.css';
 
+function UserSectionSkeleton() {
+  return (
+    <div className="UserSection" style={{ width: 120 }}>
+      <Skeleton
+        variant="circular"
+        height="32px"
+        width="32px"
+        style={{ marginRight: 4, backgroundColor: 'var(--main-dark-3)' }}
+      />
+      <Skeleton width="88px" height="32px" style={{ backgroundColor: 'var(--main-dark-3)' }} />
+    </div>
+  );
+}
+
 function UserSection() {
   const { user } = useAuth();
 
-  if (user === undefined) return null;
+  if (user === undefined) return <UserSectionSkeleton />;
   if (user === null) {
     return (
       <div className="UserSection">

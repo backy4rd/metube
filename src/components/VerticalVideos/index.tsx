@@ -1,23 +1,21 @@
 import React from 'react';
 
 import IVideo from '@interfaces/IVideo';
+import ISkeleton, { isSkeleton } from '@interfaces/ISkeleton';
 
-import { VideoProvider } from '@contexts/VideoContext';
 import VerticalVideo from '@components/VerticalVideo';
 
 import './VerticalVideos.css';
 
 interface VerticalVideosProps {
-  videos: Array<IVideo>;
+  videos: Array<IVideo | ISkeleton>;
 }
 
 function VerticalVideos(props: VerticalVideosProps) {
   return (
     <div className="VerticalVideos">
       {props.videos.map((video) => (
-        <VideoProvider key={video.id} video={video}>
-          <VerticalVideo />
-        </VideoProvider>
+        <VerticalVideo key={isSkeleton(video) ? video.bone : video.id} video={video} />
       ))}
     </div>
   );

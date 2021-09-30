@@ -4,9 +4,9 @@ import IPlaylist from '@interfaces/IPlaylist';
 import userApi from '@api/userApi';
 import { useAuth } from './AuthContext';
 
-const PlaylistsContext = React.createContext<Array<IPlaylist>>([]);
+const PlaylistsContext = React.createContext<Array<IPlaylist> | null>([]);
 const SetPlaylistsContext = React.createContext<
-  React.Dispatch<React.SetStateAction<Array<IPlaylist>>>
+  React.Dispatch<React.SetStateAction<Array<IPlaylist> | null>>
 >(() => {});
 
 export function usePlaylists() {
@@ -22,7 +22,7 @@ interface PlaylistsProviderProps {
 }
 
 export function PlaylistsProvider(props: PlaylistsProviderProps) {
-  const [playlists, setPlaylists] = useState<Array<IPlaylist>>([]);
+  const [playlists, setPlaylists] = useState<Array<IPlaylist> | null>(null);
   const { user } = useAuth();
 
   useEffect(() => {

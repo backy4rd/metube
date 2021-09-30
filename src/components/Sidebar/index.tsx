@@ -8,24 +8,16 @@ import {
 } from '@material-ui/icons';
 
 import { useShowSidebar } from '@contexts/ShowSidebarContext';
-import { useSubscriptions } from '@contexts/SubscriptionsContext';
-import { useAuth } from '@contexts/AuthContext';
-import { usePlaylists } from '@contexts/PlaylistsContext';
 
-import AuthButton from '@components/AuthButton';
 import SidebarNavigationTag from './SidebarNavigationTag';
-import SidebarUserTag from './SidebarUserTag';
-import SidebarGroup from './SidebarGroup';
 import ChannelInfo from './ChannelInfo';
+import MyPlaylists from './MyPlaylists';
+import MySubscriptions from './MySubscriptions';
 
 import './Sidebar.css';
-import PlaylistTag from './PlaylistTag';
 
 function Sidebar() {
   const [showSidebar, setShowSidebar] = useShowSidebar();
-  const { subscriptions } = useSubscriptions();
-  const playlists = usePlaylists();
-  const { user } = useAuth();
 
   if (!showSidebar)
     return (
@@ -40,36 +32,17 @@ function Sidebar() {
     <div className="SidebarWrapper">
       <div className="Sidebar">
         <SidebarNavigationTag to="/" Icon={LiveTvOutlined} title="Trang chủ" />
-        {user && (
-          <SidebarGroup limit={1} showMoreNavigateTo={`/channel/${user.username}/about`}>
-            <ChannelInfo />
-          </SidebarGroup>
-        )}
+        <ChannelInfo />
 
         <SidebarNavigationTag to="/history" Icon={History} title="Lịch sử" />
+
         <SidebarNavigationTag to="/liked" Icon={ThumbUpOutlined} title="Đã thích" />
+
         <SidebarNavigationTag to="/playlist" Icon={QueueOutlined} title="Danh mục phát" />
-        {user !== null && playlists.length > 0 && (
-          <SidebarGroup limit={3}>
-            {playlists.length > 0 &&
-              playlists.map((playlist) => <PlaylistTag key={playlist.id} playlist={playlist} />)}
-          </SidebarGroup>
-        )}
+        <MyPlaylists />
+
         <SidebarNavigationTag to="/subscription" Icon={SubscriptionsOutlined} title="Đã đăng ký" />
-        {(user === null || subscriptions.length > 0) && (
-          <SidebarGroup>
-            {user !== null ? (
-              subscriptions.map((u) => <SidebarUserTag key={u.username} user={u} />)
-            ) : (
-              <>
-                <div style={{ fontSize: 12, color: 'var(--main-grey-2)', marginBottom: 8 }}>
-                  Đăng nhập để tương tác, bình luận và đăng kí những video mới nhất.
-                </div>
-                <AuthButton />
-              </>
-            )}
-          </SidebarGroup>
-        )}
+        <MySubscriptions />
 
         <div className="Sidebar-Toggle colapse" onClick={() => setShowSidebar(false)}></div>
       </div>

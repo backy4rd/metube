@@ -3,6 +3,8 @@
   margin: 0 10px;
   padding: 15px 10px 10px 10px;
   border-radius: 4px;
+  box-sizing: border-box;
+  width: calc(100% - 20px);
 }
 
 .SidebarGroup-Toggle {
