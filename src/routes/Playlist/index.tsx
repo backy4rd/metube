@@ -12,13 +12,14 @@ import PlaylistInfo from './PlaylistInfo';
 import './Playlist.css';
 
 function Playlist() {
-  const [playlist, setPlaylist] = useState<IPlaylist | null>(null);
+  const [playlist, setPlaylist] = useState<IPlaylist | null | undefined>(undefined);
   const { playlistId } = useParams<{ playlistId: string }>();
 
   const setLoading = useSetLoading();
 
   useEffect(() => {
     setLoading(true);
+    setPlaylist(undefined);
     playlistApi
       .getPlaylist(+playlistId)
       .then(setPlaylist)

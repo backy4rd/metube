@@ -99,3 +99,28 @@
 .App-Text3Line {
   -webkit-line-clamp: 3; /* number of lines to show */
 }
+
+.App-VerticalVideoGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 12px;
+  grid-row-gap: 12px;
+}
+
+@media only screen and (max-width: 1500px) {
+  .App-VerticalVideoGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media only screen and (max-width: 1100px) {
+  .App-VerticalVideoGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .App-VerticalVideoGrid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

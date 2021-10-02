@@ -2,7 +2,6 @@ import React from 'react';
 import ReactPlayer from 'react-player';
 import { useHistory } from 'react-router-dom';
 
-import IPlaylist from '@interfaces/IPlaylist';
 import { useVideo } from '@contexts/VideoContext';
 import { useNextVideo } from '@contexts/NextVideoContext';
 
@@ -11,22 +10,22 @@ import PlayerSkeleton from './PlayerSkeleton';
 import './Player.css';
 
 interface PlayerProps {
-  playlist?: IPlaylist;
+  playlistId?: string;
   className?: string;
 }
 
-function Player({ className, playlist }: PlayerProps) {
+function Player({ className, playlistId }: PlayerProps) {
   const history = useHistory();
   const nextVideo = useNextVideo();
   const video = useVideo();
 
   function handleVideoEnded() {
     if (!nextVideo) return;
-    const nextVideoUrl = `/watch/${nextVideo.id}` + (playlist ? `/playlist/${playlist.id}` : '');
+    const nextVideoUrl = `/watch/${nextVideo.id}` + (playlistId ? `/playlist/${playlistId}` : '');
     history.push(nextVideoUrl);
   }
 
-  if (!video) return <PlayerSkeleton />;
+  if (!video) return <PlayerSkeleton className={className} />;
   return (
     <div className={`PlayerWrapper ${className || ''}`}>
       <ReactPlayer

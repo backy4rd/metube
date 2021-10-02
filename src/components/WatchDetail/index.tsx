@@ -158,7 +158,9 @@ function WatchDetailBody({ video }: { video: IVideo }) {
             accept="image/*"
             onChange={(e) => setThumbnail(e.target.files?.[0] || null)}
           />
-          <div style={{ cursor: 'pointer' }}>{thumbnail ? thumbnail.name : 'Đổi Thumbnail...'}</div>
+          <div style={{ cursor: 'pointer' }}>
+            {thumbnail ? thumbnail.name.slice(0, 30) : 'Đổi Thumbnail...'}
+          </div>
         </label>
       )}
 

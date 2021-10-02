@@ -2,15 +2,16 @@ import React, { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import IVideo from '@interfaces/IVideo';
+import videoApi from '@api/videoApi';
 import { isToday, isThisWeek } from '@utils/time';
+import generateSkeletons from '@utils/generateSkeleton';
+import { useSetLoading } from '@contexts/LoadingContext';
 
 import VerticalVideos from '@components/VerticalVideos';
 
 import './Subscriptions.css';
-import videoApi from '@api/videoApi';
-import { useSetLoading } from '@contexts/LoadingContext';
 
-const step = 30;
+const step = 20;
 
 function Subscriptions() {
   const [videos, setVideos] = useState<IVideo[]>([]);
@@ -54,28 +55,35 @@ function Subscriptions() {
       <InfiniteScroll
         dataLength={videos.length}
         next={loadVideos}
-        hasMore={true}
-        loader={<></>}
+        hasMore={videos.length % step === 0}
+        loader={
+          <div className="Subscriptions__VideoSection">
+            <p></p>
+            <VerticalVideos videos={generateSkeletons(6)} />
+          </div>
+        }
         scrollableTarget="Main"
       >
-        {todayVideos.length !== 0 && (
-          <div className="Subscriptions__VideoSection">
-            <p>Hôm nay</p>
-            <VerticalVideos videos={todayVideos} />
-          </div>
-        )}
+        <div>
+          {todayVideos.length !== 0 && (
+            <div className="Subscriptions__VideoSection">
+              <p>Hôm nay</p>
+              <VerticalVideos videos={todayVideos} />
+            </div>
+          )}
 
-        {thisWeekVideos.length !== 0 && (
-          <div className="Subscriptions__VideoSection">
-            <p>Tuần này</p>
-            <VerticalVideos videos={thisWeekVideos} />
-          </div>
-        )}
+          {thisWeekVideos.length !== 0 && (
+            <div className="Subscriptions__VideoSection">
+              <p>Tuần này</p>
+              <VerticalVideos videos={thisWeekVideos} />
+            </div>
+          )}
 
-        <div className="Subscriptions__VideoSection">
-          {(todayVideos.length !== 0 || thisWeekVideos.length !== 0) &&
-            olderVideos.length !== 0 && <p>Cũ hơn</p>}
-          <VerticalVideos videos={olderVideos} />
+          <div className="Subscriptions__VideoSection">
+            {(todayVideos.length !== 0 || thisWeekVideos.length !== 0) &&
+              olderVideos.length !== 0 && <p>Cũ hơn</p>}
+            <VerticalVideos videos={olderVideos} />
+          </div>
         </div>
       </InfiniteScroll>
     </div>

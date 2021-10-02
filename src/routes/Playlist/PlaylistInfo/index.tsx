@@ -16,13 +16,14 @@ import { useNextVideo } from '@contexts/NextVideoContext';
 import User from '@components/User';
 
 import './PlaylistInfo.css';
+import PlaylistInfoSkeleton from './PlaylistInfoSkeleton';
 
 interface PlaylistInfoProps {
-  playlist: IPlaylist;
+  playlist: IPlaylist | null | undefined;
   className?: string;
 }
 
-function PlaylistInfo({ className, playlist }: PlaylistInfoProps) {
+function PlaylistInfoBody({ className, playlist }: { playlist: IPlaylist; className?: string }) {
   const [description, setDescription] = useState(playlist.description || '');
   const [name, setName] = useState(playlist.name);
   const memoName = useRef<string | null>(null); // null mean not updating
@@ -151,6 +152,14 @@ function PlaylistInfo({ className, playlist }: PlaylistInfoProps) {
       </div>
     </div>
   );
+}
+
+function PlaylistInfo({ playlist, className }: PlaylistInfoProps) {
+  if (playlist === null) return null;
+  if (playlist === undefined) return <PlaylistInfoSkeleton className={className} />;
+
+  /* return <PlaylistInfoSkeleton className={className} />; */
+  return <PlaylistInfoBody playlist={playlist} className={className} />;
 }
 
 export default PlaylistInfo;

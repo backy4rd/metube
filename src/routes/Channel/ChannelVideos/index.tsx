@@ -5,23 +5,22 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import userApi from '@api/userApi';
 import { useSetLoading } from '@contexts/LoadingContext';
 import IVideo from '@interfaces/IVideo';
-import ISkeleton, { isSkeleton } from '@interfaces/ISkeleton';
-import generateSkeletons from '@utils/generateSkeleton';
 
-import VerticalVideos from '@components/VerticalVideos';
+import VerticalVideo from '@components/VerticalVideo';
+import VerticalVideoSkeleton from '@components/VerticalVideo/VerticalVideoSkeleton';
+import Sequence from '@utils/Sequence';
 
 import './ChannelVideos.css';
 
 const step = 20;
 
 function ChannelVideos() {
-  const [videos, setVideos] = useState<Array<IVideo | ISkeleton>>([]);
+  const [videos, setVideos] = useState<Array<IVideo>>([]);
   const { username } = useParams<{ username: string }>();
 
   const setLoading = useSetLoading();
 
   useEffect(() => {
-    setVideos(generateSkeletons(step / 2));
     setLoading(true);
     userApi
       .getUserVideos(username, { limit: step, offset: 0 })
@@ -31,7 +30,6 @@ function ChannelVideos() {
   }, [username]);
 
   async function loadVideos() {
-    setVideos([...videos, ...generateSkeletons(step / 4)]);
     const _videos = await userApi.getUserVideos(username, { limit: step, offset: videos.length });
     setVideos([...videos, ..._videos]);
   }
@@ -39,13 +37,16 @@ function ChannelVideos() {
   return (
     <div className="ChannelVideos">
       <InfiniteScroll
-        dataLength={videos.filter((v) => !isSkeleton(v)).length}
+        className="App-VerticalVideoGrid"
+        dataLength={videos.length}
         next={loadVideos}
-        hasMore={true}
-        loader={null}
+        hasMore={videos.length % step === 0}
+        loader={<Sequence Component={VerticalVideoSkeleton} length={8} />}
         scrollableTarget="Main"
       >
-        <VerticalVideos videos={videos} />
+        {videos.map((video) => (
+          <VerticalVideo key={video.id} video={video} />
+        ))}
       </InfiniteScroll>
     </div>
   );

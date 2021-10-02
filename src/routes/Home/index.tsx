@@ -5,16 +5,17 @@ import queryString from 'query-string';
 import { useSetLoading } from '@contexts/LoadingContext';
 import { useCategories } from '@contexts/CategoriesContext';
 import { useHomeVideos } from '@contexts/HomeVideosContext';
-import IVideo from '@interfaces/IVideo';
 import { isSkeleton } from '@interfaces/ISkeleton';
+import IVideo from '@interfaces/IVideo';
+import ICategory from '@interfaces/ICategory';
 import videoApi from '@api/videoApi';
 import useQuery from '@hooks/useQuery';
-import ICategory from '@interfaces/ICategory';
 import detectCategory from '@utils/detectCategory';
-import generateSkeletons from '@utils/generateSkeleton';
 
-import VerticalVideos from '@components/VerticalVideos';
 import CategoriesBar from './CategoriesBar';
+import VerticalVideoSkeleton from '@components/VerticalVideo/VerticalVideoSkeleton';
+import VerticalVideo from '@components/VerticalVideo';
+import Sequence from '@utils/Sequence';
 
 import './Home.css';
 
@@ -33,7 +34,7 @@ function Home() {
     async function initalVideos() {
       try {
         setLoading(true);
-        setVideos(generateSkeletons(step / 2));
+        setVideos([]);
         const _videos = await videoApi.getVideos({ limit: step, offset: 0 }, qCategory);
         setVideos(_videos);
       } catch {
@@ -57,7 +58,6 @@ function Home() {
   }, []);
 
   async function loadVideos() {
-    setVideos([...videos, ...generateSkeletons(step / 4)]);
     const _videos = await videoApi.getVideos({ limit: step, offset: videos.length }, qCategory);
     setVideos([...videos, ..._videos]);
   }
@@ -75,13 +75,16 @@ function Home() {
 
       <div className="Home__Container">
         <InfiniteScroll
-          dataLength={videos.filter((v) => !isSkeleton(v)).length}
+          className="App-VerticalVideoGrid"
+          dataLength={videos.length}
           next={loadVideos}
-          hasMore={true}
-          loader={null}
+          hasMore={videos.length % step === 0}
+          loader={<Sequence Component={VerticalVideoSkeleton} length={8} />}
           scrollableTarget="Main"
         >
-          <VerticalVideos videos={videos} />
+          {videos.map((video) => (
+            <VerticalVideo key={video.id} video={video} />
+          ))}
         </InfiniteScroll>
       </div>
     </div>

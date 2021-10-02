@@ -13,8 +13,8 @@ function MySubscriptionsSkeleton() {
     <SidebarGroup>
       {Array(3)
         .fill(null)
-        .map((u) => (
-          <Skeleton height={40} />
+        .map((u, i) => (
+          <Skeleton key={i} height={40} />
         ))}
     </SidebarGroup>
   );

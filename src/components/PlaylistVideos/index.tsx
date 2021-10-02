@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useLocation } from 'react-router-dom';
+import { Skeleton } from '@mui/material';
 
 import IVideo from '@interfaces/IVideo';
 import IPlaylist from '@interfaces/IPlaylist';
@@ -11,11 +12,13 @@ import { useSetLoading } from '@contexts/LoadingContext';
 import { useSetNextVideo } from '@contexts/NextVideoContext';
 
 import PlaylistVideo from './PlaylistVideo';
+import PlaylistVideosSkeleton from './PlaylistVideo/PlaylistVideoSkeleton';
 
 import './PlaylistVideos.css';
+import Sequence from '@utils/Sequence';
 
 interface PlaylistVideosProps {
-  playlist: IPlaylist;
+  playlist: IPlaylist | null | undefined;
   className?: string;
 }
 
@@ -31,14 +34,17 @@ function PlaylistVideos({ playlist, className }: PlaylistVideosProps) {
   const setNextVideo = useSetNextVideo();
 
   useEffect(() => {
+    if (!playlist) return;
     setLoading(true);
+    setVideos([]);
     playlistApi
       .getPlaylistVideos(playlist.id, { offset: 0, limit: step })
       .then(setVideos)
       .finally(() => setLoading(false));
-  }, [playlist.id, setLoading]);
+  }, [playlist, setLoading]);
 
   useEffect(() => {
+    if (!playlist) return;
     const playingVideoIndex = videos.findIndex(
       (v) => `/watch/${v.id}/playlist/${playlist.id}` === pathname
     );
@@ -48,10 +54,10 @@ function PlaylistVideos({ playlist, className }: PlaylistVideosProps) {
     } else if (playingVideoIndex + 1 < videos.length) {
       setNextVideo(videos[playingVideoIndex + 1]);
     }
-  }, [pathname, playlist.id, setNextVideo, videos]);
+  }, [pathname, playlist, setNextVideo, videos]);
 
   function handleRemovePlaylistVideo(video: IVideo) {
-    if (playlist === null) return;
+    if (!playlist) return;
     showConfirm(`Bạn có muốn xóa Video ${video.title} khỏi Playlist <${playlist.name}>`, () =>
       playlistApi
         .removeVideoFromPlaylist(playlist.id, video.id)
@@ -64,6 +70,7 @@ function PlaylistVideos({ playlist, className }: PlaylistVideosProps) {
   }
 
   async function loadPlaylistVideos() {
+    if (!playlist) return;
     const _videos = await playlistApi.getPlaylistVideos(playlist.id, {
       limit: step,
       offset: videos.length,
@@ -71,31 +78,44 @@ function PlaylistVideos({ playlist, className }: PlaylistVideosProps) {
     setVideos([...videos, ..._videos]);
   }
 
-  if (playlist === null) return null;
   return (
     <div className={`PlaylistVideos ${className || ''}`}>
       <div className="PlaylistVideos__Header">
-        <div className="PVH-Name App-Text1Line">{playlist.name}</div>
-        <div className="PVH-TotalVideos">{playlist.totalVideos} videos</div>
+        <div className="PVH-Name App-Text1Line">
+          {playlist ? playlist.name : <Skeleton height="18px" width="50%" />}
+        </div>
+        <div className="PVH-TotalVideos">
+          {playlist ? `${playlist.totalVideos} videos` : <Skeleton height="18px" width="30%" />}
+        </div>
       </div>
       <div id="playlistVideos__Container">
-        <InfiniteScroll
-          dataLength={videos.length}
-          next={loadPlaylistVideos}
-          hasMore={true}
-          loader={null}
-          scrollableTarget="playlistVideos__Container"
-        >
-          {videos.map((video, i) => (
-            <PlaylistVideo
-              key={video.id}
-              video={video}
-              playlist={playlist}
-              number={i + 1}
-              handleRemovePlaylistVideo={handleRemovePlaylistVideo}
-            />
-          ))}
-        </InfiniteScroll>
+        {playlist ? (
+          <InfiniteScroll
+            dataLength={videos.length}
+            next={loadPlaylistVideos}
+            hasMore={videos.length % step === 0}
+            loader={<Sequence Component={PlaylistVideosSkeleton} length={5} />}
+            scrollableTarget="playlistVideos__Container"
+          >
+            {videos.map((video, i) => (
+              <PlaylistVideo
+                key={video.id}
+                video={video}
+                playlist={playlist}
+                number={i + 1}
+                handleRemovePlaylistVideo={handleRemovePlaylistVideo}
+              />
+            ))}
+          </InfiniteScroll>
+        ) : (
+          <Skeleton
+            id="PlaylistVideosBodySkeleton"
+            variant="rectangular"
+            animation="wave"
+            height="100%"
+            width="100%"
+          />
+        )}
       </div>
     </div>
   );

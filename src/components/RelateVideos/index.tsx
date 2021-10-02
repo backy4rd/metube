@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import IVideo from '@interfaces/IVideo';
-import ISkeleton, { isSkeleton } from '@interfaces/ISkeleton';
 import videoApi from '@api/videoApi';
-import generateSkeletons from '@utils/generateSkeleton';
 
-import HorizontalVideos from '@components/HorizontalVideos';
+import HorizontalVideo from '@components/HorizontalVideo';
+import HorizontalVideoSkeleton from '@components/HorizontalVideo/HorizontalVideoSkeleton';
+import Sequence from '@utils/Sequence';
 
 import './RelateVideos.css';
 
@@ -17,15 +17,13 @@ interface RelateVideosProps {
 const step = 10;
 
 function RelateVideos({ videoId }: RelateVideosProps) {
-  const [videos, setVideos] = useState<Array<IVideo | ISkeleton>>([]);
+  const [videos, setVideos] = useState<Array<IVideo>>([]);
 
   useEffect(() => {
-    setVideos(generateSkeletons(step / 2));
     videoApi.getRelateVideos(videoId, { limit: step, offset: 0 }).then(setVideos);
   }, [videoId]);
 
   async function loadVideos() {
-    setVideos([...videos, ...generateSkeletons(step / 4)]);
     const _videos = await videoApi.getRelateVideos(videoId, {
       offset: videos.length,
       limit: step,
@@ -36,13 +34,15 @@ function RelateVideos({ videoId }: RelateVideosProps) {
   return (
     <div className="RelateVideos">
       <InfiniteScroll
-        dataLength={videos.filter((v) => !isSkeleton(v)).length}
+        dataLength={videos.length}
         next={loadVideos}
-        hasMore={true}
-        loader={null}
+        hasMore={videos.length % step === 0}
+        loader={<Sequence Component={() => <HorizontalVideoSkeleton />} length={5} />}
         scrollableTarget="Main"
       >
-        <HorizontalVideos videos={videos} />
+        {videos.map((video) => (
+          <HorizontalVideo key={video.id} video={video} />
+        ))}
       </InfiniteScroll>
     </div>
   );

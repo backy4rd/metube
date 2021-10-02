@@ -65,8 +65,8 @@ function Watch() {
       <div className="Watch">
         <div className={playlistId ? 'Watch__PlaylistPlayer' : 'Watch__VideoPlayer'}>
           <NextVideoProvider>
-            <Player className="Watch-Player" playlist={playlist || undefined} />
-            {playlist && <PlaylistVideos className="Watch-Playlist" playlist={playlist} />}
+            <Player className="Watch-Player" playlistId={playlistId} />
+            {playlistId && <PlaylistVideos className="Watch-Playlist" playlist={playlist} />}
           </NextVideoProvider>
         </div>
         <div className="Watch__Orther">

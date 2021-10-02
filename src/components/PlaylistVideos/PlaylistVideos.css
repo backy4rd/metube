@@ -19,3 +19,7 @@
 .PVH-TotalVideos {
   color: var(--main-grey-2);
 }
+
+span#PlaylistVideosBodySkeleton {
+  background-color: #ffffff02 !important;
+}

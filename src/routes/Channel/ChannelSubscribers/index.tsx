@@ -5,10 +5,10 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import userApi from '@api/userApi';
 import { useSetLoading } from '@contexts/LoadingContext';
 import IUser from '@interfaces/IUser';
-import ISkeleton, { isSkeleton } from '@interfaces/ISkeleton';
-import generateSkeletons from '@utils/generateSkeleton';
 
 import User from '@components/User';
+import UserSkeleton from '@components/User/UserSkeleton';
+import Sequence from '@utils/Sequence';
 
 import './ChannelSubscribers.css';
 
@@ -16,13 +16,12 @@ const step = 14;
 
 function ChannelSubscribers() {
   const { username } = useParams<{ username: string }>();
-  const [subscribers, setSubscribers] = useState<Array<IUser | ISkeleton>>([]);
+  const [subscribers, setSubscribers] = useState<Array<IUser>>([]);
 
   const setLoading = useSetLoading();
 
   useEffect(() => {
     setLoading(true);
-    setSubscribers(generateSkeletons(step / 2));
     userApi
       .getUserSubscribers(username, { offset: 0, limit: step })
       .then(setSubscribers)
@@ -30,7 +29,6 @@ function ChannelSubscribers() {
   }, [setLoading, username]);
 
   async function loadSubscribers() {
-    setSubscribers([...subscribers, ...generateSkeletons(step / 4)]);
     const _subscribers = await userApi.getOwnSubscribers({
       offset: subscribers.length,
       limit: step,
@@ -40,20 +38,16 @@ function ChannelSubscribers() {
 
   return (
     <InfiniteScroll
-      dataLength={subscribers.filter((s) => !isSkeleton(s)).length}
+      className="ChannelSubscribers"
+      dataLength={subscribers.length}
       next={loadSubscribers}
-      hasMore={true}
-      loader={null}
+      hasMore={subscribers.length % step === 0}
+      loader={<Sequence Component={UserSkeleton} length={7} />}
       scrollableTarget="Main"
     >
-      <div className="ChannelSubscribers">
-        {subscribers.map((subscriber) => (
-          <User
-            key={isSkeleton(subscriber) ? subscriber.bone : subscriber.username}
-            user={subscriber}
-          />
-        ))}
-      </div>
+      {subscribers.map((subscriber) => (
+        <User key={subscriber.username} user={subscriber} />
+      ))}
     </InfiniteScroll>
   );
 }

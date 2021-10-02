@@ -3,9 +3,9 @@ import { Skeleton } from '@mui/material';
 
 import './PlayerSkeleton.css';
 
-function PlayerSkeleton() {
+function PlayerSkeleton({ className }: { className?: string }) {
   return (
-    <div className="PlayerSkeleton">
+    <div className={'PlayerSkeleton ' + className || ''}>
       <Skeleton
         className="PlayerSkeleton-Player"
         variant="rectangular"
