@@ -83,8 +83,13 @@
 }
 
 .WatchDetail-ThumbnailUpload {
-  padding: 6px 12px;
+  display: flex;
   margin: 0 12px 12px 32px;
+}
+
+.WatchDetail-ThumbnailUpload > * {
+  padding: 6px 12px;
+  margin-right: 8px;
   width: fit-content;
   display: block;
 }

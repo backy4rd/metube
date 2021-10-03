@@ -151,17 +151,24 @@ function WatchDetailBody({ video }: { video: IVideo }) {
       </div>
 
       {editing && (
-        <label className="WatchDetail-ThumbnailUpload App-GreenButton">
-          <input
-            type="file"
-            hidden
-            accept="image/*"
-            onChange={(e) => setThumbnail(e.target.files?.[0] || null)}
-          />
-          <div style={{ cursor: 'pointer' }}>
-            {thumbnail ? thumbnail.name.slice(0, 30) : 'Đổi Thumbnail...'}
-          </div>
-        </label>
+        <div className="WatchDetail-ThumbnailUpload">
+          <label className=" App-GreenButton">
+            <input
+              type="file"
+              hidden
+              accept="image/*"
+              onChange={(e) => setThumbnail(e.target.files?.[0] || null)}
+            />
+            <div style={{ cursor: 'pointer' }}>
+              {thumbnail ? thumbnail.name.slice(0, 30) : 'Đổi Thumbnail...'}
+            </div>
+          </label>
+          {thumbnail && (
+            <div className="App-GreyButton" onClick={() => setThumbnail(null)}>
+              Bỏ
+            </div>
+          )}
+        </div>
       )}
 
       <div className="WatchDetail__Description">

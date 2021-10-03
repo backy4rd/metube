@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
-import { HomeVideosProvider } from '@contexts/HomeVideosContext';
+import { GlobalProvider } from '@contexts/GlobalContext';
 import { CategoriesProvider } from '@contexts/CategoriesContext';
 import ScrollToTop from '@utils/scrollToTop';
 
@@ -21,7 +21,7 @@ import './Main.css';
 function MainSwitchContext(props: { children: React.ReactNode }) {
   return (
     <CategoriesProvider>
-      <HomeVideosProvider>{props.children}</HomeVideosProvider>
+      <GlobalProvider>{props.children}</GlobalProvider>
     </CategoriesProvider>
   );
 }

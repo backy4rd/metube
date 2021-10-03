@@ -18,7 +18,7 @@ function MyPlaylistsSkeleton() {
         .fill(null)
         .map((_, i) => (
           <div key={i} className="PlaylistTag">
-            <PlaylistPlayRounded />
+            <Skeleton height={24} width={16} style={{ float: 'left', marginRight: 6 }} />
             <Skeleton height={24} width={randomPercentage(30, 100)} />
           </div>
         ))}

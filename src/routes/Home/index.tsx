@@ -1,16 +1,14 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import queryString from 'query-string';
 
 import { useSetLoading } from '@contexts/LoadingContext';
 import { useCategories } from '@contexts/CategoriesContext';
-import { useHomeVideos } from '@contexts/HomeVideosContext';
-import { isSkeleton } from '@interfaces/ISkeleton';
-import IVideo from '@interfaces/IVideo';
+import { useGlobal, useSetGlobal } from '@contexts/GlobalContext';
 import ICategory from '@interfaces/ICategory';
 import videoApi from '@api/videoApi';
 import useQuery from '@hooks/useQuery';
-import detectCategory from '@utils/detectCategory';
+import useGoToSameRoute from '@hooks/useGoToSameRoute';
 
 import CategoriesBar from './CategoriesBar';
 import VerticalVideoSkeleton from '@components/VerticalVideo/VerticalVideoSkeleton';
@@ -22,44 +20,47 @@ import './Home.css';
 const step = 20;
 
 function Home() {
-  const [videos, setVideos] = useHomeVideos();
-  const categories = useCategories();
-  const isMounting = useRef(true);
+  const { home } = useGlobal();
+  const { category } = useQuery();
 
+  const setGlobal = useSetGlobal();
+  const categories = useCategories();
   const setLoading = useSetLoading();
-  const { category: _qCategory } = useQuery();
-  const qCategory = _qCategory ? _qCategory.toString() : undefined;
+
+  useGoToSameRoute(() => {
+    initalHomeVideos();
+  });
 
   useEffect(() => {
-    async function initalVideos() {
-      try {
-        setLoading(true);
-        setVideos([]);
-        const _videos = await videoApi.getVideos({ limit: step, offset: 0 }, qCategory);
-        setVideos(_videos);
-      } catch {
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    if (
-      detectCategory(videos.filter((v) => !isSkeleton(v)) as Array<IVideo>) !== qCategory ||
-      !isMounting.current ||
-      videos.length === 0
-    ) {
-      initalVideos();
+    if (home.category !== category || home.videos.length === 0) {
+      initalHomeVideos();
     }
     // eslint-disable-next-line
-  }, [qCategory]);
+  }, [category]);
 
-  useEffect(() => {
-    isMounting.current = false;
-  }, []);
+  async function initalHomeVideos() {
+    try {
+      setLoading(true);
+      setGlobal({ home: { videos: [], category: category } });
+      const _videos = await videoApi.getVideos({ limit: step, offset: 0 }, category || undefined);
+      setGlobal({ home: { videos: _videos, category: category } });
+    } catch {
+    } finally {
+      setLoading(false);
+    }
+  }
 
   async function loadVideos() {
-    const _videos = await videoApi.getVideos({ limit: step, offset: videos.length }, qCategory);
-    setVideos([...videos, ..._videos]);
+    const _videos = await videoApi.getVideos(
+      { limit: step, offset: home.videos.length },
+      category || undefined
+    );
+    setGlobal({
+      home: {
+        videos: [...home.videos, ..._videos],
+        category: category,
+      },
+    });
   }
 
   function processPath(category: ICategory): string {
@@ -76,13 +77,13 @@ function Home() {
       <div className="Home__Container">
         <InfiniteScroll
           className="App-VerticalVideoGrid"
-          dataLength={videos.length}
+          dataLength={home.videos.length}
           next={loadVideos}
-          hasMore={videos.length % step === 0}
+          hasMore={home.videos.length % step === 0}
           loader={<Sequence Component={VerticalVideoSkeleton} length={8} />}
           scrollableTarget="Main"
         >
-          {videos.map((video) => (
+          {home.videos.map((video) => (
             <VerticalVideo key={video.id} video={video} />
           ))}
         </InfiniteScroll>
