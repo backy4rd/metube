@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import IVideo from '@interfaces/IVideo';
@@ -8,6 +8,7 @@ import generateSkeletons from '@utils/generateSkeleton';
 import { useSetLoading } from '@contexts/LoadingContext';
 
 import VerticalVideos from '@components/VerticalVideos';
+import NotFound from '@components/NotFound';
 
 import './Subscriptions.css';
 
@@ -15,6 +16,7 @@ const step = 20;
 
 function Subscriptions() {
   const [videos, setVideos] = useState<IVideo[]>([]);
+  const hasMore = useRef(true);
 
   const setLoading = useSetLoading();
 
@@ -22,13 +24,17 @@ function Subscriptions() {
     setLoading(true);
     videoApi
       .getSubscriptionVideos({ limit: step, offset: 0 })
-      .then(setVideos)
+      .then((_videos) => {
+        if (_videos.length !== step) hasMore.current = false;
+        setVideos(_videos);
+      })
       .finally(() => setLoading(false));
     //eslint-disable-next-line
   }, []);
 
   async function loadVideos() {
     const _videos = await videoApi.getSubscriptionVideos({ limit: step, offset: videos.length });
+    if (_videos.length !== step) hasMore.current = false;
     setVideos([...videos, ..._videos]);
   }
 
@@ -53,16 +59,17 @@ function Subscriptions() {
   return (
     <div className="Subscription">
       <InfiniteScroll
+        scrollableTarget="Main"
         dataLength={videos.length}
         next={loadVideos}
-        hasMore={videos.length % step === 0}
+        hasMore={hasMore.current}
         loader={
           <div className="Subscriptions__VideoSection">
             <p></p>
             <VerticalVideos videos={generateSkeletons(6)} />
           </div>
         }
-        scrollableTarget="Main"
+        endMessage={<NotFound text="Không còn video để hiển thị" />}
       >
         <div>
           {todayVideos.length !== 0 && (

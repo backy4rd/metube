@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
@@ -9,6 +9,7 @@ import IVideo from '@interfaces/IVideo';
 import VerticalVideo from '@components/VerticalVideo';
 import VerticalVideoSkeleton from '@components/VerticalVideo/VerticalVideoSkeleton';
 import Sequence from '@utils/Sequence';
+import NotFound from '@components/NotFound';
 
 import './ChannelVideos.css';
 
@@ -17,20 +18,26 @@ const step = 20;
 function ChannelVideos() {
   const [videos, setVideos] = useState<Array<IVideo>>([]);
   const { username } = useParams<{ username: string }>();
+  const hasMore = useRef(true);
 
   const setLoading = useSetLoading();
 
   useEffect(() => {
+    hasMore.current = true;
     setLoading(true);
     userApi
       .getUserVideos(username, { limit: step, offset: 0 })
-      .then(setVideos)
+      .then((_videos) => {
+        if (_videos.length < step) hasMore.current = false;
+        setVideos(_videos);
+      })
       .finally(() => setLoading(false));
     // eslint-disable-next-line
   }, [username]);
 
   async function loadVideos() {
     const _videos = await userApi.getUserVideos(username, { limit: step, offset: videos.length });
+    if (_videos.length < step) hasMore.current = false;
     setVideos([...videos, ..._videos]);
   }
 
@@ -40,8 +47,9 @@ function ChannelVideos() {
         className="App-VerticalVideoGrid"
         dataLength={videos.length}
         next={loadVideos}
-        hasMore={videos.length % step === 0}
+        hasMore={hasMore.current}
         loader={<Sequence Component={VerticalVideoSkeleton} length={8} />}
+        endMessage={<NotFound text="Không còn video để hiển thị !" />}
         scrollableTarget="Main"
       >
         {videos.map((video) => (

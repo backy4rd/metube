@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { DeleteForever } from '@material-ui/icons';
 
@@ -11,6 +11,7 @@ import { useShowConfirm } from '@contexts/ConfirmContext';
 import { usePushMessage } from '@contexts/MessageQueueContext';
 
 import HorizontalVideos from '@components/HorizontalVideos';
+import NotFound from '@components/NotFound';
 
 import './History.css';
 
@@ -18,21 +19,27 @@ const step = 10;
 
 function History() {
   const [videos, setVideos] = useState<Array<IVideo>>([]);
+  const hasMore = useRef(true);
 
   const setLoading = useSetLoading();
-  const { showConfirm } = useShowConfirm();
   const pushMessage = usePushMessage();
+  const { showConfirm } = useShowConfirm();
 
   async function loadVideos() {
     const _videos = await historyApi.getWatchedVideos({ limit: step, offset: videos.length });
+    if (_videos.length !== step) hasMore.current = false;
     setVideos([...videos, ..._videos]);
   }
 
   useEffect(() => {
+    hasMore.current = true;
     setLoading(true);
     historyApi
       .getWatchedVideos({ limit: step, offset: 0 })
-      .then(setVideos)
+      .then((_videos) => {
+        if (_videos.length !== step) hasMore.current = false;
+        setVideos(_videos);
+      })
       .finally(() => setLoading(false));
     // eslint-disable-next-line
   }, []);
@@ -76,16 +83,17 @@ function History() {
       </div>
       <div className="History__Videos">
         <InfiniteScroll
+          scrollableTarget="Main"
           dataLength={videos.length}
           next={loadVideos}
-          hasMore={videos.length % step === 0}
+          hasMore={hasMore.current}
           loader={
             <div className="History__VideoSection">
               <p></p>
               <HorizontalVideos videos={generateSkeletons(4)} extend />
             </div>
           }
-          scrollableTarget="Main"
+          endMessage={<NotFound text="Không còn video để hiển thị" />}
         >
           <div>
             {todayVideos.length !== 0 && (

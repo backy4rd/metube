@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
@@ -17,14 +17,19 @@ const step = 14;
 function ChannelSubscriptions() {
   const { username } = useParams<{ username: string }>();
   const [subscriptions, setSubscriptions] = useState<Array<IUser>>([]);
+  const hasMore = useRef(true);
 
   const setLoading = useSetLoading();
 
   useEffect(() => {
+    hasMore.current = true;
     setLoading(true);
     userApi
       .getUserSubscription(username, { offset: 0, limit: step })
-      .then(setSubscriptions)
+      .then((_subscriptions) => {
+        if (_subscriptions.length !== step) hasMore.current = false;
+        setSubscriptions(_subscriptions);
+      })
       .finally(() => setLoading(false));
   }, [setLoading, username]);
 
@@ -33,6 +38,7 @@ function ChannelSubscriptions() {
       offset: subscriptions.length,
       limit: step,
     });
+    if (_subscriptions.length !== step) hasMore.current = false;
     setSubscriptions([...subscriptions, ..._subscriptions]);
   }
 
@@ -41,7 +47,7 @@ function ChannelSubscriptions() {
       className="ChannelSubscriptions"
       dataLength={subscriptions.length}
       next={loadSubscriptions}
-      hasMore={subscriptions.length % step === 0}
+      hasMore={hasMore.current}
       loader={<Sequence Component={UserSkeleton} length={7} />}
       scrollableTarget="Main"
     >

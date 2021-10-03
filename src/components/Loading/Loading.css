@@ -12,7 +12,7 @@
 
 .Loading {
   position: fixed;
-  top: 0;
+  top: 54px;
   left: 0;
   height: 3px;
   background-color: var(--main-red-1);

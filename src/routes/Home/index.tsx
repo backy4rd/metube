@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import queryString from 'query-string';
 
@@ -14,6 +14,7 @@ import CategoriesBar from './CategoriesBar';
 import VerticalVideoSkeleton from '@components/VerticalVideo/VerticalVideoSkeleton';
 import VerticalVideo from '@components/VerticalVideo';
 import Sequence from '@utils/Sequence';
+import NotFound from '@components/NotFound';
 
 import './Home.css';
 
@@ -22,6 +23,7 @@ const step = 20;
 function Home() {
   const { home } = useGlobal();
   const { category } = useQuery();
+  const hasMore = useRef(true);
 
   const setGlobal = useSetGlobal();
   const categories = useCategories();
@@ -40,9 +42,11 @@ function Home() {
 
   async function initalHomeVideos() {
     try {
+      hasMore.current = true;
       setLoading(true);
       setGlobal({ home: { videos: [], category: category } });
       const _videos = await videoApi.getVideos({ limit: step, offset: 0 }, category || undefined);
+      if (_videos.length !== step) hasMore.current = false;
       setGlobal({ home: { videos: _videos, category: category } });
     } catch {
     } finally {
@@ -55,6 +59,7 @@ function Home() {
       { limit: step, offset: home.videos.length },
       category || undefined
     );
+    if (_videos.length !== step) hasMore.current = false;
     setGlobal({
       home: {
         videos: [...home.videos, ..._videos],
@@ -79,7 +84,8 @@ function Home() {
           className="App-VerticalVideoGrid"
           dataLength={home.videos.length}
           next={loadVideos}
-          hasMore={home.videos.length % step === 0}
+          hasMore={hasMore.current}
+          endMessage={<NotFound text="Không còn video để hiển thị !" />}
           loader={<Sequence Component={VerticalVideoSkeleton} length={8} />}
           scrollableTarget="Main"
         >
