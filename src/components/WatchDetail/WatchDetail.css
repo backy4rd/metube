@@ -18,21 +18,6 @@
 .WatchDetail__Info-UploadedAt {
   color: var(--main-grey-2);
 }
-
-.WatchDetail__User {
-  display: flex;
-  align-items: center;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--main-dark-4);
-  padding-right: 12px;
-}
-
-.WatchDetail__User__Left {
-  display: flex;
-  align-items: center;
-  flex-grow: 1;
-}
-
 .WatchDetail__StatisticAndAction {
   display: flex;
   align-items: center;
@@ -59,14 +44,6 @@
 
 #WDSAA-Actions:hover > svg {
   color: var(--main-red-1);
-}
-
-.WatchDetail__User__Left:hover .WatchDetail__User__Left-Username {
-  color: var(--main-red-1);
-}
-
-.WatchDetail__User__Left-Avatar {
-  margin-right: 6px;
 }
 
 .WatchDetail__Description {

@@ -5,6 +5,7 @@ import {
   LiveTvOutlined,
   ThumbUpOutlined,
   QueueOutlined,
+  RadioButtonChecked,
 } from '@material-ui/icons';
 
 import { useShowSidebar } from '@contexts/ShowSidebarContext';
@@ -34,6 +35,7 @@ function Sidebar() {
         <SidebarNavigationTag to="/" Icon={LiveTvOutlined} title="Trang chủ" />
         <ChannelInfo />
 
+        <SidebarNavigationTag to="/live" Icon={RadioButtonChecked} title="Live now" />
         <SidebarNavigationTag to="/history" Icon={History} title="Lịch sử" />
 
         <SidebarNavigationTag to="/liked" Icon={ThumbUpOutlined} title="Đã thích" />

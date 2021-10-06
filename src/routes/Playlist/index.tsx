@@ -31,7 +31,7 @@ function Playlist() {
     <div className="Playlist">
       <NextVideoProvider>
         <PlaylistInfo className="Playlist-Edit" playlist={playlist} />
-        <PlaylistVideos className="Playlist-Videos" playlist={playlist} />
+        <PlaylistVideos className="Playlist-Videos" playlist={playlist} showAddedDate />
       </NextVideoProvider>
     </div>
   );

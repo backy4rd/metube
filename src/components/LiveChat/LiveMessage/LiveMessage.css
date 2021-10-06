@@ -1,0 +1,23 @@
+.LiveMessage {
+  padding: 5px 5px 5px 20px;
+  word-break: break-word;
+}
+.LiveMessage__Info {
+  display: inline-block;
+}
+.LiveMessage-Timestamp {
+  color: var(--main-grey-3);
+}
+
+.LiveMessage-Separator {
+  padding: 0 4px;
+}
+
+.LiveMessage-Username {
+  font-weight: bold;
+}
+
+.LiveMessage-Message,
+.LiveMessage__Info {
+  line-height: 16px;
+}

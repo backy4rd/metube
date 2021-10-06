@@ -14,10 +14,7 @@ class PlaylistApi {
     return client.get(`/playlists/${playlistId}`);
   }
 
-  public updatePlaylist(
-    playlistId: number,
-    data: Partial<Playlist>
-  ): Promise<ApiMessage> {
+  public updatePlaylist(playlistId: number, data: Partial<Playlist>): Promise<ApiMessage> {
     return client.patch(`/playlists/${playlistId}`, data);
   }
 
@@ -27,6 +24,10 @@ class PlaylistApi {
 
   public getPlaylistVideos(playlistId: number, range?: Range): Promise<Video[]> {
     return client.get(`/playlists/${playlistId}/videos`, { params: { ...range } });
+  }
+
+  public getPlaylists(range?: Range): Promise<Playlist[]> {
+    return client.get(`/playlists`, { params: { ...range } });
   }
 
   public addVideoToPlaylist(

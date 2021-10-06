@@ -1,0 +1,21 @@
+.UserInfo {
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--main-dark-4);
+  padding-right: 12px;
+}
+
+.UserInfo__Left {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.UserInfo__Left:hover .UserInfo__Left-Username {
+  color: var(--main-red-1);
+}
+
+.UserInfo__Left-Avatar {
+  margin-right: 6px;
+}

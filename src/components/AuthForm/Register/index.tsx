@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import authApi from '@api/authApi';
+import { useAuth } from '@contexts/AuthContext';
 
 import './Register.css';
 
@@ -27,6 +28,7 @@ function Register({ onLoginClick }: Props) {
   const [isLastNameValid, setIsLastNameValid] = useState(true);
 
   const [failMessage, setFailMessage] = useState<string | null>(null);
+  const { login } = useAuth();
 
   async function handleRegister() {
     const _isUsernameValid = /(?=.{5,32}$)^[a-zA-Z0-9._]+$/.test(username);
@@ -61,8 +63,7 @@ function Register({ onLoginClick }: Props) {
       });
 
       setFailMessage(null);
-      window.localStorage.setItem('token', response.token);
-      window.location.reload();
+      login(response.token);
     } catch (e) {
       if (e?.data?.fail?.message === 'username already exists') {
         setFailMessage('tên tài khoản đã tồn tại');

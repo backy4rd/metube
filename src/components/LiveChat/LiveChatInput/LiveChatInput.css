@@ -1,0 +1,17 @@
+.LiveChatInput {
+  display: flex;
+  align-items: center;
+  margin: 8px;
+}
+.LiveChatInput-Message {
+  flex-grow: 1;
+  margin-right: 4px;
+}
+
+.LiveChatInput-Submit {
+  padding: 6px 12px;
+}
+
+.LiveChatInput-Avatar {
+  margin-right: 4px;
+}

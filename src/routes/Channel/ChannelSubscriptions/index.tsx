@@ -34,7 +34,7 @@ function ChannelSubscriptions() {
   }, [setLoading, username]);
 
   async function loadSubscriptions() {
-    const _subscriptions = await userApi.getOwnSubscription({
+    const _subscriptions = await userApi.getUserSubscription('me', {
       offset: subscriptions.length,
       limit: step,
     });

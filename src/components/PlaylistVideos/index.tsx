@@ -19,12 +19,13 @@ import Sequence from '@utils/Sequence';
 
 interface PlaylistVideosProps {
   playlist: IPlaylist | null | undefined;
+  showAddedDate?: boolean;
   className?: string;
 }
 
 const step = 10;
 
-function PlaylistVideos({ playlist, className }: PlaylistVideosProps) {
+function PlaylistVideos({ playlist, className, showAddedDate = false }: PlaylistVideosProps) {
   const [videos, setVideos] = useState<Array<IVideo>>([]);
 
   const { showConfirm } = useShowConfirm();
@@ -103,6 +104,7 @@ function PlaylistVideos({ playlist, className }: PlaylistVideosProps) {
                 video={video}
                 playlist={playlist}
                 number={i + 1}
+                showAddedDate={showAddedDate}
                 handleRemovePlaylistVideo={handleRemovePlaylistVideo}
               />
             ))}

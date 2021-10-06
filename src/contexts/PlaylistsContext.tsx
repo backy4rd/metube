@@ -27,7 +27,7 @@ export function PlaylistsProvider(props: PlaylistsProviderProps) {
 
   useEffect(() => {
     if (!user) return;
-    userApi.getOwnPlaylists().then(setPlaylists);
+    userApi.getUserPlaylists('me').then(setPlaylists);
   }, [user]);
 
   return (

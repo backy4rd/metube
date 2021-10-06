@@ -11,10 +11,15 @@ export default interface Video {
   description: string | null;
   uploadedAt: Date; // date string
   watchedAt: Date; // date string
+  addedAt: Date; // date string
   like: number;
   dislike: number;
   uploadedBy: User;
   react: boolean | null;
   totalComments: number;
   categories: Array<Category>;
+  privacy: {
+    id: number;
+    name: string;
+  };
 }

@@ -5,10 +5,12 @@ import IToken from '@interfaces/IToken';
 import IUser from '@interfaces/IUser';
 import userApi from '@api/userApi';
 
+type Auth = (IUser & IToken & { token: string }) | null | undefined;
+
 const AuthContext = React.createContext<{
   // undefined means the app is loading user credential
   // null is unauthorize
-  user: (IUser & IToken) | null | undefined;
+  user: Auth;
   logout: () => void;
   login: (token: string) => void;
 }>({
@@ -22,7 +24,7 @@ export function useAuth() {
 }
 
 export function AuthProvider(props: { children?: React.ReactNode }) {
-  const [user, setUser] = useState<(IUser & IToken) | null | undefined>(undefined);
+  const [user, setUser] = useState<Auth>(undefined);
 
   useEffect(() => {
     const token = window.localStorage.getItem('token');
@@ -32,8 +34,8 @@ export function AuthProvider(props: { children?: React.ReactNode }) {
       if (parsedToken.exp * 1000 - Date.now() < 0) throw new Error();
 
       userApi
-        .getOwnProfile()
-        .then((_user) => setUser({ ...parsedToken, ..._user }))
+        .getUserProfile('me')
+        .then((_user) => setUser({ ...parsedToken, ..._user, token }))
         .catch(() => setUser(null));
     } catch {
       setUser(null);

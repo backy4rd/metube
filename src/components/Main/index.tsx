@@ -13,8 +13,12 @@ import Channel from '@routes/Channel';
 import Subscriptions from '@routes/Subscriptions';
 import History from '@routes/History';
 import Search from '@routes/Search';
+import Liked from '@routes/Liked';
+import Playlists from '@routes/Playlists';
 import Upload from '@components/Upload';
 import NotFound from '@components/NotFound';
+import Lives from '@routes/Lives';
+import Live from '@routes/Live';
 
 import './Main.css';
 
@@ -39,12 +43,14 @@ function Main() {
           <Route exact path="/watch/:videoId/playlist/:playlistId" component={Watch} />
           <Route exact path="/playlist/:playlistId" component={Playlist} />
           <Route exact path="/search" component={Search} />
+          <Route exact path="/live" component={Lives} />
+          <Route exact path="/live/:streamId" component={Live} />
           <Route path="/channel/:username" component={Channel} />
           <AuthorizedRoute exact path="/upload" component={Upload} />
           <AuthorizedRoute exact path="/subscription" component={Subscriptions} />
           <AuthorizedRoute exact path="/history" component={History} />
-          <AuthorizedRoute exact path="/playlist" component={() => <div>playlists</div>} />
-          <AuthorizedRoute exact path="/liked" component={() => <div>liked</div>} />
+          <AuthorizedRoute exact path="/playlist" component={Playlists} />
+          <AuthorizedRoute exact path="/liked" component={Liked} />
           <Route path="/404" component={NotFound} /> {/* may put in some other place*/}
           <Redirect to="/404" />
         </Switch>

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import queryString from 'query-string';
 import { TextareaAutosize } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
@@ -13,8 +12,6 @@ import { useSetLoading } from '@contexts/LoadingContext';
 import { usePushMessage } from '@contexts/MessageQueueContext';
 import { useCategories } from '@contexts/CategoriesContext';
 
-import Avatar from '@components/Avatar';
-import SubscribeButton from '@components/SubscribeButton';
 import EllipsisText from '@components/EllipsisText';
 import Categories from '@components/Categories';
 import WatchStatistic from '@components/WatchStatistic';
@@ -22,6 +19,7 @@ import ActionPopup from '@components/WatchStatistic/ActionPopup';
 import WatchDetailSkeleton from './WatchDetailSkeleton';
 
 import './WatchDetail.css';
+import UserInfo from './UserInfo';
 
 function WatchDetailBody({ video }: { video: IVideo }) {
   const [title, setTitle] = useState(video.title);
@@ -90,7 +88,7 @@ function WatchDetailBody({ video }: { video: IVideo }) {
     return '/?' + queryString.stringify(query);
   }
 
-  const uploadedAt = video.uploadedAt.toString();
+  const uploadedAt = video.uploadedAt.toLocaleString().replace(',', '');
   const isOwner = user && user.username === video.uploadedBy.username;
 
   return (
@@ -100,7 +98,7 @@ function WatchDetailBody({ video }: { video: IVideo }) {
           <input
             type="text"
             className="App-TextInput WatchDetail__Info-Title"
-            placeholder="Description"
+            placeholder="Title..."
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             autoFocus
@@ -108,20 +106,10 @@ function WatchDetailBody({ video }: { video: IVideo }) {
         ) : (
           <div className="WatchDetail__Info-Title">{video.title}</div>
         )}
-        <div className="WatchDetail__Info-UploadedAt">
-          {uploadedAt.slice(0, uploadedAt.indexOf(' GMT'))}
-        </div>
+        <div className="WatchDetail__Info-UploadedAt">{uploadedAt}</div>
       </div>
 
-      <div className="WatchDetail__User" style={{ display: 'flex' }}>
-        <Link className="WatchDetail__User__Left" to={`/channel/${video.uploadedBy.username}`}>
-          <Avatar user={video.uploadedBy} className="WatchDetail__User__Left-Avatar" />
-          <div className="WatchDetail__User__Left-Username">
-            {video.uploadedBy.username} ({video.uploadedBy.firstName} {video.uploadedBy.lastName})
-          </div>
-        </Link>
-        <SubscribeButton targetUser={video.uploadedBy} />
-      </div>
+      <UserInfo user={video.uploadedBy} />
 
       <div className="WatchDetail__StatisticAndAction">
         <WatchStatistic video={video} />
@@ -175,7 +163,7 @@ function WatchDetailBody({ video }: { video: IVideo }) {
         {editing ? (
           <TextareaAutosize
             className="App-TextInput"
-            placeholder="Description"
+            placeholder="Description..."
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
