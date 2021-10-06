@@ -17,6 +17,8 @@
   flex-grow: 1;
   overflow-y: auto;
   overflow-x: unset;
+  display: flex;
+  flex-direction: column-reverse;
   background-color: var(--main-dark-2);
 }
 

@@ -41,33 +41,10 @@ function LiveChat({ streamId, className, handleLiveCountChange = () => {} }: Liv
   useEffect(() => {
     if (!socket) return;
 
-    socket.on('old messages', (_msgs) => setMessages((msgs) => [..._msgs, ...msgs]));
+    socket.on('old messages', (_msgs) => setMessages((msgs) => [...msgs, ..._msgs.reverse()]));
     socket.on('live count', handleLiveCountChange);
-    socket.on('new message', (msg) => setMessages((msgs) => [...msgs, msg]));
+    socket.on('new message', (msg) => setMessages((msgs) => [msg, ...msgs]));
     // eslint-disable-next-line
-  }, [socket]);
-
-  useLayoutEffect(() => {
-    if (!messagesRef.current) return;
-    if (isAtBottom.current) {
-      messagesRef.current.scrollTo(0, messagesRef.current.scrollHeight);
-    }
-  }, [messages]);
-
-  useEffect(() => {
-    if (!messagesRef.current) return;
-    const scrollTarget = messagesRef.current;
-
-    function handleScroll(e: Event) {
-      const element = e.target as HTMLDivElement;
-      isAtBottom.current =
-        element.scrollHeight - Math.round(element.scrollTop) === element.clientHeight;
-    }
-
-    scrollTarget.addEventListener('scroll', handleScroll);
-    return () => {
-      scrollTarget.removeEventListener('scroll', handleScroll);
-    };
   }, [socket]);
 
   function handleSendMessage(message: string) {

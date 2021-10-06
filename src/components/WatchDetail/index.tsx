@@ -17,9 +17,9 @@ import Categories from '@components/Categories';
 import WatchStatistic from '@components/WatchStatistic';
 import ActionPopup from '@components/WatchStatistic/ActionPopup';
 import WatchDetailSkeleton from './WatchDetailSkeleton';
+import UserInfo from './UserInfo';
 
 import './WatchDetail.css';
-import UserInfo from './UserInfo';
 
 function WatchDetailBody({ video }: { video: IVideo }) {
   const [title, setTitle] = useState(video.title);

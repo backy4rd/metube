@@ -10,6 +10,7 @@ import StreamPlayer from '@components/StreamPlayer';
 import UserInfo from '@components/WatchDetail/UserInfo';
 
 import './Live.css';
+import EllipsisText from '@components/EllipsisText';
 
 function Live() {
   const [stream, setStream] = useState<IStream | null>(null);
@@ -28,12 +29,30 @@ function Live() {
 
   return (
     <div className="Live">
-      <div className="Live-Player">
+      <div className="Live-Main">
         <StreamPlayer stream={stream} />
-        <div className="Live-Info">
-          <h2>{stream?.name}</h2>
-          <div>{viewers} người đang xem</div>
+        <div className="LiveDetail">
+          <div className="WatchDetail__Info">
+            <div className="WatchDetail__Info-Title">{stream?.name}</div>
+            {stream && (
+              <div className="WatchDetail__Info-UploadedAt">
+                {viewers} người đang xem -{' '}
+                {stream.lastStreamedAt
+                  ? 'Lần cuối live ' + stream.lastStreamedAt.toLocaleString()
+                  : 'Chưa từng live trước đây'}
+              </div>
+            )}
+          </div>
+
           {stream && <UserInfo user={stream.user} />}
+
+          <div className="WatchDetail__Description">
+            <EllipsisText
+              text={stream?.description || ''}
+              lines={5}
+              ellipsis={<div className="SidebarGroup-Toggle">show more »</div>}
+            />
+          </div>
         </div>
       </div>
       <LiveChat

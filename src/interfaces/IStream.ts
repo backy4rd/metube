@@ -10,5 +10,7 @@ export default interface Stream {
   streamKey: string;
   thumbnailPath: string;
   isStreaming: boolean;
+  description: string | null;
+  lastStreamedAt: Date | null;
   user: User;
 }
