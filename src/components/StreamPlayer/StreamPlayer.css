@@ -1,0 +1,13 @@
+.StreamPlayerWrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;
+  margin-bottom: 16px;
+  background-color: black;
+}
+
+.StreamPlayer {
+  position: absolute;
+  left: 0;
+  top: 0;
+}

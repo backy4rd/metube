@@ -1,6 +1,9 @@
+import React, { useEffect, useRef, useState } from 'react';
+
+import { useSetShowAuthForm } from '@contexts/ShowAuthFormContext';
+
 import Avatar from '@components/Avatar';
 import { useAuth } from '@contexts/AuthContext';
-import React, { useEffect, useRef, useState } from 'react';
 
 import './LiveChatInput.css';
 
@@ -12,6 +15,7 @@ function LiveChatInput({ handleSubmit }: LiveChatInputProps) {
   const [message, setMessage] = useState<string>('');
   const isUnmounted = useRef(false);
 
+  const setShowAuthForm = useSetShowAuthForm();
   const { user } = useAuth();
 
   useEffect(() => {
@@ -24,6 +28,7 @@ function LiveChatInput({ handleSubmit }: LiveChatInputProps) {
   return (
     <form
       className="LiveChatInput"
+      onClick={user ? undefined : () => setShowAuthForm(true)}
       onSubmit={(e) => {
         e.preventDefault();
         handleSubmit(message);
@@ -34,7 +39,9 @@ function LiveChatInput({ handleSubmit }: LiveChatInputProps) {
       <input
         className="LiveChatInput-Message App-TextInput"
         type="text"
-        placeholder="Tin nhắn..."
+        placeholder={user ? 'Tin nhắn...' : 'Đăng nhập để trò chuyện'}
+        style={{ cursor: user ? 'text' : 'pointer' }}
+        disabled={!user}
         value={message}
         onChange={(e) => setMessage(e.target.value)}
       />

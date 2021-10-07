@@ -1,12 +1,12 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
 
+import ISkeleton, { isSkeleton } from '@interfaces/ISkeleton';
 import { useAuth } from '@contexts/AuthContext';
 import generateSkeletons from '@utils/generateSkeleton';
 
 import LiveMessage, { ILiveMessage } from './LiveMessage';
 import LiveChatInput from './LiveChatInput';
-import ISkeleton, { isSkeleton } from '@interfaces/ISkeleton';
 
 import './LiveChat.css';
 
@@ -20,7 +20,6 @@ function LiveChat({ streamId, className, handleLiveCountChange = () => {} }: Liv
   const [messages, setMessages] = useState<Array<ILiveMessage | ISkeleton>>(generateSkeletons(7));
   const [socket, setSocket] = useState<Socket | null>(null);
   const messagesRef = useRef<HTMLDivElement>(null);
-  const isAtBottom = useRef(true);
 
   const { user } = useAuth();
 
