@@ -49,9 +49,10 @@ function Reply({ video, reply, handleRemoveReply }: ReplyProps) {
       <div className="Reply__Main">
         <div className="Reply__Main__Info">
           <Link className="Reply__Main__Info-Author" to={`/channel/${reply.user.username}`}>
-            {reply.user.username} -
+            {reply.user.username}
           </Link>
           <div className="Reply__Main__Info-CreatedAt">
+            {' — '}
             {timeDifference(new Date(), reply.createdAt)}
           </div>
         </div>

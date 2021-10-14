@@ -3,13 +3,13 @@ import { CSSTransition } from 'react-transition-group';
 import { Close, PlaylistAdd } from '@material-ui/icons';
 
 import playlistApi from '@api/playlistApi';
+import IPlaylist from '@interfaces/IPlaylist';
 import { usePlaylistPopup, usePlaylistVideoId } from '@contexts/PlaylistPopupContext';
 import { usePlaylists, useSetPlaylists } from '@contexts/PlaylistsContext';
 import { usePushMessage } from '@contexts/MessageQueueContext';
 import { useSetLoading } from '@contexts/LoadingContext';
 
 import './PlaylistPopup.css';
-import IPlaylist from '@interfaces/IPlaylist';
 
 function PlaylistPopup() {
   const [playlistName, setPlaylistName] = useState('');
@@ -33,7 +33,7 @@ function PlaylistPopup() {
       hidePlaylistPopup();
       pushMessage('Đã thêm vào ' + playlist.name);
     } catch (err) {
-      if (err.data?.fail?.message === 'video already exist in playlist') {
+      if ((err as any).data?.fail?.message === 'video already exist in playlist') {
         pushMessage('Video đã tồn tại trong playlist');
       } else {
         pushMessage('Thêm Video vào Playlist không thành công!');

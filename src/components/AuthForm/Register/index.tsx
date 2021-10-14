@@ -65,7 +65,7 @@ function Register({ onLoginClick }: Props) {
       setFailMessage(null);
       login(response.token);
     } catch (e) {
-      if (e?.data?.fail?.message === 'username already exists') {
+      if ((e as any)?.data?.fail?.message === 'username already exists') {
         setFailMessage('tên tài khoản đã tồn tại');
       } else {
         setFailMessage('lỗi máy chủ');

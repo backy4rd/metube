@@ -25,7 +25,7 @@ function Login({ onRegisterClick }: Props) {
       setFailMessage(null);
       login(response.token);
     } catch (e) {
-      const message: string = e?.data?.fail?.message;
+      const message: string = (e as any)?.data?.fail?.message;
 
       if (message === "username doesn't exists") {
         setFailMessage('tài khoản không tồn tại');

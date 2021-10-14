@@ -2,7 +2,7 @@ import React from 'react';
 import { Schedule, VisibilityOutlined } from '@material-ui/icons';
 
 import { numberWithCommas } from '@utils/number';
-import { secondToTime } from '@utils/time';
+import { secondToTime, timeDifference } from '@utils/time';
 import IStream, { isStream } from '@interfaces/IStream';
 import IVideo from '@interfaces/IVideo';
 
@@ -59,7 +59,10 @@ function VideoThumbnail({ video, className, showViews = true }: VideoThumbnailPr
             borderRadius: '2px',
           }}
         >
-          {video.isStreaming ? 'LIVE' : 'OFFLINE'}
+          {video.isStreaming
+            ? 'LIVE'
+            : 'OFFLINE' +
+              (video.lastStreamedAt ? ' ' + timeDifference(new Date(), video.lastStreamedAt) : '')}
         </div>
       )}
     </div>

@@ -62,9 +62,10 @@ function Comment({ video, comment, handleRemoveComment }: CommentProps) {
       <div className="Comment__Main">
         <div className="Comment__Main__Info">
           <Link className="Comment__Main__Info-Author" to={`/channel/${comment.user.username}`}>
-            {comment.user.username} -
+            {comment.user.username}
           </Link>
           <div className="Comment__Main__Info-CreatedAt">
+            {' — '}
             {timeDifference(new Date(), comment.createdAt)}
           </div>
         </div>

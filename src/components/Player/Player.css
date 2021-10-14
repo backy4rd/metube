@@ -1,3 +1,7 @@
+.PlayerWrapper {
+  position: relative;
+}
+
 .Player {
   background-color: black;
 }

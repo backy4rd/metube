@@ -1,9 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 import Hls, { HlsConfig } from 'hls.js';
+import screenfull, { Screenfull } from 'screenfull';
 
 import IStream from '@interfaces/IStream';
 
 import StreamPlayerSkeleton from './StreamPlayerSkeleton';
+import PlayerControl from '@components/PlayerControl';
 
 import './StreamPlayer.css';
 
@@ -18,6 +20,7 @@ const playerConfig: Partial<HlsConfig> = {
 
 function StreamPlayer({ stream, className }: StreamPlayerProps) {
   const playerRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!stream || !playerRef.current) return;
@@ -40,22 +43,28 @@ function StreamPlayer({ stream, className }: StreamPlayerProps) {
       }
     });
 
-    playerRef.current.addEventListener('canplay', () => playerRef.current?.play());
-
     return () => hls.destroy();
   }, [stream]);
 
   if (!stream) return <StreamPlayerSkeleton />;
   return (
-    <div className={`StreamPlayerWrapper ${className || ''}`}>
+    <div ref={containerRef} className={`StreamPlayerWrapper ${className || ''}`}>
       <video
         ref={playerRef}
+        id="StreamPlayer"
         className="StreamPlayer"
-        controls
         muted
         width="100%"
         height="100%"
       ></video>
+      <PlayerControl
+        target="#StreamPlayer"
+        className="StreamPlayerControl"
+        isLive={true}
+        handleFullscreenClick={() =>
+          (screenfull as Screenfull).toggle(containerRef.current as Element)
+        }
+      />
     </div>
   );
 }

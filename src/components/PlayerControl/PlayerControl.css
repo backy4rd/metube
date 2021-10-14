@@ -1,0 +1,99 @@
+.PlayerControl {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+.PlayerControl svg:hover {
+  cursor: pointer;
+  color: var(--main-red-1);
+}
+
+.PlayerControl__ShadingScreen {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background-color: #0000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.PlayerControl__ShadingScreen.active {
+  background-color: #0003;
+}
+
+.PlayerControl__ShadingScreen svg {
+  font-size: 128px !important;
+}
+
+.PCSS-Loading {
+  border: 8px solid var(--main-red-1);
+  border-radius: 50%;
+  border-top: 8px solid #0000;
+  width: 80px;
+  height: 80px;
+  animation: rotating 2s linear infinite;
+}
+
+.PlayerControl__ControlArea {
+  position: absolute;
+  height: 40px;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  transition: opacity 0.2s linear;
+  background-image: linear-gradient(#0000, #000e);
+  z-index: 2;
+}
+
+.PlayerControl__ControlArea.show {
+  opacity: 1;
+}
+
+.PlayerControl__ControlArea.hide {
+  opacity: 0;
+}
+
+.PCCA-ProgressBar {
+  position: absolute !important;
+  /* width: 100% !important; */
+  /* padding: 2px !important; */
+  top: -3px;
+  /* color: var(--main-red-1) !important; */
+}
+
+.PCCA__Main {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+}
+
+.PCCA__Main > * {
+  margin-right: 12px;
+}
+
+.PCCA__Main svg {
+  font-size: 24px !important;
+}
+
+.PCCA__Main-VolumeSlider {
+  color: white !important;
+}
+
+.PCCA__Main-VolumeSlider .MuiSlider-thumb {
+  box-shadow: none !important;
+}
+
+.MuiSlider-thumb::after {
+  display: none;
+}
