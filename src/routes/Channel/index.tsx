@@ -43,7 +43,6 @@ function Home() {
           <Route exact path={`${path}/subscriber`} component={ChannelSubscribers} />
           <Route exact path={`${path}/subscription`} component={ChannelSubscriptions} />
           <Route exact path={`${path}/about`} component={() => <div>info</div>} />
-          <Route exact path={`${path}/edit`} component={() => <div>edtit</div>} />
           <Redirect to="/404" />
         </Switch>
       </div>

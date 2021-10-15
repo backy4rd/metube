@@ -5,11 +5,18 @@ import Video from '../interfaces/IVideo';
 import Playlist from '@interfaces/IPlaylist';
 import Stream from '@interfaces/IStream';
 import Range from '../interfaces/IRange';
+import ApiMessage from '@interfaces/IApiMessage';
 
 interface UpdateStreamFields {
   name: string;
   thumbnail: File;
   renew_key: '0' | '1';
+}
+
+interface UpdateBannerAndNameFields {
+    banner: File;
+    first_name: string;
+    last_name: string;
 }
 
 class UserApi {
@@ -35,6 +42,22 @@ class UserApi {
 
   public getUserPlaylists(username: string, range?: Range): Promise<Playlist[]> {
     return client.get(`/users/${username}/playlists`, { params: { ...range } });
+  }
+
+  public updateAvatar(avatar: File): Promise<ApiMessage> {
+    return client.patch(
+      `/users/me`,
+      { avatar },
+      {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      }
+    );
+  }
+
+  public updateBannerAndName(data: Partial<UpdateBannerAndNameFields>): Promise<ApiMessage> {
+    return client.patch(`/users/me`, data, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
   }
 
   public updateStream(data: Partial<UpdateStreamFields>): Promise<Stream> {

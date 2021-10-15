@@ -125,7 +125,7 @@ function UploadHandler({ videoFile, setVideoFile }: Props) {
             <input
               className="App-TextInput"
               type="text"
-              placeholder="Tiêu đề"
+              placeholder="Title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
@@ -133,7 +133,7 @@ function UploadHandler({ videoFile, setVideoFile }: Props) {
             <div className="inputs-label">Mô tả:</div>
             <TextareaAutosize
               className="App-TextInput"
-              placeholder="Mô tả"
+              placeholder="Description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />

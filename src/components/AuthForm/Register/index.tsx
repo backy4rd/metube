@@ -109,7 +109,7 @@ function Register({ onLoginClick }: Props) {
         <input
           className={isFirstNameValid ? '' : 'invalid'}
           type="text"
-          placeholder="Họ Lót"
+          placeholder="Họ"
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
         />

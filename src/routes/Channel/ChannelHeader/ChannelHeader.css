@@ -1,4 +1,5 @@
 .ChannelHeader {
+  position: relative;
   height: 160px;
   display: flex;
   align-items: center;
@@ -13,9 +14,32 @@
   background-color: black;
 }
 
-.CHI-Username {
+.ChannelHeader-Avatar .Avatar-Uploader {
+  top: 2px !important;
+  width: calc(100% - 5px) !important;
+  height: calc(100% - 5px) !important;
+}
+
+.CHI__Name {
   font-size: 20px;
   margin-bottom: 4px;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.CHI__Name-Username {
+  margin-right: 6px;
+  font-size: inherit !important;
+}
+.CHI__Name-Fullname {
+  font-size: inherit !important;
+  display: flex;
+}
+
+.CHI__Name-Fullname > input {
+  margin: 0 2px;
+  max-width: 128px;
 }
 
 .CHI-Subscribers {
@@ -25,4 +49,31 @@
 .CHI-SubscribeButton {
   margin-top: 12px;
   width: 120px;
+}
+
+.CHI__Buttons {
+  display: flex;
+}
+
+.CHI__Buttons-UploadBanner,
+.CHI__Buttons-Save,
+.CHI__Buttons-Cancel {
+  padding: 0 12px;
+  line-height: 24px;
+  margin-right: 4px;
+  width: fit-content;
+  border-radius: 2px !important;
+}
+
+.CHI__Buttons-UploadBanner {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  margin: 0;
+  transition: background-color 0.1s, opacity 200ms linear !important;
+  opacity: 0;
+}
+
+.ChannelHeader:hover .CHI__Buttons-UploadBanner {
+  opacity: 1;
 }

@@ -1,3 +1,8 @@
+.Avatar {
+  position: relative;
+  box-sizing: content-box;
+}
+
 .Avatar > img {
   border-radius: 50%;
   object-fit: cover;
@@ -5,4 +10,36 @@
 
 .Avatar span {
   font-size: inherit !important;
+}
+
+.Avatar-Uploader {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0005;
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 100ms linear;
+}
+
+.Avatar:hover .Avatar-Uploader {
+  opacity: 1;
+}
+
+.Avatar-Uploader svg {
+  transform: scale(0.5);
+}
+
+.Avatar-Uploader__Buttons > * {
+  padding: 2px 8px;
+  border-radius: 2px !important;
+}
+
+.Avatar-Uploader__Buttons > *:first-child {
+  margin-bottom: 4px;
 }
