@@ -38,7 +38,7 @@ function Live() {
               <div className="WatchDetail__Info-UploadedAt">
                 {viewers} người đang xem -{' '}
                 {stream.lastStreamedAt
-                  ? 'Lần cuối live ' + stream.lastStreamedAt.toLocaleString()
+                  ? 'Lần cuối live ' + stream.lastStreamedAt.toLocaleString('vi').replace(',', '')
                   : 'Chưa từng live trước đây'}
               </div>
             )}

@@ -10,13 +10,14 @@ import ApiMessage from '@interfaces/IApiMessage';
 interface UpdateStreamFields {
   name: string;
   thumbnail: File;
+  description: string;
   renew_key: '0' | '1';
 }
 
 interface UpdateBannerAndNameFields {
-    banner: File;
-    first_name: string;
-    last_name: string;
+  banner: File;
+  first_name: string;
+  last_name: string;
 }
 
 class UserApi {
@@ -61,7 +62,7 @@ class UserApi {
   }
 
   public updateStream(data: Partial<UpdateStreamFields>): Promise<Stream> {
-    return client.patch(`/stream/me`, data, {
+    return client.patch(`/users/me/stream`, data, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
   }

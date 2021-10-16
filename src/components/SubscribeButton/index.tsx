@@ -58,9 +58,9 @@ function SubscribeButton({ targetUser, className }: SubscribeButtonProps) {
       }`}
     >
       {user && isChannelOwner ? (
-        <div className="editChannelButton">
-          <Link to={`/channel/${user.username}/edit`}>CHỈNH SỬA KÊNH</Link>
-        </div>
+        <Link to={`/channel/${user.username}`} className="editChannelButton">
+          KÊNH CỦA TÔI
+        </Link>
       ) : (
         <div onClick={handleSubscribeButtonClick}>
           {subscriptions === null ? <Skeleton /> : isSubscribed ? 'ĐÃ ĐĂNG KÝ' : 'ĐĂNG KÝ'}

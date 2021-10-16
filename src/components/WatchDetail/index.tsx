@@ -88,7 +88,7 @@ function WatchDetailBody({ video }: { video: IVideo }) {
     return '/?' + queryString.stringify(query);
   }
 
-  const uploadedAt = video.uploadedAt.toLocaleString().replace(',', '');
+  const uploadedAt = video.uploadedAt.toLocaleString('vi').replace(',', '');
   const isOwner = user && user.username === video.uploadedBy.username;
 
   return (

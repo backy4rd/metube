@@ -29,7 +29,7 @@ function PlaylistVideo({
   const { user } = useAuth();
 
   const to = `/watch/${video.id}/playlist/${playlist.id}`;
-  const [addedDate] = video.addedAt.toLocaleString().split(',');
+  const [, addedDate] = video.addedAt.toLocaleString('vi').split(',');
 
   return (
     <div className={`PlaylistVideoWrapper ${pathname === to ? 'active' : ''}`}>

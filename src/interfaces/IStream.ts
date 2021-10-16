@@ -8,7 +8,7 @@ export default interface Stream {
   id: string;
   name: string;
   streamKey: string;
-  thumbnailPath: string;
+  thumbnailPath: string | null;
   isStreaming: boolean;
   description: string | null;
   lastStreamedAt: Date | null;

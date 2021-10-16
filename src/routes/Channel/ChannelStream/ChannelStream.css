@@ -1,3 +1,59 @@
 .ChannelStream {
   margin: 0 3%;
+  display: flex;
+}
+
+.ChannelStream__Live {
+  flex-basis: 40%;
+  margin-right: 24px;
+}
+
+.ChannelStream__Live__Buttons {
+  display: flex;
+}
+
+.CSLB-Button {
+  line-height: 28px;
+  padding: 0 12px;
+  margin-top: 6px;
+  width: fit-content;
+  margin-right: 4px;
+}
+
+.ChannelStream__Info {
+  flex-basis: 60%;
+}
+
+.ChannelStream__Info > * {
+  margin-bottom: 6px;
+  width: 100%;
+}
+
+.ChannelStream__Info__Key {
+  display: flex;
+}
+
+.ChannelStream__Info__Key > input {
+  flex-grow: 1;
+}
+
+.ChannelStream__Info__Key > .App-GreenButton {
+  line-height: 30px;
+  padding: 0 12px;
+  margin-left: 4px;
+}
+
+@media only screen and (max-width: 800px) {
+  .ChannelStream {
+    flex-direction: column;
+  }
+
+  .ChannelStream__Live {
+    width: 100%;
+    margin: 0 0 12px 0;
+  }
+
+  .ChannelStream__Info {
+    width: 100%;
+  }
 }

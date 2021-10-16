@@ -112,7 +112,7 @@ function ChannelHeader({ user }: ChannelHeaderProps) {
                   Hủy
                 </div>
                 <div className="App-GreenButton CHI__Buttons-Save" onClick={handleUpdate}>
-                  Lưu
+                  Cập nhật
                 </div>
               </>
             )}
