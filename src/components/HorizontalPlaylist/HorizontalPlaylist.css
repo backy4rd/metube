@@ -1,0 +1,43 @@
+.HorizontalPlaylist {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.HorizontalPlaylist:hover {
+  background-color: var(--main-dark-4);
+}
+
+.HorizontalPlaylist__Left svg {
+  font-size: 96px !important;
+  opacity: 0.8;
+}
+
+.HPR-PlaylistName {
+  font-size: 16px;
+}
+
+.HorizontalPlaylist:hover .HPR-PlaylistName,
+.HorizontalPlaylist:hover .HorizontalPlaylist__Left svg {
+  color: var(--main-red-1);
+}
+
+.HPR-CreatedAtAndNumOfVideos {
+  color: var(--main-grey-2);
+  margin-bottom: 4px;
+}
+.HPR-Description {
+  color: var(--main-grey-3);
+}
+
+.HPR__User {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.HPR__User-Avatar {
+  margin-right: 6px;
+}

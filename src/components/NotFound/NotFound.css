@@ -13,6 +13,15 @@
   align-items: center;
 }
 
+.NotFound-Center.horizontal {
+  flex-direction: row !important;
+  align-items: center;
+}
+
+.NotFound-Center.horizontal .NotFound-Center-Icon {
+  margin-bottom: 0 !important;
+}
+
 .NotFound-Center-Icon {
   font-size: 128px !important;
   margin-bottom: 10%;

@@ -11,6 +11,7 @@ import ChannelVideos from './ChannelVideos';
 import ChannelSubscribers from './ChannelSubscribers';
 import ChannelSubscriptions from './ChannelSubscriptions';
 import ChannelStream from './ChannelStream';
+import ChannelPlaylists from './ChannelPlaylists';
 
 import './Channel.css';
 
@@ -38,7 +39,7 @@ function Home() {
       <div className="Channel__Container">
         <Switch>
           <Route exact path={`${path}/`} component={ChannelVideos} />
-          <Route exact path={`${path}/playlist`} component={() => <div>playlist</div>} />
+          <Route exact path={`${path}/playlist`} component={ChannelPlaylists} />
           <Route exact path={`${path}/live`} component={ChannelStream} />
           <Route exact path={`${path}/subscriber`} component={ChannelSubscribers} />
           <Route exact path={`${path}/subscription`} component={ChannelSubscriptions} />

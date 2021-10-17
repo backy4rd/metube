@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import IPlaylist from '@interfaces/IPlaylist';
-import playlistApi from '@api/playlistApi';
+import userApi from '@api/userApi';
 import { useSetLoading } from '@contexts/LoadingContext';
 
 import Sequence from '@utils/Sequence';
@@ -10,12 +11,13 @@ import HorizontalPlaylist from '@components/HorizontalPlaylist';
 import NotFound from '@components/NotFound';
 import HorizontalPlaylistSkeleton from '@components/HorizontalPlaylist/HorizontalPlaylistSkeleton';
 
-import './Playlists.css';
+import './ChannelPlaylists.css';
 
 const step = 10;
 
-function Playlists() {
+function ChannelPlaylists() {
   const [playlists, setPlaylists] = useState<Array<IPlaylist>>([]);
+  const { username } = useParams<{ username: string }>();
   const hasMore = useRef(true);
 
   const setLoading = useSetLoading();
@@ -23,17 +25,17 @@ function Playlists() {
   useEffect(() => {
     hasMore.current = true;
     setLoading(true);
-    playlistApi
-      .getPlaylists({ offset: 0, limit: step })
+    userApi
+      .getUserPlaylists(username, { offset: 0, limit: step })
       .then((_playlists) => {
         if (_playlists.length !== step) hasMore.current = false;
         setPlaylists(_playlists);
       })
       .finally(() => setLoading(false));
-  }, [setLoading]);
+  }, [setLoading, username]);
 
   async function loadPlaylists() {
-    const _playlists = await playlistApi.getPlaylists({
+    const _playlists = await userApi.getUserPlaylists(username, {
       offset: playlists.length,
       limit: step,
     });
@@ -43,7 +45,7 @@ function Playlists() {
 
   return (
     <InfiniteScroll
-      className="Playlists App-HorizontalPlaylistGrid"
+      className="ChannelPlaylists App-HorizontalPlaylistGrid"
       dataLength={playlists.length}
       next={loadPlaylists}
       hasMore={hasMore.current}
@@ -58,4 +60,4 @@ function Playlists() {
   );
 }
 
-export default Playlists;
+export default ChannelPlaylists;

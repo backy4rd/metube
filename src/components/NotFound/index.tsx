@@ -7,16 +7,18 @@ interface NotFoundProps {
   text?: string;
   Icon?: SvgIconComponent;
   style?: React.CSSProperties;
+  horizontal?: boolean;
 }
 
 function NotFound({
   text = 'Không tìm thấy dữ liệu tương ứng!',
   Icon = ErrorOutline,
   style,
+  horizontal = false,
 }: NotFoundProps) {
   return (
     <div className="NotFound" style={style}>
-      <div className="NotFound-Center">
+      <div className={`NotFound-Center ${horizontal && 'horizontal'}`}>
         <Icon className="NotFound-Center-Icon" />
         <div className="NotFound-Center-Text">{text}</div>
       </div>

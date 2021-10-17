@@ -1,0 +1,11 @@
+.HorizontalPlaylistSkeleton {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  padding: 8px;
+  border-radius: 4px;
+}
+.HorizontalPlaylistSkeleton__Right {
+  margin-left: 24px;
+  flex-grow: 1;
+}
