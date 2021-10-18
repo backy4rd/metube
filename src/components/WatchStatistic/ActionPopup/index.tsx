@@ -31,8 +31,8 @@ function ActionPopup(props: ActionPopupProps) {
   async function handleRemoveVideo() {
     if (!video) return;
     try {
-      videoApi.removeVideo(video.id);
-      pushMessage('Xóa video thành công!');
+      await videoApi.removeVideo(video.id);
+      pushMessage('Đã xóa video!');
       history.goBack();
     } catch {
       pushMessage('Xóa video thất bại!');
