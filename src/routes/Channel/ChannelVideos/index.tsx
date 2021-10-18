@@ -9,7 +9,6 @@ import IVideo from '@interfaces/IVideo';
 import VerticalVideo from '@components/VerticalVideo';
 import VerticalVideoSkeleton from '@components/VerticalVideo/VerticalVideoSkeleton';
 import Sequence from '@utils/Sequence';
-import NotFound from '@components/NotFound';
 
 import './ChannelVideos.css';
 
@@ -49,7 +48,6 @@ function ChannelVideos() {
         next={loadVideos}
         hasMore={hasMore.current}
         loader={<Sequence Component={VerticalVideoSkeleton} length={8} />}
-        endMessage={<NotFound text="Không còn video để hiển thị !" />}
         scrollableTarget="Main"
       >
         {videos.map((video) => (

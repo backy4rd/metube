@@ -6,6 +6,7 @@ import { Dehaze, Search, RadioButtonChecked, CloudUpload } from '@material-ui/ic
 import { useShowSidebar } from '@contexts/ShowSidebarContext';
 
 import UserSection from './UserSection';
+import { useAuth } from '@contexts/AuthContext';
 
 import './Header.css';
 
@@ -16,6 +17,7 @@ function Header() {
   const isWidthUnder700 = useMediaQuery({ maxWidth: 700 });
 
   const history = useHistory();
+  const { user } = useAuth();
 
   return (
     <div className="Header">
@@ -54,10 +56,12 @@ function Header() {
       <div className="Header__UserSection">
         <div className="Header__UserSection-Button">{isWidthUnder700 && <Search />}</div>
 
-        <div className="Header__UserSection-Button">
-          <RadioButtonChecked />
-          {!isWidthUnder700 && <div style={{ marginLeft: 2 }}>Go live</div>}
-        </div>
+        {user && (
+          <Link className="Header__UserSection-Button" to={`/channel/${user.username}/live`}>
+            <RadioButtonChecked />
+            {!isWidthUnder700 && <div style={{ marginLeft: 2 }}>Go live</div>}
+          </Link>
+        )}
 
         <Link className="Header__UserSection-Button" to={'/upload'}>
           <CloudUpload />

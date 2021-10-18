@@ -8,7 +8,6 @@ import { useSetLoading } from '@contexts/LoadingContext';
 
 import Sequence from '@utils/Sequence';
 import HorizontalPlaylist from '@components/HorizontalPlaylist';
-import NotFound from '@components/NotFound';
 import HorizontalPlaylistSkeleton from '@components/HorizontalPlaylist/HorizontalPlaylistSkeleton';
 
 import './ChannelPlaylists.css';
@@ -49,7 +48,6 @@ function ChannelPlaylists() {
       dataLength={playlists.length}
       next={loadPlaylists}
       hasMore={hasMore.current}
-      endMessage={<NotFound text="Không còn playlist để hiển thị" horizontal />}
       loader={<Sequence Component={HorizontalPlaylistSkeleton} length={8} />}
       scrollableTarget="Main"
     >
