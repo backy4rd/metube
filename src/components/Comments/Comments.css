@@ -7,3 +7,9 @@
 .Comments-Input {
   margin: 24px 12px 12px 0;
 }
+.Comments-EmptyMessage {
+  margin: 24px;
+  text-align: center;
+  font-size: 15px;
+  font-style: italic;
+}

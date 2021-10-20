@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import IComment from '@interfaces/IComment';
 import commentApi from '@api/commentApi';
@@ -17,8 +17,8 @@ const step = 10;
 
 function Comments() {
   const [comments, setComments] = useState<Array<IComment>>([]);
-  const [isLoadable, setIsLoadable] = useState(false);
   const [loading, setLoading] = useState(false);
+  const hasMore = useRef(true);
 
   const video = useVideo();
   const { user } = useAuth();
@@ -28,11 +28,11 @@ function Comments() {
     if (!video) return;
     setComments([]);
     setLoading(true);
-    setIsLoadable(false);
+    hasMore.current = true;
     commentApi
       .getComments(video.id, { offset: 0, limit: step })
       .then((_comments) => {
-        if (_comments.length >= step) setIsLoadable(true);
+        hasMore.current = _comments.length === step;
         setComments(_comments);
       })
       .finally(() => setLoading(false));
@@ -45,7 +45,7 @@ function Comments() {
       offset: comments.length,
       limit: step,
     });
-    if (_comments.length < step) setIsLoadable(false);
+    hasMore.current = _comments.length === step;
     setComments([...comments, ..._comments]);
     setLoading(false);
   }
@@ -56,7 +56,7 @@ function Comments() {
       let newComment = await commentApi.postComment(video.id, content);
       setComments([fulfillNewComment(newComment, user), ...comments]);
     } catch (err) {
-      pushMessage('Bình luận không thành công!');
+      pushMessage('Bình luận không thành công!', 'error');
     }
   }
 
@@ -90,9 +90,14 @@ function Comments() {
         />
       ))}
 
-      {isLoadable && !loading && (
+      {hasMore.current && !loading && (
         <div onClick={loadComments} className="App-BlueClickableText" style={{ marginTop: 6 }}>
           Hiển thị thêm bình luận »
+        </div>
+      )}
+      {!hasMore.current && comments.length === 0 && (
+        <div className="Comments-EmptyMessage">
+          Không có bình luận nào để hiển thị, hãy là người đầu tiên bình luận video này.
         </div>
       )}
       <Spinner loading={loading} className="Comments-Spinner" />

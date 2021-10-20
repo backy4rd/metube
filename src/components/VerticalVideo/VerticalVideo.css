@@ -57,11 +57,6 @@
   margin-right: 8px;
 }
 
-.VVDIT-Privacy svg {
-  opacity: 0.9;
-  font-size: 18px !important;
-}
-
 .VerticalVideo__Detail-Info-Username {
   color: var(--main-grey-2);
 }

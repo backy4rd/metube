@@ -1,5 +1,4 @@
 import React from 'react';
-import { PublicRounded, LockRounded } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 
 import { timeDifference } from '@utils/time';
@@ -9,6 +8,7 @@ import IStream, { isStream } from '@interfaces/IStream';
 
 import Avatar from '@components/Avatar';
 import VideoThumbnail from '@components/VideoThumbnail';
+import PrivacyIcon from '@components/PrivacyIcon';
 import VerticalVideoSkeleton from './VerticalVideoSkeleton';
 
 import './VerticalVideo.css';
@@ -32,13 +32,14 @@ function VerticalVideo({ video }: VerticalVideoProps) {
         </div>
         <div className="VerticalVideo__Detail-Info">
           <div className="VerticalVideo__Detail-Info__Title">
-            <div className="VVDIT-Text App-Text2Line">
+            <div
+              className="VVDIT-Text App-Text2Line"
+              title={isStream(video) ? video.name : video.title}
+            >
               {isStream(video) ? video.name : video.title}
             </div>
             {!isStream(video) && (
-              <div className="VVDIT-Privacy">
-                {video.privacy.name === 'public' ? <PublicRounded /> : <LockRounded />}
-              </div>
+              <PrivacyIcon className="VVDIT-Privacy" privacy={video.privacy.name} />
             )}
           </div>
           <div className="VerticalVideo__Detail-Info-Username">

@@ -14,7 +14,11 @@
   flex-direction: column;
 }
 
-.uploadHandler .inputArea .inputs > * {
+.uploadHandler .inputArea .inputs .inputs-label {
+  margin-bottom: 6px;
+}
+
+.uploadHandler .inputArea .inputs .App-TextInput {
   margin-bottom: 12px;
 }
 

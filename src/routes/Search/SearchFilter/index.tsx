@@ -19,6 +19,11 @@ function SearchFilter() {
     }
   }, [type]);
 
+  useEffect(() => {
+    setType(query.type || 'video');
+    setFrom(query.from || '');
+  }, [query.type, query.from]);
+
   function handleApplyChange() {
     const _query = { ...query, type, from };
     history.push('/search?' + qs.stringify(_query));

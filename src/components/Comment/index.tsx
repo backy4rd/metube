@@ -50,7 +50,7 @@ function Comment({ video, comment, handleRemoveComment }: CommentProps) {
       setContent(newContent);
       comment.content = newContent;
     } catch (err) {
-      pushMessage('Cập nhật bình luận không thành công!');
+      pushMessage('Cập nhật bình luận không thành công!', 'error');
     } finally {
       setEditable(false);
     }
@@ -110,7 +110,7 @@ function Comment({ video, comment, handleRemoveComment }: CommentProps) {
               onClick={() =>
                 showConfirm('Bạn có thực sự muốn xóa bình luận này không?', () =>
                   handleRemoveComment(comment).catch(() =>
-                    pushMessage('Xóa bình luận không thành công!')
+                    pushMessage('Xóa bình luận không thành công!', 'error')
                   )
                 )
               }

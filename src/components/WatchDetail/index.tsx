@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import queryString from 'query-string';
 import { TextareaAutosize } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
-import { PublicRounded, LockRounded } from '@material-ui/icons';
 
 import IVideo from '@interfaces/IVideo';
 import ICategory from '@interfaces/ICategory';
@@ -17,6 +16,7 @@ import EllipsisText from '@components/EllipsisText';
 import Categories from '@components/Categories';
 import WatchStatistic from '@components/WatchStatistic';
 import ActionPopup from '@components/WatchStatistic/ActionPopup';
+import PrivacyIcon from '@components/PrivacyIcon';
 import WatchDetailSkeleton from './WatchDetailSkeleton';
 import UserInfo from './UserInfo';
 
@@ -122,7 +122,7 @@ function WatchDetailBody({ video }: { video: IVideo }) {
           ) : (
             <>
               <div className="WDIT-Text">{video.title}</div>
-              {video.privacy.name === 'public' ? <PublicRounded /> : <LockRounded />}
+              <PrivacyIcon privacy={privacy} style={{ marginLeft: 4 }} />
             </>
           )}
         </div>

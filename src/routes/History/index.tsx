@@ -73,7 +73,7 @@ function History() {
                 historyApi
                   .clearWatchHistory()
                   .then(() => setVideos([]))
-                  .catch(() => pushMessage('Xóa lịch sử xem không thành công!'))
+                  .catch(() => pushMessage('Xóa lịch sử xem không thành công!', 'error'))
               )
             }
           >
