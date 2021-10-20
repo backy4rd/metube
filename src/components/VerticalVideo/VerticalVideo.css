@@ -42,16 +42,24 @@
   margin-right: 12px;
 }
 
-.VerticalVideo__Detail-Info-Title {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  word-break: break-word;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2; /* number of lines to show */
-  /* font-weight: 500; */
-  /* font-size: 13px; */
+.VerticalVideo__Detail-Info {
+  flex-grow: 1;
+}
+
+.VerticalVideo__Detail-Info__Title {
   margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+}
+
+.VVDIT-Text {
+  flex-grow: 1;
+  margin-right: 8px;
+}
+
+.VVDIT-Privacy svg {
+  opacity: 0.9;
+  font-size: 18px !important;
 }
 
 .VerticalVideo__Detail-Info-Username {

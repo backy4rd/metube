@@ -4,6 +4,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 
 import userApi from '@api/userApi';
 import { useSetLoading } from '@contexts/LoadingContext';
+import { useAuth } from '@contexts/AuthContext';
 import IVideo from '@interfaces/IVideo';
 
 import VerticalVideo from '@components/VerticalVideo';
@@ -19,20 +20,22 @@ function ChannelVideos() {
   const { username } = useParams<{ username: string }>();
   const hasMore = useRef(true);
 
+  const { user } = useAuth();
   const setLoading = useSetLoading();
 
   useEffect(() => {
+    if (user === undefined) return;
     hasMore.current = true;
     setLoading(true);
     userApi
-      .getUserVideos(username, { limit: step, offset: 0 })
+      .getUserVideos(user?.username === username ? 'me' : username, { limit: step, offset: 0 })
       .then((_videos) => {
         if (_videos.length < step) hasMore.current = false;
         setVideos(_videos);
       })
       .finally(() => setLoading(false));
     // eslint-disable-next-line
-  }, [username]);
+  }, [username, user]);
 
   async function loadVideos() {
     const _videos = await userApi.getUserVideos(username, { limit: step, offset: videos.length });

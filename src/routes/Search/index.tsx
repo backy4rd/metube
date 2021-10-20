@@ -1,33 +1,41 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
-import searchApi from '@api/searchApi';
-import { useSetLoading } from '@contexts/LoadingContext';
 import useQuery from '@hooks/useQuery';
-import IVideo from '@interfaces/IVideo';
 
-import HorizontalVideos from '@components/HorizontalVideos';
+import SearchVideos from './SearchVideos';
+import SearchNotFound from './SearchNotFound';
+import SearchFilter from './SearchFilter';
+import SearchUsers from './SearchUsers';
+import SearchPlaylists from './SearchPlaylists';
 
 import './Search.css';
 
 function Search() {
-  const [videos, setVideos] = useState<Array<IVideo>>([]);
+  const { type = 'video' } = useQuery();
 
-  const setLoading = useSetLoading();
-  const { q: _q } = useQuery();
-  const q = _q ? _q.toString() : '';
-
-  useEffect(() => {
-    setLoading(true);
-    searchApi
-      .searchVideos(q)
-      .then(setVideos)
-      .finally(() => setLoading(false));
-  }, [q, setLoading]);
+  let Searcher: React.FC;
+  switch (type) {
+    case 'video':
+      Searcher = SearchVideos;
+      break;
+    case 'playlist':
+      Searcher = SearchPlaylists;
+      break;
+    case 'user':
+      Searcher = SearchUsers;
+      break;
+    default:
+      Searcher = SearchNotFound;
+      break;
+  }
 
   return (
-    <div className="Search">
-      <div style={{ fontSize: '15px' }}>Kết quả tìm kiếm:</div>
-      <HorizontalVideos videos={videos} extend />
+    <div className="SearchWrapper">
+      <SearchFilter />
+
+      <div className="Search">
+        <Searcher />
+      </div>
     </div>
   );
 }

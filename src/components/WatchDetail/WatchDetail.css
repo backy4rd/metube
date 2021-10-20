@@ -8,11 +8,22 @@
 .WatchDetail__Info {
   margin-right: 12px;
 }
-.WatchDetail__Info-Title {
+
+.WatchDetail__Info__Title {
   margin-bottom: 8px;
-  font-size: 18px;
+  display: flex;
+}
+
+.WatchDetail__Info__Title svg {
+  font-size: 18px !important;
+  opacity: 0.9;
+}
+
+.WDIT-Text {
+  font-size: 18px !important;
   line-height: 22px;
   word-break: break-word;
+  flex-grow: 1;
 }
 
 .WatchDetail__Info-UploadedAt {

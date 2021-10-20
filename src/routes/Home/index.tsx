@@ -22,7 +22,7 @@ const step = 20;
 
 function Home() {
   const { home } = useGlobal();
-  const { category } = useQuery();
+  const { category = null } = useQuery();
   const hasMore = useRef(true);
 
   const setGlobal = useSetGlobal();

@@ -1,23 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import qs from 'query-string';
 import { Link, useHistory } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { Dehaze, Search, RadioButtonChecked, CloudUpload } from '@material-ui/icons';
 
 import { useShowSidebar } from '@contexts/ShowSidebarContext';
+import { useAuth } from '@contexts/AuthContext';
+import useQuery from '@hooks/useQuery';
 
 import UserSection from './UserSection';
-import { useAuth } from '@contexts/AuthContext';
 
 import './Header.css';
 
 function Header() {
-  const [query, setQuery] = useState('');
+  const queryParams = useQuery();
+  const [query, setQuery] = useState(queryParams.q || '');
 
   const [showSidebar, setShowSidebar] = useShowSidebar();
   const isWidthUnder700 = useMediaQuery({ maxWidth: 700 });
 
   const history = useHistory();
   const { user } = useAuth();
+
+  useEffect(() => {
+    setQuery(queryParams.q || '');
+  }, [queryParams.q]);
 
   return (
     <div className="Header">
@@ -37,7 +44,8 @@ function Header() {
         className="Header__SearchSection"
         onSubmit={(e) => {
           e.preventDefault();
-          history.push(`/search?q=${query}`);
+          const _query = { ...queryParams, q: query };
+          history.push('/search?' + qs.stringify(_query));
         }}
       >
         <input

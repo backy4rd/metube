@@ -17,7 +17,7 @@ enum FormType {
 }
 
 function AuthForm() {
-  const [title, setTitle] = useState('Đăng nhập vào Metube');
+  const [title, setTitle] = useState('Đăng nhập vào Zootube');
   const [form, setForm] = useState<FormType>(FormType.LOGIN);
   const showAuthForm = useShowAuthForm();
   const setShowAuthForm = useSetShowAuthForm();

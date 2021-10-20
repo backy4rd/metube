@@ -23,6 +23,7 @@ function UploadHandler({ videoFile, setVideoFile }: Props) {
   const [description, setDescription] = useState('');
   const [categories, setCategories] = useState<ICategory[]>([]);
   const [progress, setProgress] = useState<number | null>(null);
+  const [privacy, setPrivacy] = useState<'public' | 'private'>('public');
   const [title, setTitle] = useState(videoFile.name);
 
   const forceUpdate = useForceUpdate();
@@ -129,6 +130,16 @@ function UploadHandler({ videoFile, setVideoFile }: Props) {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
+
+            <div className="inputs-label">Chế độ:</div>
+            <select
+              className="App-TextInput"
+              value={privacy}
+              onChange={(e) => setPrivacy(e.target.value as 'private' | 'public')}
+            >
+              <option value="public">Công khai</option>
+              <option value="private">Riêng tư</option>
+            </select>
 
             <div className="inputs-label">Mô tả:</div>
             <TextareaAutosize

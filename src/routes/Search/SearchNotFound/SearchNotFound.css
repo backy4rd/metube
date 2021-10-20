@@ -1,0 +1,15 @@
+.SearchNotFound {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.SearchNotFound-Icon {
+  font-size: 320px !important;
+  opacity: 0.8;
+}
+
+.SearchNotFound-Text1 {
+  font-size: 17px;
+  line-height: 32px;
+}

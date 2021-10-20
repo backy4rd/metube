@@ -11,6 +11,7 @@ interface PatchVideoPayload {
   description: string;
   categories: string;
   thumbnail: File;
+  privacy: 'public' | 'private';
 }
 
 class VideoApi {
@@ -52,6 +53,7 @@ class VideoApi {
     data: {
       video: File;
       title: string;
+      privacy?: 'public' | 'private';
       description?: string;
       categories?: Category[];
       thumbnailTimestamp?: number;

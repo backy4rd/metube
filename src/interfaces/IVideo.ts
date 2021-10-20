@@ -20,6 +20,6 @@ export default interface Video {
   categories: Array<Category>;
   privacy: {
     id: number;
-    name: string;
+    name: 'public' | 'private';
   };
 }

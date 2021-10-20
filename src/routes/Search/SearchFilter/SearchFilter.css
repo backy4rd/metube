@@ -1,0 +1,29 @@
+.SearchFilter {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 1;
+  padding: 0 3%;
+  min-height: 48px;
+  background-color: var(--main-dark-2);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.SearchFilter > * {
+  margin-right: 12px;
+}
+
+.SearchFilter-Apply {
+  margin-left: auto;
+  font-weight: 500;
+  font-family: Roboto;
+  padding: 4px 12px;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.SearchFilter-Apply:hover {
+  color: var(--main-red-1);
+}

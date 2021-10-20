@@ -128,7 +128,11 @@ function PlayerControl({
   }
 
   return (
-    <div className={`PlayerControl ${className || ''}`} onMouseLeave={() => setShowControl(false)}>
+    <div
+      className={`PlayerControl ${className || ''}`}
+      onMouseLeave={() => setShowControl(false)}
+      onDoubleClick={handleFullscreenClick}
+    >
       <div
         className={`PlayerControl__ShadingScreen ${!playing || loading ? 'active' : ''}`}
         onClick={() => !isMobile && setPlaying(!playing)}

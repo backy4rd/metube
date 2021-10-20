@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import queryString from 'query-string';
 import { TextareaAutosize } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
+import { PublicRounded, LockRounded } from '@material-ui/icons';
 
 import IVideo from '@interfaces/IVideo';
 import ICategory from '@interfaces/ICategory';
@@ -26,6 +27,7 @@ function WatchDetailBody({ video }: { video: IVideo }) {
   const [categories, setCategories] = useState<Array<ICategory>>(video.categories);
   const [description, setDescription] = useState<string>(video.description || '');
   const [thumbnail, setThumbnail] = useState<File | null>(null);
+  const [privacy, setPrivacy] = useState<'public' | 'private'>(video.privacy.name);
   const [editing, setEditing] = useState(false);
 
   const { user } = useAuth();
@@ -62,16 +64,18 @@ function WatchDetailBody({ video }: { video: IVideo }) {
   async function handleSaveChange() {
     try {
       setLoading(true);
-      if (title === '') throw new Error();
+      if (title.trim() === '') throw new Error();
       await videoApi.updateVideo(video.id, {
-        title: title,
+        title: title.trim(),
         description: description,
         categories: categories.map((c) => c.category).join(','),
         thumbnail: thumbnail || undefined,
+        privacy: privacy,
       });
-      video.title = title;
+      video.title = title.trim();
       video.description = description;
       video.categories = categories;
+      video.privacy.name = privacy;
       setEditing(false);
       pushMessage('Cập nhật Video thành công!');
     } catch {
@@ -94,18 +98,34 @@ function WatchDetailBody({ video }: { video: IVideo }) {
   return (
     <div className="WatchDetail">
       <div className="WatchDetail__Info">
-        {editing ? (
-          <input
-            type="text"
-            className="App-TextInput WatchDetail__Info-Title"
-            placeholder="Title..."
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            autoFocus
-          />
-        ) : (
-          <div className="WatchDetail__Info-Title">{video.title}</div>
-        )}
+        <div className="WatchDetail__Info__Title">
+          {editing ? (
+            <>
+              <input
+                type="text"
+                className="App-TextInput WDIT-Text"
+                placeholder="Title..."
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                autoFocus
+              />
+              <select
+                className="App-TextInput"
+                style={{ marginLeft: 4 }}
+                value={privacy}
+                onChange={(e) => setPrivacy(e.target.value as 'private' | 'public')}
+              >
+                <option value="public">Công khai</option>
+                <option value="private">Riêng tư</option>
+              </select>
+            </>
+          ) : (
+            <>
+              <div className="WDIT-Text">{video.title}</div>
+              {video.privacy.name === 'public' ? <PublicRounded /> : <LockRounded />}
+            </>
+          )}
+        </div>
         <div className="WatchDetail__Info-UploadedAt">{uploadedAt}</div>
       </div>
 

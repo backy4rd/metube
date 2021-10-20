@@ -1,4 +1,5 @@
 import React from 'react';
+import { PublicRounded, LockRounded } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 
 import { timeDifference } from '@utils/time';
@@ -30,8 +31,15 @@ function VerticalVideo({ video }: VerticalVideoProps) {
           <Avatar user={owner} size="40px" />
         </div>
         <div className="VerticalVideo__Detail-Info">
-          <div className="VerticalVideo__Detail-Info-Title">
-            {isStream(video) ? video.name : video.title}
+          <div className="VerticalVideo__Detail-Info__Title">
+            <div className="VVDIT-Text App-Text2Line">
+              {isStream(video) ? video.name : video.title}
+            </div>
+            {!isStream(video) && (
+              <div className="VVDIT-Privacy">
+                {video.privacy.name === 'public' ? <PublicRounded /> : <LockRounded />}
+              </div>
+            )}
           </div>
           <div className="VerticalVideo__Detail-Info-Username">
             {owner.username}

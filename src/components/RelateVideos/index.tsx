@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import IVideo from '@interfaces/IVideo';
@@ -18,9 +18,13 @@ const step = 10;
 
 function RelateVideos({ videoId }: RelateVideosProps) {
   const [videos, setVideos] = useState<Array<IVideo>>([]);
+  const hasMore = useRef(true);
 
   useEffect(() => {
-    videoApi.getRelateVideos(videoId, { limit: step, offset: 0 }).then(setVideos);
+    videoApi.getRelateVideos(videoId, { limit: step, offset: 0 }).then((_videos) => {
+      hasMore.current = _videos.length === step;
+      setVideos(_videos);
+    });
   }, [videoId]);
 
   async function loadVideos() {
@@ -28,6 +32,7 @@ function RelateVideos({ videoId }: RelateVideosProps) {
       offset: videos.length,
       limit: step,
     });
+    hasMore.current = _videos.length === step;
     setVideos([...videos, ..._videos]);
   }
 
@@ -36,7 +41,7 @@ function RelateVideos({ videoId }: RelateVideosProps) {
       <InfiniteScroll
         dataLength={videos.length}
         next={loadVideos}
-        hasMore={videos.length % step === 0}
+        hasMore={hasMore.current}
         loader={<Sequence Component={() => <HorizontalVideoSkeleton />} length={5} />}
         scrollableTarget="Main"
       >

@@ -59,12 +59,12 @@
   outline: none;
   border: none;
   padding: 1px 40px 1px 15px;
-  transition: width 0.3s linear;
+  /* transition: width 0.3s linear; */
 }
 
 .Header__SearchSection-SearchBox:focus {
   border: 1px solid var(--main-dark-blue-1);
-  width: 75%;
+  /* width: 75%; */
 }
 
 .Header__SearchSection-SearchIcon {
