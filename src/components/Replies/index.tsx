@@ -48,7 +48,7 @@ function Replies({ video, comment, replying, setReplying }: RepliesProps) {
       comment.totalReplies++;
       setReplies([fulfillNewComment(reply, user), ...replies]);
     } catch (err) {
-      pushMessage('Gửi trả lời không thành công!');
+      pushMessage('Gửi trả lời không thành công!', 'error');
     } finally {
       setReplying(false);
     }
@@ -60,7 +60,7 @@ function Replies({ video, comment, replying, setReplying }: RepliesProps) {
       comment.totalReplies--;
       setReplies(replies.filter((c) => c !== reply));
     } catch (err) {
-      pushMessage('Xóa trả lời không thành công!');
+      pushMessage('Xóa trả lời không thành công!', 'error');
     }
   }
 

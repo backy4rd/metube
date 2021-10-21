@@ -66,7 +66,7 @@ function Comments() {
       await commentApi.removeComment(video.id, comment.id);
       setComments(comments.filter((c) => c !== comment));
     } catch (err) {
-      pushMessage('Xóa bình luận không thành công!');
+      pushMessage('Xóa bình luận không thành công!', 'error');
     }
   }
 

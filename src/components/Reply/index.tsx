@@ -37,7 +37,7 @@ function Reply({ video, reply, handleRemoveReply }: ReplyProps) {
       setContent(newContent);
       reply.content = newContent;
     } catch (err) {
-      pushMessage('Cập nhật trả lời không thành công!');
+      pushMessage('Cập nhật trả lời không thành công!', 'error');
     } finally {
       setEditable(false);
     }
@@ -92,7 +92,7 @@ function Reply({ video, reply, handleRemoveReply }: ReplyProps) {
               className="Reply__Buttons-Remove"
               onClick={() =>
                 showConfirm('Bạn có thực sự muốn xóa trả lời này không?', () =>
-                  handleRemoveReply(reply).catch(() => pushMessage('Xóa trả lời không thành công!'))
+                  handleRemoveReply(reply).catch(() => pushMessage('Xóa trả lời không thành công!', 'error'))
                 )
               }
             />

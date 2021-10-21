@@ -41,7 +41,7 @@ function ChannelStream() {
     self.select();
     self.setSelectionRange(0, 100);
     navigator.clipboard.writeText(self.value);
-    pushMessage('Đã sao chép Stream Key vào clipboard!');
+    pushMessage('Đã sao chép Stream Key vào clipboard!', 'info');
   }
 
   async function handleRenewStreamKeyClick(e: React.MouseEvent<HTMLInputElement, MouseEvent>) {
@@ -51,7 +51,7 @@ function ChannelStream() {
       setStream({ ...stream, ..._stream });
       pushMessage('Đã tạo mới Stream Key!');
     } catch {
-      pushMessage('Tạo mới Stream Key không thành công!');
+      pushMessage('Tạo mới Stream Key không thành công!', 'error');
     } finally {
       setLoading(false);
     }
@@ -60,7 +60,7 @@ function ChannelStream() {
   async function handleUpdateStreamName() {
     if (!stream || stream.name === streamName) return;
     if (!streamName) {
-      pushMessage('Tên Livestream không hợp lệ');
+      pushMessage('Tên Livestream không hợp lệ', 'warning');
       setStreamName(stream.name);
       return;
     }
@@ -70,7 +70,7 @@ function ChannelStream() {
       setStream({ ...stream, ..._stream });
       pushMessage('Đã cập nhật Livestream!');
     } catch (e) {
-      pushMessage('Cập nhật Livestream không thành công!');
+      pushMessage('Cập nhật Livestream không thành công!', 'error');
       setStreamName(stream.name);
     } finally {
       setLoading(false);
@@ -80,7 +80,7 @@ function ChannelStream() {
   async function handleUpdateDescription() {
     if (!stream || (stream.description || '') === description) return;
     if (!description) {
-      pushMessage('Mô tả Livestream không hợp lệ');
+      pushMessage('Mô tả Livestream không hợp lệ', 'warning');
       setDescription(stream.description || '');
       return;
     }
@@ -90,7 +90,7 @@ function ChannelStream() {
       setStream({ ...stream, ..._stream });
       pushMessage('Đã cập nhật Livestream!');
     } catch {
-      pushMessage('Cập nhật Livestream không thành công!');
+      pushMessage('Cập nhật Livestream không thành công!', 'error');
       setDescription(stream.description || '');
     } finally {
       setLoading(false);
@@ -106,7 +106,7 @@ function ChannelStream() {
       setStream({ ...stream, ..._stream });
       pushMessage('Đã cập nhật Livestream!');
     } catch {
-      pushMessage('Cập nhật Livestream không thành công!');
+      pushMessage('Cập nhật Livestream không thành công!', 'error');
       setThumbnail(stream.thumbnailPath);
     } finally {
       setLoading(false);

@@ -79,7 +79,7 @@ function WatchDetailBody({ video }: { video: IVideo }) {
       setEditing(false);
       pushMessage('Cập nhật Video thành công!');
     } catch {
-      pushMessage('Cập nhật Video không thành công!');
+      pushMessage('Cập nhật Video không thành công!', 'error');
     } finally {
       setLoading(false);
     }

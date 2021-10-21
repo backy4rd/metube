@@ -39,7 +39,7 @@ function ChannelHeader({ user }: ChannelHeaderProps) {
   }
 
   async function handleUpdate() {
-    if (firstName === '' || lastName === '') return pushMessage('Tên không hợp lệ!');
+    if (firstName === '' || lastName === '') return pushMessage('Tên không hợp lệ!', 'warning');
     try {
       setLoading(true);
       const payload = {

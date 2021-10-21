@@ -89,9 +89,9 @@ function UploadHandler({ videoFile, setVideoFile }: Props) {
         },
         onUploadError: (e) => {
           if (axios.isCancel(e)) {
-            pushMessage('Đã hủy đăng tải video!');
+            pushMessage('Đã hủy đăng tải video!', 'info');
           } else {
-            pushMessage('Đăng tải video thất bại!');
+            pushMessage('Đăng tải video thất bại!', 'error');
           }
           cancelUpload.current = null;
           setProgress(null);

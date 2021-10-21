@@ -56,7 +56,7 @@ function PlaylistInfoBody({ className, playlist }: { playlist: IPlaylist; classN
       pushMessage('Đã cập nhật playlist');
     } catch {
       setName(memoName.current);
-      pushMessage('Cập nhật thất bại');
+      pushMessage('Cập nhật thất bại', 'error');
     } finally {
       setLoading(false);
       memoName.current = null;
@@ -73,7 +73,7 @@ function PlaylistInfoBody({ className, playlist }: { playlist: IPlaylist; classN
       pushMessage('Đã cập nhật playlist');
     } catch {
       setDescription(memoDescription.current);
-      pushMessage('Cập nhật thất bại');
+      pushMessage('Cập nhật thất bại', 'error');
     } finally {
       setLoading(false);
       memoDescription.current = null;
@@ -88,7 +88,7 @@ function PlaylistInfoBody({ className, playlist }: { playlist: IPlaylist; classN
       pushMessage('Đã xóa Playlist');
       history.goBack();
     } catch {
-      pushMessage('Xóa Playlist thất bại');
+      pushMessage('Xóa Playlist thất bại', 'error');
     } finally {
       setLoading(false);
     }

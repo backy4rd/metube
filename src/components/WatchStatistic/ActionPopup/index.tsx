@@ -35,7 +35,7 @@ function ActionPopup(props: ActionPopupProps) {
       pushMessage('Đã xóa video!');
       history.goBack();
     } catch {
-      pushMessage('Xóa video thất bại!');
+      pushMessage('Xóa video thất bại!', 'error');
     }
   }
 

@@ -34,7 +34,7 @@ function Avatar({ user, className, onClick, size = '32px', edit = false }: Avata
       pushMessage('Đã cập nhật ảnh đại diện!');
       window.location.reload();
     } catch {
-      pushMessage('Cập nhật ảnh đại diện thất bại!');
+      pushMessage('Cập nhật ảnh đại diện thất bại!', 'error');
     } finally {
       setLoading(false);
     }
@@ -72,7 +72,7 @@ function Avatar({ user, className, onClick, size = '32px', edit = false }: Avata
                 accept="image/png,image/jpg,image/jpeg"
                 onChange={(e) => {
                   setAvatar(e.target.files?.[0] || null);
-                  pushMessage('Trỏ vào hình đại diện để xác nhận cập nhật!');
+                  pushMessage('Trỏ vào hình đại diện để xác nhận cập nhật!', 'info');
                 }}
               />
               <FileUpload style={{ fontSize: size }} />

@@ -66,7 +66,7 @@ function PlaylistVideos({ playlist, className, showAddedDate = false }: Playlist
           setVideos(videos.filter((v) => v.id !== video.id));
           pushMessage('Đã xóa Video khỏi Playlist');
         })
-        .catch(() => pushMessage('Xóa Video khỏi Playlist không thành công'))
+        .catch(() => pushMessage('Xóa Video khỏi Playlist không thành công', 'error'))
     );
   }
 

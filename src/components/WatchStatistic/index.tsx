@@ -53,7 +53,7 @@ function WatchStatistic({ video }: WatchStatisticProps) {
           if (react === false) setDislike(dislike);
           setLike(like);
           setReact(react);
-          pushMessage('Like không thành công!');
+          pushMessage('Like không thành công!', 'error');
         } finally {
           break;
         }
@@ -68,7 +68,7 @@ function WatchStatistic({ video }: WatchStatisticProps) {
           if (react === true) setLike(like);
           setDislike(dislike);
           setReact(react);
-          pushMessage('Dislike không thành công!');
+          pushMessage('Dislike không thành công!', 'error');
         } finally {
           break;
         }
@@ -83,7 +83,7 @@ function WatchStatistic({ video }: WatchStatisticProps) {
           if (react === true) setLike(like);
           else if (react === false) setDislike(dislike);
           setReact(react);
-          pushMessage(`Bỏ ${react ? 'like' : 'dislike'} không thành công!`);
+          pushMessage(`Bỏ ${react ? 'like' : 'dislike'} không thành công!`, 'error');
         } finally {
           break;
         }

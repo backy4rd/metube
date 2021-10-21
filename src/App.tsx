@@ -1,4 +1,5 @@
 import React from 'react';
+import { createTheme, ThemeProvider } from '@mui/material';
 
 import { ShowAuthFormProvider } from '@contexts/ShowAuthFormContext';
 import { AuthProvider } from '@contexts/AuthContext';
@@ -16,6 +17,12 @@ import Sidebar from '@components/Sidebar';
 import Main from '@components/Main';
 
 import './App.css';
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
 
 function AppContextWrapper({ children }: { children: React.ReactNode }) {
   return (
@@ -42,15 +49,17 @@ function AppContextWrapper({ children }: { children: React.ReactNode }) {
 function App() {
   return (
     <div className="App">
-      <AppContextWrapper>
-        <Header />
-        <div className="App__Container">
-          <Sidebar />
-          <Main />
-        </div>
+      <ThemeProvider theme={darkTheme}>
+        <AppContextWrapper>
+          <Header />
+          <div className="App__Container">
+            <Sidebar />
+            <Main />
+          </div>
 
-        <PopupWrapper />
-      </AppContextWrapper>
+          <PopupWrapper />
+        </AppContextWrapper>
+      </ThemeProvider>
     </div>
   );
 }

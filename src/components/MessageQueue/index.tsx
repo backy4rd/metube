@@ -13,7 +13,7 @@ function MessageQueue() {
     <TransitionGroup className="MessageQueue">
       {messageQueue.map((message) => (
         <CSSTransition key={message.id} timeout={300} classNames="Message">
-          <Alert severity={message.severity || 'info'} classes={{ root: 'Message' }}>
+          <Alert severity={message.severity || 'success'} classes={{ root: 'Message' }}>
             {message.text}
           </Alert>
         </CSSTransition>
