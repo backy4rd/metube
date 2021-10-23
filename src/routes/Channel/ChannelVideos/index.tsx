@@ -23,22 +23,24 @@ function ChannelVideos() {
   const { user } = useAuth();
   const setLoading = useSetLoading();
 
+  const apiTarget = user?.username === username ? 'me' : username;
+
   useEffect(() => {
     if (user === undefined) return;
     hasMore.current = true;
     setLoading(true);
+    setVideos([]);
     userApi
-      .getUserVideos(user?.username === username ? 'me' : username, { limit: step, offset: 0 })
+      .getUserVideos(apiTarget, { limit: step, offset: 0 })
       .then((_videos) => {
         if (_videos.length < step) hasMore.current = false;
         setVideos(_videos);
       })
       .finally(() => setLoading(false));
-    // eslint-disable-next-line
-  }, [username, user]);
+  }, [apiTarget, setLoading, user]);
 
   async function loadVideos() {
-    const _videos = await userApi.getUserVideos(username, { limit: step, offset: videos.length });
+    const _videos = await userApi.getUserVideos(apiTarget, { limit: step, offset: videos.length });
     if (_videos.length < step) hasMore.current = false;
     setVideos([...videos, ..._videos]);
   }

@@ -4,14 +4,12 @@ import { TextareaAutosize } from '@material-ui/core';
 import ProgressBar from '@ramonak/react-progress-bar';
 
 import { usePushMessage } from '@contexts/MessageQueueContext';
-import categoryApi from '@api/categoryApi';
 import videoApi from '@api/videoApi';
 import ICategory from '@interfaces/ICategory';
 import useForceUpdate from '@hooks/useForceUpdate';
 
-import Categories from '@components/Categories';
-
 import './UploadHandler.css';
+import CategoriesSelector from '@components/CategorySelector';
 
 type Props = {
   videoFile: File;
@@ -19,7 +17,6 @@ type Props = {
 };
 
 function UploadHandler({ videoFile, setVideoFile }: Props) {
-  const [allCategories, setAllCategories] = useState<ICategory[]>([]);
   const [description, setDescription] = useState('');
   const [categories, setCategories] = useState<ICategory[]>([]);
   const [progress, setProgress] = useState<number | null>(null);
@@ -41,20 +38,6 @@ function UploadHandler({ videoFile, setVideoFile }: Props) {
     return () => _video.removeEventListener('canplay', forceUpdate);
     // eslint-disable-next-line
   }, [videoFile]);
-
-  useEffect(() => {
-    categoryApi.getCategories().then(setAllCategories);
-  }, []);
-
-  function handleSelectCategory(e: React.ChangeEvent<HTMLSelectElement>) {
-    const category = allCategories.find((c) => c.category === e.target.value) as ICategory;
-    if (categories.find((c) => c === category)) return;
-    setCategories([category, ...categories]);
-  }
-
-  function handleRemoveCategory(category: ICategory) {
-    setCategories(categories.filter((c) => c !== category));
-  }
 
   function handleCancelClick() {
     // File is not uploading, go back to choose another file
@@ -150,18 +133,7 @@ function UploadHandler({ videoFile, setVideoFile }: Props) {
             />
 
             <div className="inputs-label">Chủ đề:</div>
-            <select className="App-TextInput" value="blank" onChange={handleSelectCategory}>
-              <option disabled value="blank">
-                -- Chọn chủ đề cho video --
-              </option>
-              {allCategories.map((category) => (
-                <option key={category.id} value={category.category}>
-                  {category.category}
-                </option>
-              ))}
-            </select>
-
-            <Categories categories={categories} handleRemoveCategory={handleRemoveCategory} />
+            <CategoriesSelector categories={categories} setCategories={setCategories} />
           </div>
 
           <div className="buttons">

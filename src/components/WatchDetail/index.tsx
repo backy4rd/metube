@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import queryString from 'query-string';
 import { TextareaAutosize } from '@material-ui/core';
-import { MoreVert } from '@material-ui/icons';
 
 import IVideo from '@interfaces/IVideo';
 import ICategory from '@interfaces/ICategory';
@@ -10,13 +9,13 @@ import { useAuth } from '@contexts/AuthContext';
 import { useVideo } from '@contexts/VideoContext';
 import { useSetLoading } from '@contexts/LoadingContext';
 import { usePushMessage } from '@contexts/MessageQueueContext';
-import { useCategories } from '@contexts/CategoriesContext';
 
 import EllipsisText from '@components/EllipsisText';
 import Categories from '@components/Categories';
 import WatchStatistic from '@components/WatchStatistic';
 import ActionPopup from '@components/WatchStatistic/ActionPopup';
 import PrivacyIcon from '@components/PrivacyIcon';
+import CategoriesSelector from '@components/CategorySelector';
 import WatchDetailSkeleton from './WatchDetailSkeleton';
 import UserInfo from './UserInfo';
 
@@ -33,7 +32,6 @@ function WatchDetailBody({ video }: { video: IVideo }) {
   const { user } = useAuth();
   const setLoading = useSetLoading();
   const pushMessage = usePushMessage();
-  const allCategories = useCategories();
 
   useEffect(() => {
     setTitle(video.title);
@@ -49,16 +47,6 @@ function WatchDetailBody({ video }: { video: IVideo }) {
     setCategories(video.categories);
     setThumbnail(null);
     setEditing(false);
-  }
-
-  function handleSelectCategory(e: React.ChangeEvent<HTMLSelectElement>) {
-    const category = allCategories.find((c) => c.category === e.target.value) as ICategory;
-    if (categories.find((c) => c.id === category.id)) return;
-    setCategories([category, ...categories]);
-  }
-
-  function handleRemoveCategory(category: ICategory) {
-    setCategories(categories.filter((c) => c !== category));
   }
 
   async function handleSaveChange() {
@@ -107,7 +95,6 @@ function WatchDetailBody({ video }: { video: IVideo }) {
                 placeholder="Title..."
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                autoFocus
               />
               <select
                 className="App-TextInput"
@@ -151,16 +138,13 @@ function WatchDetailBody({ video }: { video: IVideo }) {
               </div>
             ))}
 
-          <div id="WDSAA-Actions" className="WDSAA__Actions-Item">
-            <MoreVert />
-            <ActionPopup target="WDSAA-Actions" />
-          </div>
+          <ActionPopup target="WDSAA-Actions" />
         </div>
       </div>
 
       {editing && (
         <div className="WatchDetail-ThumbnailUpload">
-          <label className=" App-GreenButton">
+          <label className="App-GreenButton">
             <input
               type="file"
               hidden
@@ -197,23 +181,7 @@ function WatchDetailBody({ video }: { video: IVideo }) {
       </div>
       <div className="WatchDetail__Categories">
         {editing ? (
-          <>
-            <select
-              className="App-TextInput WDC-Select"
-              value="blank"
-              onChange={handleSelectCategory}
-            >
-              <option disabled value="blank">
-                -- Chọn chủ đề cho video --
-              </option>
-              {allCategories.map((category) => (
-                <option key={category.id} value={category.category}>
-                  {category.category}
-                </option>
-              ))}
-            </select>
-            <Categories categories={categories} handleRemoveCategory={handleRemoveCategory} />
-          </>
+          <CategoriesSelector categories={categories} setCategories={setCategories} />
         ) : (
           <Categories categories={video.categories} processPath={processPath} />
         )}

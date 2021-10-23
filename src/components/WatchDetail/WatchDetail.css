@@ -81,3 +81,7 @@
   width: fit-content;
   display: block;
 }
+
+.WatchDetail__Categories {
+  margin: 0 12px 8px 32px;
+}

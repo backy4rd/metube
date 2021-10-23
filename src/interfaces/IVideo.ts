@@ -11,6 +11,7 @@ export default interface Video {
   description: string | null;
   uploadedAt: Date; // date string
   watchedAt: Date; // date string
+  reactedAt: Date; // date string
   addedAt: Date; // date string
   like: number;
   dislike: number;
@@ -18,6 +19,7 @@ export default interface Video {
   react: boolean | null;
   totalComments: number;
   categories: Array<Category>;
+  isBlocked: boolean;
   privacy: {
     id: number;
     name: 'public' | 'private';

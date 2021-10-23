@@ -21,6 +21,7 @@ function VerticalVideo({ video }: VerticalVideoProps) {
   if (isSkeleton(video)) return <VerticalVideoSkeleton />;
 
   const owner = isStream(video) ? video.user : video.uploadedBy;
+  const status = !isStream(video) && (video.isBlocked ? 'blocked' : video.privacy.name);
 
   return (
     <Link className="VerticalVideo" to={`/${isStream(video) ? 'live' : 'watch'}/${video.id}`}>
@@ -38,9 +39,7 @@ function VerticalVideo({ video }: VerticalVideoProps) {
             >
               {isStream(video) ? video.name : video.title}
             </div>
-            {!isStream(video) && (
-              <PrivacyIcon className="VVDIT-Privacy" privacy={video.privacy.name} />
-            )}
+            {status && <PrivacyIcon className="VVDIT-Privacy" privacy={status} />}
           </div>
           <div className="VerticalVideo__Detail-Info-Username">
             {owner.username}

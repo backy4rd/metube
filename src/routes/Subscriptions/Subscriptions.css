@@ -3,6 +3,8 @@
 }
 
 .Subscriptions__VideoSection > p {
-  margin: 8px 0 16px 0;
+  padding: 8px 0 10px 0;
+  margin-bottom: 10px;
   font-size: 15px;
+  border-bottom: 1px dashed var(--main-dark-5);
 }

@@ -66,7 +66,7 @@ function History() {
     <div className="History">
       <div className="History__Function">
         <div className="HF__Button">
-          <DeleteForever />
+          <DeleteForever style={{ fontSize: '18px', marginRight: 4 }} />
           <div
             onClick={() =>
               showConfirm('bạn có muốn xóa lịch sử xem không?', () =>
@@ -90,7 +90,11 @@ function History() {
           loader={
             <div className="History__VideoSection">
               <p></p>
-              <HorizontalVideos videos={generateSkeletons(4)} extend />
+              <HorizontalVideos
+                className="App-HorizontalPlaylistGrid"
+                videos={generateSkeletons(4)}
+                extend
+              />
             </div>
           }
           endMessage={<NotFound text="Không còn video để hiển thị" />}
@@ -99,21 +103,36 @@ function History() {
             {todayVideos.length !== 0 && (
               <div className="History__VideoSection">
                 <p>Hôm nay</p>
-                <HorizontalVideos videos={todayVideos} showWatchTimestamp extend />
+                <HorizontalVideos
+                  className="App-HorizontalPlaylistGrid"
+                  videos={todayVideos}
+                  showWatchTimestamp
+                  extend
+                />
               </div>
             )}
 
             {yesterdayVideos.length !== 0 && (
               <div className="History__VideoSection">
                 <p>Hôm qua</p>
-                <HorizontalVideos videos={yesterdayVideos} showWatchTimestamp extend />
+                <HorizontalVideos
+                  className="App-HorizontalPlaylistGrid"
+                  videos={yesterdayVideos}
+                  showWatchTimestamp
+                  extend
+                />
               </div>
             )}
 
             <div className="History__VideoSection">
               {(todayVideos.length !== 0 || yesterdayVideos.length !== 0) &&
                 olderVideos.length !== 0 && <p>Lâu hơn</p>}
-              <HorizontalVideos videos={olderVideos} showWatchTimestamp extend />
+              <HorizontalVideos
+                className="App-HorizontalPlaylistGrid"
+                videos={olderVideos}
+                showWatchTimestamp
+                extend
+              />
             </div>
           </div>
         </InfiniteScroll>

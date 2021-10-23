@@ -33,7 +33,7 @@ function Live() {
         <StreamPlayer stream={stream} />
         <div className="LiveDetail">
           <div className="WatchDetail__Info">
-            <div className="WatchDetail__Info-Title">{stream?.name}</div>
+            <div className="WatchDetail__Info__Title WDIT-Text">{stream?.name}</div>
             {stream && (
               <div className="WatchDetail__Info-UploadedAt">
                 {viewers} người đang xem -{' '}

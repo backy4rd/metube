@@ -1,5 +1,5 @@
 .History__Videos {
-  margin: 0 7%;
+  margin: 0 3%;
 }
 
 @media only screen and (max-width: 700px) {
@@ -9,7 +9,10 @@
 }
 
 .History__VideoSection p {
-  margin: 8px 0 16px 0;
+  padding: 8px 0 12px 0;
+  margin-bottom: 4px;
+  font-size: 15px;
+  border-bottom: 1px dashed var(--main-dark-5);
 }
 
 .History__Function {

@@ -38,7 +38,7 @@ function PlaylistVideo({
         <VideoThumbnail className="PlaylistVideo-Thumbnail" video={video} showViews={false} />
         <div className="PlaylistVideo__Detail">
           <div className="PlaylistVideo__Detail-Title App-Text2Line">
-            {video.title || 'Video riêng tư hoặc đã bị chặn!'}
+            {video.title || <i>Video riêng tư hoặc đã bị chặn!</i>}
           </div>
           {showAddedDate && (
             <div className="PlaylistVideo__Detail-Username">Đã thêm ngày {addedDate}</div>
@@ -48,7 +48,7 @@ function PlaylistVideo({
       </Link>
       <div className="PlaylistVideo-Remove">
         {user && user.username === playlist.createdBy.username && (
-          <Delete onClick={() => handleRemovePlaylistVideo?.(video)} />
+          <Delete onClick={() => handleRemovePlaylistVideo?.(video)} fontSize="small" />
         )}
       </div>
     </div>
