@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { PlaylistPlayRounded } from '@material-ui/icons';
 import { Skeleton } from '@mui/material';
 
@@ -36,12 +36,15 @@ function MyPlaylists() {
   return (
     <SidebarGroup limit={3}>
       {playlists.map((playlist) => (
-        <Link key={playlist.id} to={`/playlist/${playlist.id}`}>
-          <div className="PlaylistTag">
-            <PlaylistPlayRounded />
-            <div className="PlaylistTag-Name App-Text1Line">{playlist.name}</div>
-          </div>
-        </Link>
+        <NavLink
+          key={playlist.id}
+          className="PlaylistTag"
+          to={`/playlist/${playlist.id}`}
+          activeClassName="active"
+        >
+          <PlaylistPlayRounded />
+          <div className="PlaylistTag-Name App-Text1Line">{playlist.name}</div>
+        </NavLink>
       ))}
     </SidebarGroup>
   );

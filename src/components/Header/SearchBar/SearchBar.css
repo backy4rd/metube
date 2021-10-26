@@ -1,0 +1,34 @@
+.SearchBar {
+  display: flex;
+  align-items: center;
+}
+
+.SearchBar-SearchBox {
+  box-sizing: border-box;
+  height: 30px;
+  width: 100%;
+  line-height: 30px;
+  border-radius: 4px;
+  color: white;
+  background-color: var(--main-dark-4);
+  outline: none;
+  border: none;
+  padding: 1px 40px 1px 15px;
+  border: 1px solid none;
+  /* transition: width 0.3s linear; */
+}
+
+.SearchBar-SearchBox:focus {
+  border: 1px solid var(--main-dark-blue-1);
+  /* width: 75%; */
+}
+
+.SearchBar-SearchIcon {
+  margin-left: -30px;
+  color: var(--main-grey-2);
+  cursor: pointer;
+}
+
+.SearchBar-SearchIcon:hover {
+  color: var(--main-red-1);
+}

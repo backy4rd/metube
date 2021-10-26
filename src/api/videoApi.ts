@@ -92,6 +92,10 @@ class VideoApi {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
   }
+
+  public reportVideo(videoId: string, reason: string): Promise<ApiMessage> {
+    return client.post('/reports', { reason: reason, video_id: videoId });
+  }
 }
 
 export default new VideoApi();

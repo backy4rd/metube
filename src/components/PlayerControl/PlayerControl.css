@@ -93,7 +93,3 @@
 .PCCA__Main-VolumeSlider .MuiSlider-thumb {
   box-shadow: none !important;
 }
-
-.MuiSlider-thumb::after {
-  display: none;
-}

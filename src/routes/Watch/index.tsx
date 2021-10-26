@@ -30,6 +30,12 @@ function Watch() {
   const [, setShowSidebar] = useShowSidebar();
 
   useEffect(() => {
+    return () => {
+      document.title = 'ZooTube';
+    };
+  }, []);
+
+  useEffect(() => {
     if (!playlistId) return;
     setShowSidebar(false);
     return () => {
@@ -41,7 +47,10 @@ function Watch() {
     setLoading(true);
     videoApi
       .getVideo(videoId)
-      .then(setVideo)
+      .then((_video) => {
+        setVideo(_video);
+        document.title = _video.title;
+      })
       .catch(() => setVideo(null))
       .finally(() => setLoading(false));
   }, [setLoading, videoId]);

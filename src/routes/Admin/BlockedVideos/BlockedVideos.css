@@ -1,0 +1,14 @@
+.BlockedVideos__Item {
+  display: flex;
+  align-items: center;
+}
+
+.BlockedVideos__Item-Video {
+  flex-grow: 1;
+}
+
+.BlockedVideos__Item-RemoveBlockButton {
+  line-height: 28px;
+  padding: 0 12px;
+  margin-left: 8px;
+}

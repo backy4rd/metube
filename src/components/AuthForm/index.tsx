@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Close } from '@material-ui/icons';
 import { CSSTransition } from 'react-transition-group';
 
@@ -6,34 +6,51 @@ import { useSetShowAuthForm, useShowAuthForm } from '@contexts/ShowAuthFormConte
 
 import Login from './Login';
 import Register from './Register';
-import ForgotPassword from './ForgotPassword';
+import ResetPassword from './ResetPassword';
 
 import './AuthForm.css';
 
-enum FormType {
-  LOGIN,
-  FORGOT_PASSWORD,
-  REGISTER,
-}
+export type FormType = 'LOGIN' | 'REGISTER' | 'RESET_PASSWORD';
 
 function AuthForm() {
   const [title, setTitle] = useState('Đăng nhập vào Zootube');
-  const [form, setForm] = useState<FormType>(FormType.LOGIN);
+  const [form, setForm] = useState<FormType>('LOGIN');
+
   const showAuthForm = useShowAuthForm();
   const setShowAuthForm = useSetShowAuthForm();
 
+  useEffect(() => {
+    if (typeof showAuthForm === 'boolean') return;
+    setForm(showAuthForm);
+  }, [showAuthForm]);
+
+  useEffect(() => {
+    switch (form) {
+      case 'LOGIN':
+        setTitle('Đăng nhập vào zootube');
+        break;
+      case 'REGISTER':
+        setTitle('Đăng kí tài khoản');
+        break;
+      case 'RESET_PASSWORD':
+        setTitle('Đổi mật khẩu');
+        break;
+      default:
+        setTitle('undefined');
+        break;
+    }
+  }, [form]);
+
   function handleClickLogin() {
-    setForm(FormType.LOGIN);
-    setTitle('Đăng nhập vào zootube');
+    setForm('LOGIN');
   }
 
   function handleClickRegister() {
-    setForm(FormType.REGISTER);
-    setTitle('Đăng kí tài khoản');
+    setForm('REGISTER');
   }
 
   return (
-    <CSSTransition in={showAuthForm} timeout={200} classNames="AuthFormWrapper" unmountOnExit>
+    <CSSTransition in={!!showAuthForm} timeout={200} classNames="AuthFormWrapper" unmountOnExit>
       <div className="AuthFormWrapper">
         <div className="AuthForm">
           <div className="AuthForm__header">
@@ -41,12 +58,12 @@ function AuthForm() {
             <Close className="closeButton" onClick={() => setShowAuthForm(false)} />
           </div>
           <div className="AuthForm__container">
-            {form === FormType.LOGIN ? (
+            {form === 'LOGIN' ? (
               <Login onRegisterClick={handleClickRegister} />
-            ) : form === FormType.REGISTER ? (
+            ) : form === 'REGISTER' ? (
               <Register onLoginClick={handleClickLogin} />
             ) : (
-              <ForgotPassword />
+              <ResetPassword />
             )}
           </div>
         </div>

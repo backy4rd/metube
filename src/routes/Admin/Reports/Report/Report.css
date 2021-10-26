@@ -1,0 +1,28 @@
+.Report {
+  display: flex;
+  align-items: center;
+}
+
+.Report:not(:last-child) {
+  margin-bottom: 12px;
+}
+
+.Report__Left {
+  margin-right: 8px;
+}
+
+.Report__Center {
+  flex-grow: 1;
+}
+
+.Report__Center-Reason {
+  margin-bottom: 4px;
+}
+
+.Report__Center-Info {
+  color: var(--main-grey-2);
+}
+
+.Report__Right {
+  margin-left: 8px;
+}

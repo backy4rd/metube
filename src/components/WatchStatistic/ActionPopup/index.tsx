@@ -1,14 +1,17 @@
 import React from 'react';
 import { Menu, Tooltip } from '@mui/material';
 import { useHistory } from 'react-router-dom';
-import { PlaylistAdd, Delete, Block, Timeline, MoreVert } from '@material-ui/icons';
+import { PlaylistAdd, Delete, Block, Timeline, MoreVert, Flag } from '@mui/icons-material';
 
 import videoApi from '@api/videoApi';
+import adminApi from '@api/adminApi';
+import { useSetShowAuthForm } from '@contexts/ShowAuthFormContext';
 import { useAuth } from '@contexts/AuthContext';
 import { useVideo } from '@contexts/VideoContext';
 import { useShowConfirm } from '@contexts/ConfirmContext';
 import { usePushMessage } from '@contexts/MessageQueueContext';
 import { usePlaylistPopup } from '@contexts/PlaylistPopupContext';
+import { useReportPopup } from '@contexts/ReportPopupContext';
 
 import './ActionPopup.css';
 
@@ -25,6 +28,8 @@ function ActionPopup(props: ActionPopupProps) {
   const { user } = useAuth();
   const { showConfirm } = useShowConfirm();
   const { showPlaylistPopup } = usePlaylistPopup();
+  const { showReportPopup } = useReportPopup();
+  const setShowAuthForm = useSetShowAuthForm();
 
   if (!user) return null;
   if (!video) return null;
@@ -48,6 +53,26 @@ function ActionPopup(props: ActionPopupProps) {
         pushMessage('Xóa video thất bại!', 'error');
       }
     });
+  }
+
+  async function handleBlockVideoClick() {
+    setAnchorEl(null);
+    if (!video) return;
+    try {
+      const action = video.isBlocked ? 'unban' : 'ban';
+      await adminApi.modifyVideo(video.id, action);
+      pushMessage(`Đã ${action} video!`);
+      history.goBack();
+    } catch {
+      pushMessage('Chặn video thất bại!', 'error');
+    }
+  }
+
+  async function handleReportClick() {
+    setAnchorEl(null);
+    if (!video) return;
+    if (!user) return setShowAuthForm('LOGIN');
+    showReportPopup(video.id);
   }
 
   return (
@@ -85,10 +110,14 @@ function ActionPopup(props: ActionPopupProps) {
             <div className="ActionPopup-Action-Text">Xóa Video</div>
           </div>
         )}
+        <div className="ActionPopup-Action" onClick={handleReportClick}>
+          <Flag />
+          <div className="ActionPopup-Action-Text">Báo cáo</div>
+        </div>
         {user.role === 'admin' && (
-          <div>
+          <div className="ActionPopup-Action" onClick={handleBlockVideoClick}>
             <Block />
-            <div className="ActionPopup-Action-Text">Chặn Video</div>
+            <div className="ActionPopup-Action-Text">{video.isBlocked && 'Bỏ '}Chặn Video</div>
           </div>
         )}
       </Menu>

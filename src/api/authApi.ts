@@ -16,5 +16,9 @@ class AuthApi {
   public register(params: RegisterParams): Promise<any> {
     return client.post('/auth/register', params);
   }
+
+  public reset(oldPassword: string, newPassword: string): Promise<any> {
+    return client.post('/auth/reset', { old_password: oldPassword, new_password: newPassword });
+  }
 }
 export default new AuthApi();

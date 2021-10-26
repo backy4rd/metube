@@ -19,6 +19,7 @@ import Upload from '@components/Upload';
 import NotFound from '@components/NotFound';
 import Lives from '@routes/Lives';
 import Live from '@routes/Live';
+import Admin from '@routes/Admin';
 
 import './Main.css';
 
@@ -51,6 +52,7 @@ function Main() {
           <AuthorizedRoute exact path="/history" component={History} />
           <AuthorizedRoute exact path="/playlist" component={Playlists} />
           <AuthorizedRoute exact path="/liked" component={Liked} />
+          <AuthorizedRoute path="/admin" component={Admin} />
           <Route path="/404" component={NotFound} /> {/* may put in some other place*/}
           <Redirect to="/404" />
         </Switch>

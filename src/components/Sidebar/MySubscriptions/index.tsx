@@ -37,6 +37,7 @@ function MySubscriptions() {
 
   if (subscriptions === null) return null;
   if (subscriptions === undefined) return <MySubscriptionsSkeleton />;
+  if (subscriptions.length === 0) return null;
   return (
     <SidebarGroup>
       {subscriptions.map((u) => (

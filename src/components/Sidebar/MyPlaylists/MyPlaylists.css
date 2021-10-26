@@ -6,6 +6,7 @@
   margin-bottom: 10px;
 }
 
-.PlaylistTag:hover {
+.PlaylistTag:hover,
+.PlaylistTag.active {
   color: var(--main-red-1);
 }

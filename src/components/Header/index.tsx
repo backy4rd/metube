@@ -1,30 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import qs from 'query-string';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
-import { Dehaze, Search, RadioButtonChecked, CloudUpload } from '@material-ui/icons';
+import { Dehaze, Search, RadioButtonChecked, CloudUpload, Close } from '@mui/icons-material';
 
 import { useShowSidebar } from '@contexts/ShowSidebarContext';
 import { useAuth } from '@contexts/AuthContext';
-import useQuery from '@hooks/useQuery';
 
 import UserSection from './UserSection';
+import SearchBar from './SearchBar';
 
 import './Header.css';
 
 function Header() {
-  const queryParams = useQuery();
-  const [query, setQuery] = useState(queryParams.q || '');
-
+  const [showSearchBar, setShowSearchBar] = useState(false);
   const [showSidebar, setShowSidebar] = useShowSidebar();
   const isWidthUnder700 = useMediaQuery({ maxWidth: 700 });
 
-  const history = useHistory();
   const { user } = useAuth();
-
-  useEffect(() => {
-    setQuery(queryParams.q || '');
-  }, [queryParams.q]);
 
   return (
     <div className="Header">
@@ -35,34 +27,19 @@ function Header() {
           onClick={() => setShowSidebar(!showSidebar)}
         />
         <Link to="/" style={{ display: 'flex', alignItems: 'center' }}>
-          <img src="/favicon.png" alt="" height="32px" />
-          <span className="Header__LogoSection-Title">wjbu.z</span>
+          <img src="/favicon.png" alt="" height="32px" style={{ top: -4, position: 'relative' }} />
+          <span className="Header__LogoSection-Title">ZooTube</span>
         </Link>
       </div>
 
-      <form
-        className="Header__SearchSection"
-        onSubmit={(e) => {
-          e.preventDefault();
-          const _query = { ...queryParams, q: query };
-          history.push('/search?' + qs.stringify(_query));
-        }}
-      >
-        <input
-          className="Header__SearchSection-SearchBox"
-          type="text"
-          onChange={(e) => setQuery(e.target.value)}
-          value={query}
-          placeholder="Search video/channel"
-        />
-        <label>
-          <input type="submit" hidden />
-          <Search className="Header__SearchSection-SearchIcon" />
-        </label>
-      </form>
+      <div className="Header__SearchSection">
+        <SearchBar className="Header__SearchSection-SearchBar" />
+      </div>
 
       <div className="Header__UserSection">
-        <div className="Header__UserSection-Button">{isWidthUnder700 && <Search />}</div>
+        <div className="Header__UserSection-Button">
+          {isWidthUnder700 && <Search onClick={() => setShowSearchBar(true)} />}
+        </div>
 
         {user && (
           <Link className="Header__UserSection-Button" to={`/channel/${user.username}/live`}>
@@ -78,6 +55,15 @@ function Header() {
 
         <UserSection />
       </div>
+
+      {showSearchBar && (
+        <div className="Header__FixedSearch">
+          <SearchBar className="Header__FixedSearch-SearchBar" />
+          <div className="Header__FixedSearch-Close" onClick={() => setShowSearchBar(false)}>
+            <Close />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

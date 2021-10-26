@@ -1,7 +1,7 @@
 export default interface Token {
   id: number;
   username: string;
-  role: string;
+  role: 'admin' | 'user';
   iat?: number;
   exp: number;
   jti?: string;

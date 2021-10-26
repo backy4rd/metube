@@ -1,4 +1,5 @@
 import Category from './ICategory';
+import Report from './IReport';
 import User from './IUser';
 
 export default interface Video {
@@ -19,6 +20,7 @@ export default interface Video {
   react: boolean | null;
   totalComments: number;
   categories: Array<Category>;
+  reports: Array<Report>;
   isBlocked: boolean;
   privacy: {
     id: number;

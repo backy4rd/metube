@@ -17,6 +17,7 @@ interface HorizontalVideoProps {
   showWatchTimestamp?: boolean;
   showReactionTimestamp?: boolean;
   extend?: boolean;
+  className?: string;
 }
 
 function HorizontalVideo({
@@ -24,10 +25,11 @@ function HorizontalVideo({
   showWatchTimestamp = false,
   showReactionTimestamp = false,
   extend = false,
+  className,
 }: HorizontalVideoProps) {
   if (isSkeleton(video)) return <HorizontalVideoSkeleton extend={extend} />;
   return (
-    <Link to={`/watch/${video.id}`}>
+    <Link className={className} to={`/watch/${video.id}`}>
       <div className="HorizontalVideo">
         <VideoThumbnail className="HorizontalVideo__Thumbnail" video={video} showViews={false} />
         <div className="HorizontalVideo__Info">

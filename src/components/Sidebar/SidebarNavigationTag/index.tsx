@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { SvgIconComponent } from '@material-ui/icons';
+import { SvgIconComponent } from '@mui/icons-material';
 
 import './SidebarNavigationTag.css';
 
@@ -8,13 +8,14 @@ interface SidebarNavigationTagProps {
   to: string;
   Icon: SvgIconComponent;
   title: string;
+  exact?: boolean;
 }
 
-function SidebarNavigationTag(props: SidebarNavigationTagProps) {
+function SidebarNavigationTag({ to, Icon, title, exact = true }: SidebarNavigationTagProps) {
   return (
-    <NavLink className="SidebarTag" to={props.to} exact activeClassName="active">
-      <props.Icon className="SidebarTag-Icon" />
-      <div className="SidebarTag-Title">{props.title}</div>
+    <NavLink className="SidebarTag" to={to} exact={exact} activeClassName="active">
+      <Icon className="SidebarTag-Icon" />
+      <div className="SidebarTag-Title">{title}</div>
     </NavLink>
   );
 }

@@ -14,18 +14,23 @@ import VerticalVideoSkeleton from './VerticalVideoSkeleton';
 import './VerticalVideo.css';
 
 interface VerticalVideoProps {
+  className?: string;
   video: IVideo | ISkeleton | IStream;
+  animation?: boolean;
 }
 
-function VerticalVideo({ video }: VerticalVideoProps) {
+function VerticalVideo({ video, className = '', animation = true }: VerticalVideoProps) {
   if (isSkeleton(video)) return <VerticalVideoSkeleton />;
 
   const owner = isStream(video) ? video.user : video.uploadedBy;
   const status = !isStream(video) && (video.isBlocked ? 'blocked' : video.privacy.name);
 
   return (
-    <Link className="VerticalVideo" to={`/${isStream(video) ? 'live' : 'watch'}/${video.id}`}>
-      <VideoThumbnail video={video} />
+    <Link
+      className={`VerticalVideo ${animation ? 'animated' : ''} ${className}`}
+      to={`/${isStream(video) ? 'live' : 'watch'}/${video.id}`}
+    >
+      <VideoThumbnail className="VerticalVideo__Thumbnail" video={video} />
 
       <div className="VerticalVideo__Detail">
         <div className="VerticalVideo__Detail-UserIcon">

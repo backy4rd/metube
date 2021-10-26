@@ -2,6 +2,7 @@ import React from 'react';
 import { Edit, Lock, Timeline, HelpOutline } from '@material-ui/icons';
 
 import { useAuth } from '@contexts/AuthContext';
+import { useSetShowAuthForm } from '@contexts/ShowAuthFormContext';
 
 import Avatar from '@components/Avatar';
 import UserPopupButton from './UserPopupButton';
@@ -10,6 +11,8 @@ import './UserPopup.css';
 
 function UserPopup() {
   const { user, logout } = useAuth();
+
+  const setShowAuthForm = useSetShowAuthForm();
 
   if (!user) return null;
   return (
@@ -29,7 +32,11 @@ function UserPopup() {
             />
           </div>
           <div className="UPC__Buttons-Btn">
-            <UserPopupButton Icon={Lock} text="Đổi Mật Khẩu" />
+            <UserPopupButton
+              Icon={Lock}
+              text="Đổi Mật Khẩu"
+              onClick={() => setShowAuthForm('RESET_PASSWORD')}
+            />
           </div>
           <div className="UPC__Buttons-Btn">
             <UserPopupButton Icon={HelpOutline} text="Trợ Giúp" to={`/help`} />

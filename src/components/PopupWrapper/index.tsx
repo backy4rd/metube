@@ -5,6 +5,7 @@ import Loading from '@components/Loading';
 import MessageQueue from '@components/MessageQueue';
 import Confirm from '@components/Confirm';
 import PlaylistPopup from '@components/PlaylistPopup';
+import ReportPopup from '@components/ReportPopup';
 
 import './PopupWrapper.css';
 
@@ -16,6 +17,7 @@ function PopupWrapper() {
       <MessageQueue />
       <Confirm />
       <PlaylistPopup />
+      <ReportPopup />
     </div>
   );
 }

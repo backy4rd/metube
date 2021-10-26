@@ -109,7 +109,11 @@ function WatchDetailBody({ video }: { video: IVideo }) {
           ) : (
             <>
               <div className="WDIT-Text">{video.title}</div>
-              <PrivacyIcon privacy={privacy} style={{ marginLeft: 4 }} />
+              {video.isBlocked ? (
+                <div style={{ color: 'var(--main-red-1)', fontStyle: 'italic' }}>ĐÃ BỊ CHẶN</div>
+              ) : (
+                <PrivacyIcon privacy={privacy} style={{ marginLeft: 4 }} />
+              )}
             </>
           )}
         </div>

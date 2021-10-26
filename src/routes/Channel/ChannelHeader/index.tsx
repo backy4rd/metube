@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import IUser from '@interfaces/IUser';
 import { numberWithCommas } from '@utils/number';
@@ -7,7 +8,9 @@ import { useAuth } from '@contexts/AuthContext';
 import SubscribeButton from '@components/SubscribeButton';
 import { useSetLoading } from '@contexts/LoadingContext';
 import { usePushMessage } from '@contexts/MessageQueueContext';
+import { useShowConfirm } from '@contexts/ConfirmContext';
 import userApi from '@api/userApi';
+import adminApi from '@api/adminApi';
 
 import './ChannelHeader.css';
 
@@ -25,6 +28,8 @@ function ChannelHeader({ user }: ChannelHeaderProps) {
   const { user: auth } = useAuth();
   const pushMessage = usePushMessage();
   const setLoading = useSetLoading();
+  const { showConfirm } = useShowConfirm();
+  const history = useHistory();
 
   useEffect(() => {
     setBanner(user.bannerPath);
@@ -57,10 +62,25 @@ function ChannelHeader({ user }: ChannelHeaderProps) {
     }
   }
 
+  async function handleBlockUser() {
+    if (auth?.role !== 'admin') return;
+    try {
+      setLoading(true);
+      await adminApi.modifyUser(user.username, 'ban');
+      pushMessage('Đã chặn ' + user.username);
+      history.goBack();
+    } catch {
+      pushMessage('Chặn kênh không thành công!');
+    } finally {
+      setLoading(false);
+    }
+  }
+
   const owner = auth?.username === user.username;
   const bannerUrl = banner instanceof File ? URL.createObjectURL(banner) : banner || defaultBanner;
   const isShowSave =
     banner instanceof File || firstName !== user.firstName || lastName !== user.lastName;
+  const isShowUploadBanner = owner && !(banner instanceof File);
   return (
     <div
       className="ChannelHeader"
@@ -122,7 +142,7 @@ function ChannelHeader({ user }: ChannelHeaderProps) {
         )}
       </div>
 
-      {owner && !(banner instanceof File) && (
+      {isShowUploadBanner ? (
         <label>
           <input
             type="file"
@@ -132,6 +152,20 @@ function ChannelHeader({ user }: ChannelHeaderProps) {
           />
           <div className="App-GreenButton CHI__Buttons-UploadBanner">Tải Lên Banner...</div>
         </label>
+      ) : (
+        auth?.role === 'admin' && (
+          <div
+            className="App-RedButton CHI__Buttons-UploadBanner"
+            onClick={() =>
+              showConfirm(
+                'Tất cả các video, playlist và bình luận có liên quan tới người này sẽ bị ẩn, bạn có muốn chặn người dùng này?',
+                handleBlockUser
+              )
+            }
+          >
+            Chặn kênh này
+          </div>
+        )
       )}
     </div>
   );

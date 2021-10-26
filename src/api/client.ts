@@ -42,7 +42,7 @@ client.interceptors.request.use((config) => {
 
 function processResponse(obj: { [key: string]: any }): any {
   for (const key in obj) {
-    if (obj[key] !== null && Object.getPrototypeOf(obj[key]) === Object.prototype) {
+    if (obj[key] !== null && typeof obj[key] === 'object') {
       processResponse(obj[key]);
       continue;
     }

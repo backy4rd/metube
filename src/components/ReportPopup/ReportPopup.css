@@ -1,0 +1,109 @@
+.ReportPopupWrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #0008;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ReportPopup {
+  min-width: 280px;
+  background-color: var(--main-dark-3);
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -2px 2px 5px 0px #0006;
+}
+
+.ReportPopup-Header {
+  display: flex;
+  align-items: center;
+  background-color: var(--main-green-1);
+  padding: 4px;
+}
+
+.ReportPopup-Header-Text {
+  flex-grow: 1;
+}
+
+.ReportPopup-Header-Close {
+  cursor: pointer;
+}
+
+.ReportPopup-Main {
+  margin-bottom: 8px;
+}
+
+.ReportPopup-Reports {
+  margin: 8px 0;
+  height: 320px;
+  overflow-y: auto;
+}
+
+.RPR-Item {
+  padding: 4px 12px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.RPR-Item > svg {
+  font-size: 22px;
+  margin-right: 8px;
+}
+
+.RPR-Item:hover {
+  background-color: var(--main-dark-5);
+}
+
+.ReportPopup-Create {
+  border-top: 1px solid var(--main-grey-1);
+  padding: 8px;
+}
+
+.RPC-Label {
+  margin-bottom: 8px;
+}
+
+.RPC-ReportName {
+  width: 100%;
+}
+
+.ReportPopup-Buttons {
+  display: flex;
+  flex-direction: row-reverse;
+  margin: 8px;
+}
+
+.RPB-Button {
+  padding: 6px 12px;
+}
+
+.ReportPopupWrapper-enter {
+  opacity: 0;
+}
+.ReportPopupWrapper-enter-active {
+  opacity: 1;
+  transition: opacity 200ms;
+}
+.ReportPopupWrapper-exit {
+  opacity: 1;
+}
+.ReportPopupWrapper-exit-active {
+  opacity: 0;
+  transition: opacity 200ms;
+}
+
+.ReportPopup .MuiFormControlLabel-label {
+  font-size: 13px !important;
+}
+
+.ReportPopup .MuiCheckbox-root {
+  padding: 4px !important;
+}

@@ -12,9 +12,10 @@ import './User.css';
 
 interface UserProps {
   user: IUser | ISkeleton;
+  SubscribeButtonReplacement?: React.ReactNode;
 }
 
-function User({ user }: UserProps) {
+function User({ user, SubscribeButtonReplacement }: UserProps) {
   if (isSkeleton(user)) return <UserSkeleton />;
 
   return (
@@ -26,7 +27,11 @@ function User({ user }: UserProps) {
       <div className="User-Fullname">
         ({user.firstName} {user.lastName})
       </div>
-      <SubscribeButton className="User-SubscribeButton" targetUser={user} />
+      {SubscribeButtonReplacement ? (
+        SubscribeButtonReplacement
+      ) : (
+        <SubscribeButton className="User-SubscribeButton" targetUser={user} />
+      )}
     </div>
   );
 }

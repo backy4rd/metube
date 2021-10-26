@@ -45,7 +45,7 @@ function SubscribeButton({ targetUser, className }: SubscribeButtonProps) {
         await subscribe(targetUser);
       }
     } catch {
-      pushMesage(`${isSubscribed ? 'Hủy đăng ký' : 'Đăng ký'} không thành công!`);
+      pushMesage(`${isSubscribed ? 'Hủy đăng ký' : 'Đăng ký'} không thành công!`, 'error');
     } finally {
       setLoading(false);
     }

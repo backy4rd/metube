@@ -1,14 +1,16 @@
 import React from 'react';
 import {
+  AdminPanelSettingsOutlined,
   History,
   SubscriptionsOutlined,
   LiveTvOutlined,
   ThumbUpOutlined,
   QueueOutlined,
   RadioButtonChecked,
-} from '@material-ui/icons';
+} from '@mui/icons-material';
 
 import { useShowSidebar } from '@contexts/ShowSidebarContext';
+import { useAuth } from '@contexts/AuthContext';
 
 import SidebarNavigationTag from './SidebarNavigationTag';
 import ChannelInfo from './ChannelInfo';
@@ -19,6 +21,8 @@ import './Sidebar.css';
 
 function Sidebar() {
   const [showSidebar, setShowSidebar] = useShowSidebar();
+
+  const { user } = useAuth();
 
   if (!showSidebar)
     return (
@@ -34,6 +38,14 @@ function Sidebar() {
       <div className="Sidebar">
         <SidebarNavigationTag to="/" Icon={LiveTvOutlined} title="Trang chủ" />
         <ChannelInfo />
+        {user?.role === 'admin' && (
+          <SidebarNavigationTag
+            to="/admin"
+            Icon={AdminPanelSettingsOutlined}
+            title="Admin"
+            exact={false}
+          />
+        )}
 
         <SidebarNavigationTag to="/live" Icon={RadioButtonChecked} title="Live now" />
         <SidebarNavigationTag to="/history" Icon={History} title="Lịch sử" />

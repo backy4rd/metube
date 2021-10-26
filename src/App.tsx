@@ -10,6 +10,7 @@ import { PlaylistsProvider } from '@contexts/PlaylistsContext';
 import { MessageQueueProvider } from '@contexts/MessageQueueContext';
 import { ConfirmProvider } from '@contexts/ConfirmContext';
 import { PlaylistPopupProvider } from '@contexts/PlaylistPopupContext';
+import { ReportPopupProvider } from '@contexts/ReportPopupContext';
 
 import Header from '@components/Header';
 import PopupWrapper from '@components/PopupWrapper';
@@ -34,7 +35,9 @@ function AppContextWrapper({ children }: { children: React.ReactNode }) {
               <PlaylistsProvider>
                 <MessageQueueProvider timeout={5000}>
                   <ConfirmProvider>
-                    <PlaylistPopupProvider>{children}</PlaylistPopupProvider>
+                    <PlaylistPopupProvider>
+                      <ReportPopupProvider>{children}</ReportPopupProvider>
+                    </PlaylistPopupProvider>
                   </ConfirmProvider>
                 </MessageQueueProvider>
               </PlaylistsProvider>
