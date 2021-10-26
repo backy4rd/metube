@@ -29,11 +29,12 @@ function Watch() {
   const setLoading = useSetLoading();
   const [, setShowSidebar] = useShowSidebar();
 
-  useEffect(() => {
-    return () => {
-      document.title = 'ZooTube';
-    };
-  }, []);
+  useEffect(
+    () => () => {
+      document.title = 'Zoo';
+    },
+    []
+  );
 
   useEffect(() => {
     if (!playlistId) return;

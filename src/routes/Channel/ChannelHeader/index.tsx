@@ -52,7 +52,7 @@ function ChannelHeader({ user }: ChannelHeaderProps) {
         first_name: firstName !== user.firstName ? firstName : undefined,
         last_name: lastName !== user.lastName ? lastName : undefined,
       };
-      await userApi.updateBannerAndName(payload);
+      await userApi.updateUser(payload);
       pushMessage('Đã cập nhật thông tin!');
       window.location.reload();
     } catch {

@@ -9,9 +9,10 @@ import './SearchBar.css';
 
 interface SearchBarProps {
   className?: string;
+  autoFocus?: boolean;
 }
 
-function SearchBar({ className = '' }: SearchBarProps) {
+function SearchBar({ className = '', autoFocus = false }: SearchBarProps) {
   const queryParams = useQuery();
   const [query, setQuery] = useState(queryParams.q || '');
 
@@ -36,6 +37,7 @@ function SearchBar({ className = '' }: SearchBarProps) {
         onChange={(e) => setQuery(e.target.value)}
         value={query}
         placeholder="Search video/channel"
+        autoFocus={autoFocus}
       />
       <label>
         <input type="submit" hidden />

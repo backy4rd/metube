@@ -1,6 +1,6 @@
 import client from './client';
 
-import User from '../interfaces/IUser';
+import User, { IUserStatistic } from '../interfaces/IUser';
 import Video from '../interfaces/IVideo';
 import Playlist from '@interfaces/IPlaylist';
 import Stream from '@interfaces/IStream';
@@ -14,15 +14,22 @@ interface UpdateStreamFields {
   renew_key: '0' | '1';
 }
 
-interface UpdateBannerAndNameFields {
+interface UpdateUserFields {
   banner: File;
+  avatar: File;
   first_name: string;
   last_name: string;
+  description: string;
+  female: '0' | '1';
 }
 
 class UserApi {
   public getUserProfile(username: string): Promise<User> {
     return client.get(`/users/${username}/profile`);
+  }
+
+  public getUserStatistic(username: string): Promise<IUserStatistic> {
+    return client.get(`/users/${username}/statistic`);
   }
 
   public getUserStream(username: string): Promise<Stream> {
@@ -45,17 +52,7 @@ class UserApi {
     return client.get(`/users/${username}/playlists`, { params: { ...range } });
   }
 
-  public updateAvatar(avatar: File): Promise<ApiMessage> {
-    return client.patch(
-      `/users/me`,
-      { avatar },
-      {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      }
-    );
-  }
-
-  public updateBannerAndName(data: Partial<UpdateBannerAndNameFields>): Promise<ApiMessage> {
+  public updateUser(data: Partial<UpdateUserFields>): Promise<ApiMessage> {
     return client.patch(`/users/me`, data, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });

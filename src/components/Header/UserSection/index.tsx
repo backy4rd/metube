@@ -53,4 +53,4 @@ function UserSection() {
   );
 }
 
-export default UserSection;
+export default React.memo(UserSection);

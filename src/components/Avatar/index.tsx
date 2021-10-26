@@ -30,7 +30,7 @@ function Avatar({ user, className, onClick, size = '32px', edit = false }: Avata
     if (!(avatar instanceof File)) return;
     try {
       setLoading(true);
-      await userApi.updateAvatar(avatar);
+      await userApi.updateUser({ avatar });
       pushMessage('Đã cập nhật ảnh đại diện!');
       window.location.reload();
     } catch {

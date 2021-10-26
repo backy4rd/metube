@@ -1,5 +1,5 @@
 import React from 'react';
-import { Edit, Lock, Timeline, HelpOutline } from '@material-ui/icons';
+import { InfoOutlined, Lock, Timeline, HelpOutline } from '@material-ui/icons';
 
 import { useAuth } from '@contexts/AuthContext';
 import { useSetShowAuthForm } from '@contexts/ShowAuthFormContext';
@@ -22,7 +22,11 @@ function UserPopup() {
         <div className="UPC-Name">{user.username}</div>
         <div className="UPC__Buttons">
           <div className="UPC__Buttons-Btn">
-            <UserPopupButton Icon={Edit} text="Chỉnh Sửa" to={`/channel/${user.username}/edit`} />
+            <UserPopupButton
+              Icon={InfoOutlined}
+              text="Thông tin kênh"
+              to={`/channel/${user.username}/about`}
+            />
           </div>
           <div className="UPC__Buttons-Btn">
             <UserPopupButton

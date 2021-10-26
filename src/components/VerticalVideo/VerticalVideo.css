@@ -27,7 +27,7 @@
   border-left: 40px solid #fffd;
   transform: translate(-50%, -50%);
   /* animation: linear 0.2s showUp80 forwards; */
-  z-index: 100;
+  z-index: 1;
 }
 
 .VerticalVideo__Detail {

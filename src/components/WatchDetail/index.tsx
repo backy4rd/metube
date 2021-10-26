@@ -117,7 +117,7 @@ function WatchDetailBody({ video }: { video: IVideo }) {
             </>
           )}
         </div>
-        <div className="WatchDetail__Info-UploadedAt">{uploadedAt}</div>
+        <div className="WatchDetail__Info-UploadedAt">Đã đăng vào {uploadedAt}</div>
       </div>
 
       <UserInfo user={video.uploadedBy} />

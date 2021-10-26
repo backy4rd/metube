@@ -28,7 +28,7 @@ function Header() {
         />
         <Link to="/" style={{ display: 'flex', alignItems: 'center' }}>
           <img src="/favicon.png" alt="" height="32px" style={{ top: -4, position: 'relative' }} />
-          <span className="Header__LogoSection-Title">ZooTube</span>
+          <span className="Header__LogoSection-Title">Zoo</span>
         </Link>
       </div>
 
@@ -58,7 +58,7 @@ function Header() {
 
       {showSearchBar && (
         <div className="Header__FixedSearch">
-          <SearchBar className="Header__FixedSearch-SearchBar" />
+          <SearchBar className="Header__FixedSearch-SearchBar" autoFocus />
           <div className="Header__FixedSearch-Close" onClick={() => setShowSearchBar(false)}>
             <Close />
           </div>
