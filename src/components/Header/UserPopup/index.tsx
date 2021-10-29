@@ -24,15 +24,15 @@ function UserPopup() {
           <div className="UPC__Buttons-Btn">
             <UserPopupButton
               Icon={InfoOutlined}
-              text="Thông tin kênh"
-              to={`/channel/${user.username}/about`}
+              text="Kênh của tôi"
+              to={`/channel/${user.username}`}
             />
           </div>
           <div className="UPC__Buttons-Btn">
             <UserPopupButton
               Icon={Timeline}
               text="Thống Kê"
-              to={`/channel/${user.username}/analyst`}
+              to={`/channel/${user.username}/about`}
             />
           </div>
           <div className="UPC__Buttons-Btn">

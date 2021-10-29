@@ -1,0 +1,61 @@
+.VideoAnalysis__Content {
+  padding: 24px 3%;
+}
+
+.VideoAnalysis__Row1 {
+  display: flex;
+  margin-bottom: 24px;
+}
+
+.VideoAnalysis__Video {
+  width: 30%;
+  margin-right: 24px;
+  flex-shrink: 0;
+}
+
+.VideoAnalysis__ViewChart {
+  flex-grow: 1;
+  padding: 12px;
+  background-color: var(--main-dark-2);
+  border-radius: 4px;
+}
+
+.VideoAnalysis__Row2 {
+  display: flex;
+}
+
+.VideoAnalysis__ReactionChart {
+  width: 48%;
+  margin: 0 1%;
+  padding: 0 12px;
+  background-color: var(--main-dark-2);
+  border-radius: 4px;
+}
+
+.VideoAnalysis-Title {
+  color: var(--main-grey-3);
+  font-family: roboto;
+  font-weight: 500;
+  font-size: 16px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+@media only screen and (max-width: 800px) {
+  .VideoAnalysis__Row1,
+  .VideoAnalysis__Row2 {
+    flex-direction: column;
+  }
+
+  .VideoAnalysis__ViewChart {
+    height: 250px;
+  }
+
+  .VideoAnalysis__Video,
+  .VideoAnalysis__ViewChart,
+  .VideoAnalysis__ReactionChart {
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0 0 12px 0;
+  }
+}

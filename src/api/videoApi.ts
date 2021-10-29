@@ -1,7 +1,7 @@
 import axios from 'axios';
 import client from './client';
 
-import Video from '../interfaces/IVideo';
+import Video, { IVideoAnalysis } from '../interfaces/IVideo';
 import Category from '../interfaces/ICategory';
 import ApiMessage from '../interfaces/IApiMessage';
 import Range from '../interfaces/IRange';
@@ -12,6 +12,11 @@ interface PatchVideoPayload {
   categories: string;
   thumbnail: File;
   privacy: 'public' | 'private';
+}
+
+interface GetVideoAnalysisParams {
+  unit: 'day' | 'month' | 'year';
+  from: Date | string;
 }
 
 class VideoApi {
@@ -31,8 +36,10 @@ class VideoApi {
     return client.get(`/videos/liked`, { params: range });
   }
 
-  public getVideo(id: string): Promise<Video> {
-    return client.get('/videos/' + id);
+  public getVideo(id: string, increaseView?: boolean): Promise<Video> {
+    return client.get('/videos/' + id, {
+      params: { increase_view: increaseView ? '1' : undefined },
+    });
   }
 
   public reactVideo(id: string, isLike: boolean): Promise<ApiMessage> {
@@ -95,6 +102,13 @@ class VideoApi {
 
   public reportVideo(videoId: string, reason: string): Promise<ApiMessage> {
     return client.post('/reports', { reason: reason, video_id: videoId });
+  }
+
+  public getVideoAnalysis(
+    videoId: string,
+    params?: Partial<GetVideoAnalysisParams>
+  ): Promise<IVideoAnalysis> {
+    return client.get(`/videos/${videoId}/analysis`, { params });
   }
 }
 

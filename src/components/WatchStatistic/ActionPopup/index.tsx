@@ -1,6 +1,6 @@
 import React from 'react';
 import { Menu, Tooltip } from '@mui/material';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { PlaylistAdd, Delete, Block, Timeline, MoreVert, Flag } from '@mui/icons-material';
 
 import videoApi from '@api/videoApi';
@@ -99,10 +99,10 @@ function ActionPopup(props: ActionPopupProps) {
           <div className="ActionPopup-Action-Text">Thêm Vào Danh Sách Phát</div>
         </div>
         {user.username === video.uploadedBy.username && (
-          <div className="ActionPopup-Action">
+          <Link className="ActionPopup-Action" to={'/analysis/' + video.id}>
             <Timeline />
             <div className="ActionPopup-Action-Text">Tổng Quan</div>
-          </div>
+          </Link>
         )}
         {user.username === video.uploadedBy.username && (
           <div className="ActionPopup-Action" onClick={handleRemoveVideoClick}>

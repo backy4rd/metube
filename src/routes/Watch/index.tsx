@@ -47,7 +47,7 @@ function Watch() {
   useEffect(() => {
     setLoading(true);
     videoApi
-      .getVideo(videoId)
+      .getVideo(videoId, true)
       .then((_video) => {
         setVideo(_video);
         document.title = _video.title;

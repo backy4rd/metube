@@ -19,6 +19,9 @@ function ResetPassword() {
 
   async function handleLoginSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (!password || !oldPassword || !repassword) {
+      return setFailMessage('Hãy điền đầy đủ thông tin');
+    }
     if (password !== repassword) {
       return setFailMessage('Mật khẩu nhập lại không khớp');
     }

@@ -27,7 +27,7 @@ function AuthForm() {
   useEffect(() => {
     switch (form) {
       case 'LOGIN':
-        setTitle('Đăng nhập vào zootube');
+        setTitle('Đăng nhập vào Zoo');
         break;
       case 'REGISTER':
         setTitle('Đăng kí tài khoản');

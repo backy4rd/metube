@@ -1,0 +1,40 @@
+.Footer {
+  background-color: var(--main-dark-2);
+  color: var(--main-grey-2);
+  padding: 32px 48px;
+  line-height: 22px;
+}
+
+.Footer__Table {
+  font-size: 15px;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 8%;
+  grid-row-gap: 24px;
+}
+
+@media only screen and (max-width: 700px) {
+  .Footer__Table {
+    grid-template-columns: repeat(1, 1fr);
+    /* margin-bottom: 10%; */
+  }
+}
+
+.Footer__Table__Col1-Contact {
+  margin-top: 4px;
+}
+
+.Footer__Table__Col1-Contact svg {
+  margin-right: 8px;
+}
+
+.Footer__Table__Col1-Contact svg:hover {
+  color: var(--main-red-1);
+}
+
+.Footer__Slogan {
+  margin-top: 24px;
+  font-size: 12px;
+  text-align: center;
+}

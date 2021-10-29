@@ -8,6 +8,7 @@ import { useAuth } from '@contexts/AuthContext';
 
 import UserSection from './UserSection';
 import SearchBar from './SearchBar';
+import Logo from '@components/Logo';
 
 import './Header.css';
 
@@ -26,10 +27,7 @@ function Header() {
           style={{ marginRight: 10, cursor: 'pointer' }}
           onClick={() => setShowSidebar(!showSidebar)}
         />
-        <Link to="/" style={{ display: 'flex', alignItems: 'center' }}>
-          <img src="/favicon.png" alt="" height="32px" style={{ top: -4, position: 'relative' }} />
-          <span className="Header__LogoSection-Title">Zoo</span>
-        </Link>
+        <Logo />
       </div>
 
       <div className="Header__SearchSection">

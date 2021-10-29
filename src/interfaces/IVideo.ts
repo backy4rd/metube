@@ -2,6 +2,12 @@ import Category from './ICategory';
 import Report from './IReport';
 import User from './IUser';
 
+export interface IVideoAnalysis {
+  views: Array<{ date: string; views: number }>;
+  comments: Array<{ date: string; comments: number }>;
+  videoReactions: Array<{ date: string; likes: number; dislikes: number }>;
+}
+
 export default interface Video {
   id: string;
   title: string;

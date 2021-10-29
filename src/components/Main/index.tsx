@@ -20,6 +20,8 @@ import NotFound from '@components/NotFound';
 import Lives from '@routes/Lives';
 import Live from '@routes/Live';
 import Admin from '@routes/Admin';
+import VideoAnalysis from '@routes/VideoAnalysis';
+import Footer from '@components/Footer';
 
 import './Main.css';
 
@@ -36,27 +38,34 @@ function Main() {
 
   return (
     <div id="Main" ref={mainRef}>
-      <ScrollToTop containerRef={mainRef} />
-      <MainSwitchContext>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/watch/:videoId" component={Watch} />
-          <Route exact path="/watch/:videoId/playlist/:playlistId" component={Watch} />
-          <Route exact path="/playlist/:playlistId" component={Playlist} />
-          <Route exact path="/search" component={Search} />
-          <Route exact path="/live" component={Lives} />
-          <Route exact path="/live/:streamId" component={Live} />
-          <Route path="/channel/:username" component={Channel} />
-          <AuthorizedRoute exact path="/upload" component={Upload} />
-          <AuthorizedRoute exact path="/subscription" component={Subscriptions} />
-          <AuthorizedRoute exact path="/history" component={History} />
-          <AuthorizedRoute exact path="/playlist" component={Playlists} />
-          <AuthorizedRoute exact path="/liked" component={Liked} />
-          <AuthorizedRoute path="/admin" component={Admin} />
-          <Route path="/404" component={NotFound} /> {/* may put in some other place*/}
-          <Redirect to="/404" />
-        </Switch>
-      </MainSwitchContext>
+      <div className="Main__Container">
+        <ScrollToTop containerRef={mainRef} />
+        <MainSwitchContext>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/watch/:videoId" component={Watch} />
+            <Route exact path="/watch/:videoId/playlist/:playlistId" component={Watch} />
+            <Route exact path="/playlist/:playlistId" component={Playlist} />
+            <Route exact path="/search" component={Search} />
+            <Route exact path="/live" component={Lives} />
+            <Route exact path="/live/:streamId" component={Live} />
+            <Route exact path="/analysis/:videoId" component={VideoAnalysis} />
+            <Route path="/channel/:username" component={Channel} />
+            <AuthorizedRoute exact path="/upload" component={Upload} />
+            <AuthorizedRoute exact path="/subscription" component={Subscriptions} />
+            <AuthorizedRoute exact path="/history" component={History} />
+            <AuthorizedRoute exact path="/playlist" component={Playlists} />
+            <AuthorizedRoute exact path="/liked" component={Liked} />
+            <AuthorizedRoute path="/admin" component={Admin} />
+            <Route path="/404" component={NotFound} /> {/* may put in some other place*/}
+            <Redirect to="/404" />
+          </Switch>
+        </MainSwitchContext>
+      </div>
+
+      <div className="Main__Footer">
+        <Footer />
+      </div>
     </div>
   );
 }
