@@ -1,0 +1,35 @@
+.SidebarNavigationIcon {
+  display: flex;
+  align-items: center;
+  padding: 14px 8px;
+  flex-direction: column;
+}
+.SidebarNavigationIcon.active,
+.SidebarNavigationIcon:hover {
+  background-color: var(--main-dark-3);
+}
+
+.SidebarNavigationIcon-Icon,
+.SidebarNavigationIcon-Title {
+  color: var(--main-grey-2);
+  text-align: center;
+}
+
+.SidebarNavigationIcon-Icon {
+  font-size: 18px !important;
+}
+
+.SidebarNavigationIcon-Title {
+  margin-top: 4px;
+  font-size: 12px;
+}
+
+.SidebarNavigationIcon:hover .SidebarNavigationIcon-Icon,
+.SidebarNavigationIcon:hover .SidebarNavigationIcon-Title {
+  color: var(--main-red-2);
+}
+
+.SidebarNavigationIcon.active .SidebarNavigationIcon-Icon,
+.SidebarNavigationIcon.active .SidebarNavigationIcon-Title {
+  color: var(--main-red-2);
+}

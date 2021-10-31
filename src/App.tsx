@@ -1,5 +1,4 @@
 import React from 'react';
-import { createTheme, ThemeProvider } from '@mui/material';
 
 import { ShowAuthFormProvider } from '@contexts/ShowAuthFormContext';
 import { AuthProvider } from '@contexts/AuthContext';
@@ -11,6 +10,7 @@ import { MessageQueueProvider } from '@contexts/MessageQueueContext';
 import { ConfirmProvider } from '@contexts/ConfirmContext';
 import { PlaylistPopupProvider } from '@contexts/PlaylistPopupContext';
 import { ReportPopupProvider } from '@contexts/ReportPopupContext';
+import { ThemeProvider } from '@contexts/ThemeContext';
 
 import Header from '@components/Header';
 import PopupWrapper from '@components/PopupWrapper';
@@ -18,12 +18,6 @@ import Sidebar from '@components/Sidebar';
 import Main from '@components/Main';
 
 import './App.css';
-
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-  },
-});
 
 function AppContextWrapper({ children }: { children: React.ReactNode }) {
   return (
@@ -52,7 +46,7 @@ function AppContextWrapper({ children }: { children: React.ReactNode }) {
 function App() {
   return (
     <div className="App">
-      <ThemeProvider theme={darkTheme}>
+      <ThemeProvider>
         <AppContextWrapper>
           <Header />
           <div className="App__Container">

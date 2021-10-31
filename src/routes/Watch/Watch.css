@@ -41,7 +41,7 @@
 
 .Watch__Orther__Left {
   width: calc(70% - 12px);
-  border-right: 1px solid var(--main-dark-4);
+  border-right: 1px solid var(--main-dark-5);
   margin-right: 12px;
 }
 

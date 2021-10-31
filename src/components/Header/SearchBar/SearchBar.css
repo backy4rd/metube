@@ -9,13 +9,20 @@
   width: 100%;
   line-height: 30px;
   border-radius: 4px;
-  color: white;
   background-color: var(--main-dark-4);
   outline: none;
   border: none;
   padding: 1px 40px 1px 15px;
   border: 1px solid none;
   /* transition: width 0.3s linear; */
+}
+
+html[theme='dark'] .SearchBar-SearchBox {
+  color: white;
+}
+
+html[theme='light'] .SearchBar-SearchBox {
+  color: black;
 }
 
 .SearchBar-SearchBox:focus {

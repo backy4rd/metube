@@ -4,23 +4,23 @@ export default function stylingScrollBar() {
   if (isMobile) return;
 
   const style = `
-    ::-webkit-scrollbar {
+    html[theme="dark"] ::-webkit-scrollbar {
       width: 8px;
       height: 8px;
     }
 
     /* track */
-    ::-webkit-scrollbar-track {
+    html[theme="dark"] ::-webkit-scrollbar-track {
       background: #262626;
     }
 
     /* handle */
-    ::-webkit-scrollbar-thumb {
+    html[theme="dark"] ::-webkit-scrollbar-thumb {
       background: #404040;
     }
 
     /* handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
+    html[theme="dark"] ::-webkit-scrollbar-thumb:hover {
       background: #555;
     }
   `;

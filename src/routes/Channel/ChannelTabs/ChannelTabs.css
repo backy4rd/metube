@@ -16,9 +16,16 @@
   line-height: 47px;
   padding: 0 14px;
   font-size: 13px;
-  color: #ddd;
   font-family: Roboto, Helvetica, sans-serif;
   font-weight: 500;
+}
+
+html[theme='light'] .ChannelTabs {
+  color: #333;
+}
+
+html[theme='dark'] .ChannelTabs {
+  color: #ddd;
 }
 
 .ChannelTabs-Tab:hover {

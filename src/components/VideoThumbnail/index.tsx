@@ -54,7 +54,7 @@ function VideoThumbnail({ video, className, showViews = true }: VideoThumbnailPr
         <div
           className="VideoThumbnail-Info"
           style={{
-            backgroundColor: `var(--main-${video.isStreaming ? 'red-1' : 'grey-1'})`,
+            backgroundColor: video.isStreaming ? 'var(--main-red-1)' : '#575757',
             padding: '2px 6px',
             borderRadius: '2px',
           }}

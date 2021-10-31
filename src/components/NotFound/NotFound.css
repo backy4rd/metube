@@ -4,7 +4,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+html[theme='dark'] .NotFound {
   color: var(--main-grey-3);
+}
+
+html[theme='light'] .NotFound {
+  color: var(--main-grey-2);
 }
 
 .NotFound-Center {

@@ -7,13 +7,12 @@ import { useAuth } from '@contexts/AuthContext';
 
 import './AuthorizedRoute.css';
 
-
 function Unauthorized() {
   return (
     <div className="Unauthorized">
       <div className="Unauthorized__Center">
         <AccountCircleOutlined className="Unauthorized__Center-Key" />
-        <h3>Bạn cần phải đăng nhập đẻ sử dụng tính năng này</h3>
+        <h3>Bạn cần phải đăng nhập để sử dụng tính năng này</h3>
         <div>Đăng nhập để tương tác, bình luận và đăng kí những video mới nhất.</div>
       </div>
     </div>

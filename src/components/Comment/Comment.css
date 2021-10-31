@@ -2,10 +2,7 @@
   display: flex;
   padding: 12px 0 16px;
   position: relative;
-}
-
-.Comment {
-  border-bottom: 1px solid var(--main-dark-4);
+  border-bottom: 1px solid var(--main-dark-5);
 }
 
 .Comment-Avatar {
@@ -42,14 +39,14 @@
 .Comment__Main__Buttons {
   /* float: right; */
   margin-top: 4px;
-  color: #bbb;
+  color: var(--main-grey-3);
   display: flex;
   align-items: center;
   justify-content: flex-end;
 }
 .Comment__Main__Buttons-Reply {
   margin: 0 8px 0 2px;
-  color: #bbb;
+  color: var(--main-grey-3);
   cursor: pointer;
   font-weight: bold;
 }
@@ -67,7 +64,7 @@
 
 .Comment__Buttons svg {
   font-size: 18px;
-  color: #bbb;
+  color: var(--main-grey-3);
   cursor: pointer;
   margin-left: 4px;
 }

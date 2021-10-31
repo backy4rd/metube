@@ -19,7 +19,7 @@
 
 .WatchStatistic-Item > *:nth-child(1) {
   margin-right: 4px;
-  color: #ddd;
+  color: var(--main-grey-3);
   font-size: 22px;
 }
 

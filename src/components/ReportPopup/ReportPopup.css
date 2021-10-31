@@ -26,6 +26,7 @@
   align-items: center;
   background-color: var(--main-green-1);
   padding: 4px;
+  color: white;
 }
 
 .ReportPopup-Header-Text {

@@ -66,11 +66,11 @@ function CommentInput({
         />
         {(content !== '' || showButtonByDefault) && (
           <div className="buttons">
-            <div className="publish" onClick={_handleSubmit}>
+            <div className="publish App-GreenButton" onClick={_handleSubmit}>
               {submitButtonText}
             </div>
             <div
-              className="cancel"
+              className="cancel App-GreyButton"
               onClick={() => {
                 setContent('');
                 handleCancel();

@@ -46,13 +46,13 @@
 }
 
 .Reply__Main__Buttons {
-  color: #bbb;
+  color: var(--main-grey-3);
   display: flex;
   justify-content: flex-end;
 }
 .Reply__Main__Buttons-Reply {
   margin: 0 8px 0 2px;
-  color: #bbb;
+  color: var(--main-grey-3);
   cursor: pointer;
   font-weight: bold;
 }
@@ -70,7 +70,7 @@
 
 .Reply__Buttons svg {
   font-size: 18px;
-  color: #bbb;
+  color: var(--main-grey-3);
   cursor: pointer;
   margin-left: 4px;
 }

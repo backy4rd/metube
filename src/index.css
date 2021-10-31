@@ -1,4 +1,4 @@
-html {
+html[theme='dark'] {
   height: 100%;
   --main-dark-1: #1a1a1a;
   --main-dark-2: #212121;
@@ -19,11 +19,39 @@ html {
   overflow-x: hidden;
 }
 
+html[theme='light'] {
+  height: 100%;
+  --main-dark-1: white;
+  --main-dark-2: #f9f9f9;
+  --main-dark-3: #f3f3f3;
+  --main-dark-4: #eee;
+  --main-dark-5: #ddd;
+  --main-grey-1: #888;
+  --main-grey-2: #555;
+  --main-grey-3: #333;
+  --main-red-1: #dd0000;
+  --main-red-2: #ee0000;
+  --main-red-3: #f56161;
+  --main-dark-blue-1: #3c5d94;
+  --main-blue-1: #065fd4;
+  --main-blue-2: #3db6e3;
+  --main-green-1: #24bb63;
+  --main-green-2: #27c76a;
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
-  color: white;
   background-color: var(--main-dark-3);
   height: 100%;
+}
+
+html[theme='light'] body {
+  color: black;
+}
+
+html[theme='dark'] body {
+  color: white;
 }
 
 body * {
@@ -31,6 +59,7 @@ body * {
   font-family: Helvetica, 'Hiragino Sans GB', 'PingFang SC', Arial, sans-serif, 'Heiti SC',
     'Microsoft YaHei';
   /* font-family: Roboto, Helvetica, sans-serif; */
+  transition: background-color 200ms ease-out;
 }
 
 #root {

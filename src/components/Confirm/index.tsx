@@ -58,10 +58,10 @@ function Confirm() {
           <div className="Confirm__Main">
             <div className="Confirm__Main-Message">{message}</div>
             <div className="Confirm__Main-Buttons">
-              <div className="CMB-Confirm" onClick={handleConfirm}>
+              <div className="CMB-Confirm App-GreenButton" onClick={handleConfirm}>
                 Xác Nhận
               </div>
-              <div className="CMB-Cancel" onClick={closeConfirm}>
+              <div className="CMB-Cancel App-GreyButton" onClick={closeConfirm}>
                 Hủy
               </div>
               <Spinner className="CMB-Spinner" loading={confirming} />

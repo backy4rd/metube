@@ -2,12 +2,19 @@
   position: sticky;
   top: 0;
   z-index: 1;
-  background-color: var(--main-dark-2);
   width: 100%;
   padding: 4px 0;
   white-space: nowrap;
   overflow-x: hidden;
+}
+
+html[theme='dark'] .CategoriesBar {
+  background-color: var(--main-dark-2);
   border-bottom: 1px solid var(--main-dark-1);
+}
+
+html[theme='light'] .CategoriesBar {
+  background-color: var(--main-dark-1);
 }
 
 @media only screen and (max-width: 600px) {

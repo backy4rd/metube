@@ -26,6 +26,7 @@
   align-items: center;
   background-color: var(--main-red-1);
   padding: 4px;
+  color: white;
 }
 .Confirm-Header-Text {
   flex-grow: 1;
@@ -56,16 +57,7 @@
 .CMB-Cancel {
   margin-left: 12px;
   font-weight: bold;
-  cursor: pointer;
-  color: var(--main-grey-2);
   padding: 6px 12px;
-  border-radius: 4px;
-  background-color: var(--main-dark-4);
-}
-
-.CMB-Confirm:hover,
-.CMB-Cancel:hover {
-  color: var(--main-red-1);
 }
 
 .CMB-Spinner {

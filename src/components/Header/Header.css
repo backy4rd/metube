@@ -5,6 +5,12 @@
   display: flex;
   padding: 0 10px;
   z-index: 3;
+  box-shadow: 0 1px 3px #0001;
+}
+
+html[theme='light'] .Header {
+  height: 53px;
+  border-bottom: 1px solid var(--main-dark-5);
 }
 
 .Header > * {

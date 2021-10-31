@@ -12,7 +12,7 @@
 }
 
 .MuiSkeleton-root {
-  background-color: rgba(255, 255, 255, 0.11) !important;
+  background-color: var(--main-dark-5) !important;
 }
 
 .MuiSlider-thumb::after {
@@ -40,7 +40,20 @@
   outline: none;
   border-radius: 4px;
   transition: background-color 0.1s;
+  box-shadow: 0 1px 0 rgb(9 30 66 / 25%);
 }
+
+/* html[theme='dark'] .App-RedButton, */
+/* html[theme='dark'] .App-GreenButton, */
+/* html[theme='dark'] .App-GreyButton { */
+/*   color: white; */
+/* } */
+
+/* html[theme='light'] .App-RedButton, */
+/* html[theme='light'] .App-GreenButton, */
+/* html[theme='light'] .App-GreyButton { */
+/*   color: black; */
+/* } */
 
 .App-RedButton {
   background-color: var(--main-red-1);
@@ -72,14 +85,24 @@
   background: var(--main-dark-4);
   resize: none;
   padding: 4px 8px;
-  color: white;
   border: 1px solid var(--main-grey-1);
   border-radius: 3px;
   transition: border 0.1s linear;
   box-sizing: border-box;
 }
 
-.App-TextInput:focus {
+html[theme='dark'] .App-TextInput {
+  color: white;
+}
+
+html[theme='light'] .App-TextInput {
+  color: black;
+}
+
+html[theme='light'] .App-TextInput:focus {
+  border: 1px solid var(--main-red-1);
+}
+html[theme='dark'] .App-TextInput:focus {
   border: 1px solid var(--main-green-1);
 }
 

@@ -25,6 +25,14 @@
   transition: border-bottom 0.1s linear;
 }
 
+html[theme='light'] .commentInput__input textarea {
+  color: black;
+}
+
+html[theme='dark'] .commentInput__input textarea {
+  color: white;
+}
+
 .commentInput__input textarea:focus {
   border: 1px solid var(--main-green-1);
 }
@@ -38,17 +46,6 @@
   float: right;
   padding: 6px 12px;
   margin: 4px 8px;
-  cursor: pointer;
-  user-select: none;
-  color: white;
-  border-radius: 3px;
-}
-
-.commentInput__input .buttons > .publish {
-  background-color: var(--main-green-1);
-}
-.commentInput__input .buttons > .cancel {
-  background-color: grey;
 }
 
 .commentInput-Spinner {
