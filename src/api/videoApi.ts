@@ -36,9 +36,9 @@ class VideoApi {
     return client.get(`/videos/liked`, { params: range });
   }
 
-  public getVideo(id: string, increaseView?: boolean): Promise<Video> {
+  public getVideo(id: string, isWatch?: boolean): Promise<Video> {
     return client.get('/videos/' + id, {
-      params: { increase_view: increaseView ? '1' : undefined },
+      params: { is_watch: isWatch ? '1' : undefined },
     });
   }
 
