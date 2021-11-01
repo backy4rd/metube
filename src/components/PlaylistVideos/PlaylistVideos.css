@@ -9,7 +9,14 @@
 #playlistVideos__Container {
   overflow-y: auto;
   height: calc(100% - 38px - 16px);
+}
+
+html[theme='dark'] #playlistVideos__Container {
   background-color: var(--main-dark-4);
+}
+
+html[theme='light'] #playlistVideos__Container {
+  background-color: var(--main-dark-5);
 }
 
 .PVH-Name {

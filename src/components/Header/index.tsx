@@ -1,10 +1,19 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
-import { Dehaze, Search, RadioButtonChecked, CloudUpload, Close } from '@mui/icons-material';
+import {
+  Dehaze,
+  Search,
+  RadioButtonChecked,
+  CloudUpload,
+  Close,
+  DarkMode,
+  LightMode,
+} from '@mui/icons-material';
 
 import { useShowSidebar } from '@contexts/ShowSidebarContext';
 import { useAuth } from '@contexts/AuthContext';
+import { useTheme } from '@contexts/ThemeContext';
 
 import UserSection from './UserSection';
 import SearchBar from './SearchBar';
@@ -18,6 +27,7 @@ function Header() {
   const isWidthUnder700 = useMediaQuery({ maxWidth: 700 });
 
   const { user } = useAuth();
+  const [theme, setTheme] = useTheme();
 
   return (
     <div className="Header">
@@ -50,6 +60,18 @@ function Header() {
           <CloudUpload />
           {!isWidthUnder700 && <div style={{ marginLeft: 4 }}>Upload</div>}
         </Link>
+
+        {!user && (
+          <div
+            className="Header__UserSection-Button"
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+          >
+            {theme === 'dark' ? <DarkMode /> : <LightMode />}
+            {!isWidthUnder700 && (
+              <div style={{ marginLeft: 4 }}>{theme === 'dark' ? 'Nền tối' : 'Nền sáng'}</div>
+            )}
+          </div>
+        )}
 
         <UserSection />
       </div>

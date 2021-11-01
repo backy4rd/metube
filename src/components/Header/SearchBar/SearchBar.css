@@ -31,6 +31,7 @@ html[theme='light'] .SearchBar-SearchBox {
 }
 
 .SearchBar-SearchIcon {
+  margin-top: 3px;
   margin-left: -30px;
   color: var(--main-grey-2);
   cursor: pointer;

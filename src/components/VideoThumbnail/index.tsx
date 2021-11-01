@@ -38,8 +38,10 @@ function VideoThumbnail({ video, className, showViews = true }: VideoThumbnailPr
       if (preview || timer.current) return;
       timer.current = setTimeout(async () => {
         const _video = await videoApi.getVideo(video.id);
+        if (timer.current === null) return;
         setPreview(_video.videoPath);
-      }, 2000);
+        timer.current = null;
+      }, 1200);
     } else {
       setPreview(null);
       if (timer.current) {
@@ -61,7 +63,7 @@ function VideoThumbnail({ video, className, showViews = true }: VideoThumbnailPr
           <video
             className="VideoThumbnail__Wrapper-Image"
             src={preview}
-            onCanPlay={(e) => e.currentTarget.play()}
+            autoPlay
             loop
             muted
           ></video>
