@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
+import { Tooltip } from '@mui/material';
 import {
   Dehaze,
   Search,
@@ -61,19 +62,17 @@ function Header() {
           {!isWidthUnder700 && <div style={{ marginLeft: 4 }}>Upload</div>}
         </Link>
 
-        {!user && (
+        <UserSection />
+
+        <Tooltip title={theme === 'dark' ? 'Nền tối' : 'Nền sáng'}>
           <div
             className="Header__UserSection-Button"
+            style={{ marginLeft: 4, marginRight: 0 }}
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
           >
             {theme === 'dark' ? <DarkMode /> : <LightMode />}
-            {!isWidthUnder700 && (
-              <div style={{ marginLeft: 4 }}>{theme === 'dark' ? 'Nền tối' : 'Nền sáng'}</div>
-            )}
           </div>
-        )}
-
-        <UserSection />
+        </Tooltip>
       </div>
 
       {showSearchBar && (

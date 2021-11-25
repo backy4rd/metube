@@ -32,7 +32,7 @@ export default function fulfillAnalysisData(
     videoReactions: [],
   };
   const now = new Date();
-  const i = from ? new Date(from) : new Date(uploadedAt);
+  const i = from ? new Date(from) : new Date(processDate(uploadedAt, 'day'));
   while (i <= now) {
     const view = data.views.find((e) => e.date === processDate(i, unit));
     const comment = data.comments.find((e) => e.date === processDate(i, unit));

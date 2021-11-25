@@ -1,0 +1,39 @@
+.LoginDevice {
+  display: flex;
+  align-items: center;
+}
+
+.LoginDevice__Left svg {
+  font-size: 25px;
+  margin-right: 18px;
+  opacity: 0.8;
+}
+
+.LoginDevice__Center {
+  flex-grow: 1;
+}
+
+.LoginDevice__Specifications {
+  display: flex;
+  align-items: center;
+}
+
+.LoginDevice__Specifications > * {
+  margin-right: 6px;
+  font-size: 15px;
+  line-height: 20px;
+}
+
+.LoginDevice__Timestamps {
+  display: flex;
+  align-items: center;
+  color: var(--main-grey-3);
+}
+
+.LoginDevice__Timestamps > * {
+  margin-right: 6px;
+}
+
+.LoginDevice-LogoutButton {
+  padding: 5px 10px;
+}

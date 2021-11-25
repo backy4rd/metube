@@ -4,6 +4,7 @@ import jwtDecode from 'jwt-decode';
 import IToken from '@interfaces/IToken';
 import IUser from '@interfaces/IUser';
 import userApi from '@api/userApi';
+import authApi from '@api/authApi';
 
 type Auth = (IUser & IToken & { token: string }) | null | undefined;
 
@@ -36,7 +37,10 @@ export function AuthProvider(props: { children?: React.ReactNode }) {
       userApi
         .getUserProfile('me')
         .then((_user) => setUser({ ...parsedToken, ..._user, token }))
-        .catch(() => setUser(null));
+        .catch(() => {
+          window.localStorage.removeItem('token');
+          setUser(null);
+        });
     } catch {
       setUser(null);
     }
@@ -47,9 +51,14 @@ export function AuthProvider(props: { children?: React.ReactNode }) {
     window.location.reload();
   }
 
-  function logout() {
-    window.localStorage.removeItem('token');
-    window.location.reload();
+  async function logout() {
+    try {
+      await authApi.logout();
+    } catch {
+    } finally {
+      window.localStorage.removeItem('token');
+      window.location.reload();
+    }
   }
 
   return (

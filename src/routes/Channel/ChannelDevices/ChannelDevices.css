@@ -1,0 +1,17 @@
+.ChannelDevices {
+  margin: 0 7%;
+}
+
+.ChannelDevices__List {
+  background-color: var(--main-dark-2);
+  border-radius: 4px;
+  border: 1px solid var(--main-dark-5);
+}
+
+.ChannelDevices__List-Item {
+  padding: 18px 18px;
+}
+
+.ChannelDevices__List-Item:not(:last-child) {
+  border-bottom: 1px solid var(--main-dark-5);
+}

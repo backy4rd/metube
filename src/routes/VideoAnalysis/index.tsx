@@ -44,11 +44,6 @@ function VideoAnalysis() {
       .finally(() => setLoading(false));
   }, [videoId, unit, from, setLoading]);
 
-  useEffect(() => {
-    if (!data || !from || !video) return;
-    console.log();
-  }, [data, from, video]);
-
   const filledData =
     data &&
     video &&

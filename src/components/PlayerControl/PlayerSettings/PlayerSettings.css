@@ -1,0 +1,26 @@
+.PlayerSettings {
+  position: relative;
+}
+
+.PlayerSettings.hide .PlayerSettings-Menu {
+  display: none;
+}
+
+.PlayerSettings-Menu {
+  position: absolute;
+  bottom: 48px;
+  left: -60px;
+  width: 120px;
+  border-radius: 4px;
+  background-color: #111b;
+}
+
+.PlayerSettings-Menu > * {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.PlayerSettings-Menu > *:hover,
+.PlayerSettings-Menu > *.active {
+  background-color: #fff1;
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink, useRouteMatch } from 'react-router-dom';
 
 import IUser from '@interfaces/IUser';
+import { useAuth } from '@contexts/AuthContext';
 
 import './ChannelTabs.css';
 
@@ -11,6 +12,7 @@ interface ChannelTabsProps {
 
 function ChannelTabs(props: ChannelTabsProps) {
   const { url } = useRouteMatch();
+  const { user } = useAuth();
 
   return (
     <div className="ChannelTabs">
@@ -32,6 +34,11 @@ function ChannelTabs(props: ChannelTabsProps) {
       <NavLink activeClassName="active" className="ChannelTabs-Tab" to={`${url}/about`}>
         THÔNG TIN
       </NavLink>
+      {user && user.username === props.user.username && (
+        <NavLink activeClassName="active" className="ChannelTabs-Tab" to={`${url}/devices`}>
+          THIẾT BỊ
+        </NavLink>
+      )}
     </div>
   );
 }

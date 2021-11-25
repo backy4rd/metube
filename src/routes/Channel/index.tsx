@@ -12,9 +12,10 @@ import ChannelSubscribers from './ChannelSubscribers';
 import ChannelSubscriptions from './ChannelSubscriptions';
 import ChannelStream from './ChannelStream';
 import ChannelPlaylists from './ChannelPlaylists';
+import ChannelDetail from './ChannelDetail';
+import ChannelDevices from './ChannelDevices';
 
 import './Channel.css';
-import ChannelDetail from './ChannelDetail';
 
 function Home() {
   const [user, setUser] = useState<IUser | null>(null);
@@ -44,7 +45,8 @@ function Home() {
           <Route exact path={`${path}/live`} component={ChannelStream} />
           <Route exact path={`${path}/subscriber`} component={ChannelSubscribers} />
           <Route exact path={`${path}/subscription`} component={ChannelSubscriptions} />
-          <Route exact path={`${path}/about`} component={() => <ChannelDetail user={user}/> } />
+          <Route exact path={`${path}/about`} component={() => <ChannelDetail user={user} />} />
+          <Route exact path={`${path}/devices`} component={ChannelDevices} />
           <Redirect to="/404" />
         </Switch>
       </div>

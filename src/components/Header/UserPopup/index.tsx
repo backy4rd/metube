@@ -1,9 +1,8 @@
 import React from 'react';
-import { InfoOutlined, Lock, Timeline, LightMode, DarkMode } from '@mui/icons-material';
+import { InfoOutlined, Lock, Timeline, Devices } from '@mui/icons-material';
 
 import { useAuth } from '@contexts/AuthContext';
 import { useSetShowAuthForm } from '@contexts/ShowAuthFormContext';
-import { useTheme } from '@contexts/ThemeContext';
 
 import Avatar from '@components/Avatar';
 import UserPopupButton from './UserPopupButton';
@@ -14,7 +13,6 @@ function UserPopup() {
   const { user, logout } = useAuth();
 
   const setShowAuthForm = useSetShowAuthForm();
-  const [theme, setTheme] = useTheme();
 
   if (!user) return null;
   return (
@@ -46,9 +44,9 @@ function UserPopup() {
           </div>
           <div className="UPC__Buttons-Btn">
             <UserPopupButton
-              Icon={theme === 'dark' ? DarkMode : LightMode}
-              text={theme === 'dark' ? 'Nền tối' : 'Nền sáng'}
-              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              Icon={Devices}
+              text="Thiết bị"
+              to={`/channel/${user.username}/devices`}
             />
           </div>
         </div>

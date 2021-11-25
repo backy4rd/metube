@@ -14,6 +14,7 @@ import { Stack } from '@mui/material';
 import { secondToTime } from '@utils/time';
 
 import ProgressBar from './ProgressBar';
+import PlayerSettings from './PlayerSettings';
 
 import './PlayerControl.css';
 
@@ -60,24 +61,36 @@ function PlayerControl({
   useEffect(() => {
     if (!player) return;
 
-    player.addEventListener(
-      'canplay',
-      () => {
-        setPlaying(true);
-        showControlTimeout.current = setTimeout(() => setShowControl(false), 2000);
-      },
-      { once: true }
-    );
-    player.addEventListener('timeupdate', () => {
+    const handleCanPlay = () => {
+      setPlaying(true);
+      showControlTimeout.current = setTimeout(() => setShowControl(false), 2000);
+    };
+    const handleTimeUpdate = () => {
       const { duration, currentTime } = player;
       if (duration - currentTime < assumeLiveDurationOffset && isLive) setProgress(100);
       else setProgress((currentTime / duration) * 100);
-    });
-    player.addEventListener('playing', () => setPlaying(true));
-    player.addEventListener('pause', () => setPlaying(false));
-    player.addEventListener('playing', () => setLoading(false));
-    player.addEventListener('waiting', () => setLoading(true));
-    player.addEventListener('canplay', () => setLoading(false));
+    };
+    const setPlayingTrue = () => setPlaying(true);
+    const setPlayingFalse = () => setPlaying(false);
+    const setLoadingTrue = () => setLoading(true);
+    const setLoadingFalse = () => setLoading(false);
+
+    player.addEventListener('canplay', handleCanPlay, { once: true });
+    player.addEventListener('timeupdate', handleTimeUpdate);
+    player.addEventListener('playing', setPlayingTrue);
+    player.addEventListener('pause', setPlayingFalse);
+    player.addEventListener('playing', setLoadingFalse);
+    player.addEventListener('waiting', setLoadingTrue);
+    player.addEventListener('canplay', setLoadingFalse);
+    return () => {
+      player.removeEventListener('canplay', handleCanPlay);
+      player.removeEventListener('timeupdate', handleTimeUpdate);
+      player.removeEventListener('playing', setPlayingTrue);
+      player.removeEventListener('pause', setPlayingFalse);
+      player.removeEventListener('playing', setLoadingFalse);
+      player.removeEventListener('waiting', setLoadingTrue);
+      player.removeEventListener('canplay', setLoadingFalse);
+    };
   }, [isLive, player]);
 
   useEffect(() => {
@@ -184,10 +197,9 @@ function PlayerControl({
           <div className="PCCAM-Timeline" style={{ marginLeft: 4 }}>
             {timeline}
           </div>
-          <Fullscreen
-            style={{ marginLeft: 'auto', marginRight: 0 }}
-            onClick={handleFullscreenClick}
-          />
+
+          <PlayerSettings player={player} style={{ marginLeft: 'auto', marginRight: 12 }} />
+          <Fullscreen onClick={handleFullscreenClick} />
         </div>
       </div>
     </div>
