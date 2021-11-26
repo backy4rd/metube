@@ -9,8 +9,8 @@
 .PlayerSettings-Menu {
   position: absolute;
   bottom: 48px;
-  left: -60px;
-  width: 120px;
+  left: -80px;
+  width: 140px;
   border-radius: 4px;
   background-color: #111b;
 }
@@ -23,4 +23,16 @@
 .PlayerSettings-Menu > *:hover,
 .PlayerSettings-Menu > *.active {
   background-color: #fff1;
+}
+
+.PlayerSettings-Menu-Loop {
+  border-top: 1px solid #fff3;
+  display: flex;
+}
+
+.PlayerSettings-Menu-Loop svg:hover {
+  color: white !important;
+}
+.PlayerSettings-Menu-Loop > div {
+  margin-right: auto;
 }

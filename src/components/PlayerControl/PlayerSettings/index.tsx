@@ -1,6 +1,6 @@
 import useOutsideClick from '@hooks/useOutsiteClick';
 import React, { useEffect, useRef, useState } from 'react';
-import { Settings } from '@material-ui/icons';
+import { Settings, Check } from '@material-ui/icons';
 
 import './PlayerSettings.css';
 
@@ -13,6 +13,7 @@ interface PlayerSettingsProps {
 function PlayerSettings({ player, style }: PlayerSettingsProps) {
   const [showSetting, setShowSetting] = useState(false);
   const [playbackRate, setPlaybackRate] = useState(1);
+  const [isLoop, setIsLoop] = useState(false);
   const settingRef = useRef<HTMLDivElement>(null);
 
   useOutsideClick(settingRef, () => setShowSetting(false));
@@ -21,6 +22,11 @@ function PlayerSettings({ player, style }: PlayerSettingsProps) {
     if (!player) return;
     player.playbackRate = playbackRate;
   }, [player, playbackRate]);
+
+  useEffect(() => {
+    if (!player) return;
+    player.loop = isLoop;
+  }, [player, isLoop]);
 
   return (
     <div
@@ -41,6 +47,11 @@ function PlayerSettings({ player, style }: PlayerSettingsProps) {
             x{pbr}
           </div>
         ))}
+
+        <div className="PlayerSettings-Menu-Loop" onClick={() => setIsLoop(!isLoop)}>
+          <div>Vòng lặp</div>
+          {isLoop && <Check style={{ width: 16, height: 16 }} />}
+        </div>
       </div>
     </div>
   );
