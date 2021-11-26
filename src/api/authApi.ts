@@ -34,5 +34,9 @@ class AuthApi {
   public reset(oldPassword: string, newPassword: string): Promise<any> {
     return client.post('/auth/reset', { old_password: oldPassword, new_password: newPassword });
   }
+
+  public deleteAllDevices(): Promise<any> {
+    return client.delete('/auth/logs');
+  }
 }
 export default new AuthApi();

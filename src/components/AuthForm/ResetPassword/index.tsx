@@ -12,6 +12,7 @@ function ResetPassword() {
   const [password, setPassword] = useState('');
   const [repassword, setRepassword] = useState('');
   const [failMessage, setFailMessage] = useState<string | null>(null);
+  const [isLogoutAllDevices, setIsLogoutAllDevices] = useState(false);
 
   const setLoading = useSetLoading();
   const pushMessage = usePushMessage();
@@ -29,6 +30,9 @@ function ResetPassword() {
     try {
       setLoading(true);
       await authApi.reset(oldPassword, password);
+      if (isLogoutAllDevices) {
+        await authApi.deleteAllDevices();
+      }
       setFailMessage(null);
       setShowAuthForm(false);
       pushMessage('Đã cập nhật mật khẩu');
@@ -73,7 +77,18 @@ function ResetPassword() {
           placeholder="Nhập lai mật khẩu mới"
           value={repassword}
           onChange={(e) => setRepassword(e.target.value)}
+          style={{ marginBottom: 6 }}
         />
+
+        <label>
+          <input
+            type="checkbox"
+            id="logout"
+            onChange={() => setIsLogoutAllDevices(!isLogoutAllDevices)}
+            defaultChecked={isLogoutAllDevices}
+          />
+          Đăng xuất tất cả các thiết bị khác
+        </label>
 
         <input type="submit" value="Đổi mật khẩu" />
       </form>
