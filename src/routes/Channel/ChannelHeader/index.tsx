@@ -11,6 +11,7 @@ import { usePushMessage } from '@contexts/MessageQueueContext';
 import { useShowConfirm } from '@contexts/ConfirmContext';
 import userApi from '@api/userApi';
 import adminApi from '@api/adminApi';
+import mediaApi from '@api/mediaApi';
 
 import './ChannelHeader.css';
 
@@ -47,8 +48,12 @@ function ChannelHeader({ user }: ChannelHeaderProps) {
     if (firstName === '' || lastName === '') return pushMessage('Tên không hợp lệ!', 'warning');
     try {
       setLoading(true);
+      let photo;
+      if (banner instanceof File) {
+        photo = (await mediaApi.postPhoto(banner)).photo;
+      }
       const payload = {
-        banner: banner instanceof File ? banner : undefined,
+        banner: photo,
         first_name: firstName !== user.firstName ? firstName : undefined,
         last_name: lastName !== user.lastName ? lastName : undefined,
       };

@@ -5,6 +5,7 @@ import { TextareaAutosize } from '@material-ui/core';
 import IStream from '@interfaces/IStream';
 import generateSkeletons from '@utils/generateSkeleton';
 import userApi from '@api/userApi';
+import mediaApi from '@api/mediaApi';
 import { useAuth } from '@contexts/AuthContext';
 import { usePushMessage } from '@contexts/MessageQueueContext';
 import { useSetLoading } from '@contexts/LoadingContext';
@@ -102,7 +103,8 @@ function ChannelStream() {
     if (!(thumbnail instanceof File)) return;
     try {
       setLoading(true);
-      const _stream = await userApi.updateStream({ thumbnail: thumbnail });
+      const { photo } = await mediaApi.postPhoto(thumbnail);
+      const _stream = await userApi.updateStream({ thumbnail: photo });
       setStream({ ...stream, ..._stream });
       pushMessage('Đã cập nhật Livestream!');
     } catch {

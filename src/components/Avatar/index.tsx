@@ -5,6 +5,7 @@ import { FileUpload } from '@mui/icons-material';
 import IUser from '@interfaces/IUser';
 import { usePushMessage } from '@contexts/MessageQueueContext';
 import userApi from '@api/userApi';
+import mediaApi from '@api/mediaApi';
 import { useSetLoading } from '@contexts/LoadingContext';
 
 import './Avatar.css';
@@ -30,7 +31,8 @@ function Avatar({ user, className, onClick, size = '32px', edit = false }: Avata
     if (!(avatar instanceof File)) return;
     try {
       setLoading(true);
-      await userApi.updateUser({ avatar });
+      const { photo } = await mediaApi.postPhoto(avatar);
+      await userApi.updateUser({ avatar: photo });
       pushMessage('Đã cập nhật ảnh đại diện!');
       window.location.reload();
     } catch {

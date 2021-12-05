@@ -1,4 +1,3 @@
-import axios from 'axios';
 import client from './client';
 
 import Video, { IVideoAnalysis } from '../interfaces/IVideo';
@@ -10,7 +9,7 @@ interface PatchVideoPayload {
   title: string;
   description: string;
   categories: string;
-  thumbnail: File;
+  thumbnail: string;
   privacy: 'public' | 'private';
 }
 
@@ -56,48 +55,19 @@ class VideoApi {
     return client.delete(`/videos/${id}`);
   }
 
-  public postVideo(
-    data: {
-      video: File;
-      title: string;
-      privacy?: 'public' | 'private';
-      description?: string;
-      categories?: Category[];
-      thumbnailTimestamp?: number;
-    },
-    options?: {
-      onUploadProgress?: (progressEvent: ProgressEvent) => void;
-      onUploadComplete?: (res: Video) => void;
-      onUploadError?: (err: Error) => void;
-    }
-  ): () => void {
-    const payload = {
-      video: data.video,
-      title: data.title,
-      description: data.description,
-      thumbnail_timestamp: data.thumbnailTimestamp,
-      categories: data.categories
-        ? data.categories.map((category) => category.category).join(',')
-        : '',
-    };
-    const source = axios.CancelToken.source();
-
-    client
-      .post('/videos/', payload, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-        onUploadProgress: options?.onUploadProgress,
-        cancelToken: source.token,
-      })
-      .then(options?.onUploadComplete as any)
-      .catch(options?.onUploadError);
-
-    return () => source.cancel('Upload cancelled');
+  public postVideo(data: {
+    video: string;
+    title: string;
+    privacy?: 'public' | 'private';
+    description?: string;
+    categories?: Category[];
+    thumbnail_timestamp?: number;
+  }): Promise<Video> {
+    return client.post('/videos', data);
   }
 
   public updateVideo(videoId: string, data: Partial<PatchVideoPayload>): Promise<ApiMessage> {
-    return client.patch('/videos/' + videoId, data, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
+    return client.patch('/videos/' + videoId, data);
   }
 
   public reportVideo(videoId: string, reason: string): Promise<ApiMessage> {

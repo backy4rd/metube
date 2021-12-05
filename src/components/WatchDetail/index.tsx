@@ -5,6 +5,7 @@ import { TextareaAutosize } from '@material-ui/core';
 import IVideo from '@interfaces/IVideo';
 import ICategory from '@interfaces/ICategory';
 import videoApi from '@api/videoApi';
+import mediaApi from '@api/mediaApi';
 import { useAuth } from '@contexts/AuthContext';
 import { useVideo } from '@contexts/VideoContext';
 import { useSetLoading } from '@contexts/LoadingContext';
@@ -53,11 +54,15 @@ function WatchDetailBody({ video }: { video: IVideo }) {
     try {
       setLoading(true);
       if (title.trim() === '') throw new Error();
+      let photo;
+      if (thumbnail) {
+        photo = (await mediaApi.postPhoto(thumbnail)).photo;
+      }
       await videoApi.updateVideo(video.id, {
         title: title.trim(),
         description: description,
         categories: categories.map((c) => c.category).join(','),
-        thumbnail: thumbnail || undefined,
+        thumbnail: photo,
         privacy: privacy,
       });
       video.title = title.trim();

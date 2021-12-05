@@ -4,12 +4,13 @@ import { TextareaAutosize } from '@material-ui/core';
 import ProgressBar from '@ramonak/react-progress-bar';
 
 import { usePushMessage } from '@contexts/MessageQueueContext';
+import mediaApi from '@api/mediaApi';
 import videoApi from '@api/videoApi';
 import ICategory from '@interfaces/ICategory';
 import useForceUpdate from '@hooks/useForceUpdate';
+import CategoriesSelector from '@components/CategorySelector';
 
 import './UploadHandler.css';
-import CategoriesSelector from '@components/CategorySelector';
 
 type Props = {
   videoFile: File;
@@ -17,91 +18,107 @@ type Props = {
 };
 
 function UploadHandler({ videoFile, setVideoFile }: Props) {
+  const [progress, setProgress] = useState<number>(0);
   const [description, setDescription] = useState('');
   const [categories, setCategories] = useState<ICategory[]>([]);
-  const [progress, setProgress] = useState<number | null>(null);
   const [privacy, setPrivacy] = useState<'public' | 'private'>('public');
   const [title, setTitle] = useState(videoFile.name);
+  const [video, setVideo] = useState<string | null>(null);
+  const [isClickUpload, setIsClickUpload] = useState(false);
 
   const forceUpdate = useForceUpdate();
   const pushMessage = usePushMessage();
 
   const cancelUpload = useRef<null | (() => void)>(null);
   const blobUrl = useRef(URL.createObjectURL(videoFile));
-  const video = useRef<HTMLVideoElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    if (!video.current) return;
-    const _video = video.current;
+    if (!videoRef.current) return;
+    const _video = videoRef.current;
 
-    _video.addEventListener('canplay', forceUpdate, { once: true });
-    return () => _video.removeEventListener('canplay', forceUpdate);
+    function handleVideoCanplay(e: Event) {
+      forceUpdate();
+      if (videoRef.current) {
+        videoRef.current.currentTime = videoRef.current.duration / 2;
+      }
+    }
+
+    _video.addEventListener('canplay', handleVideoCanplay, { once: true });
+    return () => _video.removeEventListener('canplay', handleVideoCanplay);
     // eslint-disable-next-line
   }, [videoFile]);
 
+  useEffect(() => {
+    cancelUpload.current = mediaApi.postVideo(videoFile, {
+      onUploadProgress: (pg) => {
+        setProgress(~~((pg.loaded / pg.total) * 100));
+      },
+      onUploadComplete: (res) => {
+        setVideo(res.video);
+        cancelUpload.current = null;
+      },
+      onUploadError: (e) => {
+        if (axios.isCancel(e)) {
+          pushMessage('Đã hủy đăng tải video!', 'info');
+        } else {
+          pushMessage('Đăng tải video thất bại!', 'error');
+        }
+        cancelUpload.current = null;
+      },
+    });
+
+    return () => {
+      if (cancelUpload.current) cancelUpload.current();
+    };
+  }, [pushMessage, videoFile]);
+
+  useEffect(() => {
+    if (video && isClickUpload) {
+      videoApi
+        .postVideo({
+          video: video,
+          thumbnail_timestamp: videoRef.current?.currentTime,
+          title,
+          description,
+          categories,
+        })
+        .then(() => {
+          pushMessage('Đăng tải video thành công!');
+          setVideoFile(null);
+        })
+        .catch(() => {
+          pushMessage('Đăng tải video thất bại!', 'error');
+          setIsClickUpload(false);
+        });
+    }
+    // eslint-disable-next-line
+  }, [video, isClickUpload]);
+
   function handleCancelClick() {
-    // File is not uploading, go back to choose another file
-    if (cancelUpload.current === null) {
-      setVideoFile(null);
-      // file is uploading, cancel the upload progress
-    } else {
+    if (cancelUpload.current !== null) {
       cancelUpload.current();
     }
-  }
-
-  function handleUploadClick() {
-    if (cancelUpload.current !== null) return;
-
-    cancelUpload.current = videoApi.postVideo(
-      {
-        video: videoFile,
-        thumbnailTimestamp: video.current?.currentTime,
-        title,
-        description,
-        categories,
-      },
-      {
-        onUploadProgress: (pg) => {
-          setProgress(~~((pg.loaded / pg.total) * 100));
-        },
-        onUploadComplete: () => {
-          pushMessage('Đăng tải video thành công, video sẽ xuất hiện sớm nhất có thể!');
-          cancelUpload.current = null;
-          setProgress(null);
-          setVideoFile(null);
-        },
-        onUploadError: (e) => {
-          if (axios.isCancel(e)) {
-            pushMessage('Đã hủy đăng tải video!', 'info');
-          } else {
-            pushMessage('Đăng tải video thất bại!', 'error');
-          }
-          cancelUpload.current = null;
-          setProgress(null);
-        },
-      }
-    );
+    setVideoFile(null);
   }
 
   return (
     <div className="uploadHandler">
-      {progress !== null && (
-        <ProgressBar
-          completed={progress}
-          bgColor="var(--main-red-1)"
-          baseBgColor="var(--main-grey-1)"
-          borderRadius="3px"
-          margin="0 0 12px 0"
-          labelColor="#ffffff"
-          transitionDuration="0"
-        />
-      )}
+      <ProgressBar
+        completed={progress}
+        bgColor="var(--main-red-1)"
+        baseBgColor="var(--main-grey-1)"
+        borderRadius="3px"
+        margin="0 0 12px 0"
+        labelColor="#ffffff"
+        transitionDuration="0"
+      />
       <div className="container">
         <div className="videoArea">
           <span>
             <i>* Tua video để chọn thumbnail</i>
           </span>
-          <video ref={video} src={blobUrl.current} controls></video>
+          <video ref={videoRef} src={blobUrl.current} controls></video>
         </div>
         <div className="inputArea">
           <div className="inputs">
@@ -137,8 +154,8 @@ function UploadHandler({ videoFile, setVideoFile }: Props) {
           </div>
 
           <div className="buttons">
-            <div className="App-GreenButton" onClick={handleUploadClick}>
-              Đăng tải
+            <div className="App-GreenButton" onClick={() => setIsClickUpload(true)}>
+              {isClickUpload ? 'Đang chờ tải lên...' : 'Đăng tải'}
             </div>
             <div className="App-GreyButton" onClick={handleCancelClick}>
               Hủy

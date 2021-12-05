@@ -9,14 +9,14 @@ import ApiMessage from '@interfaces/IApiMessage';
 
 interface UpdateStreamFields {
   name: string;
-  thumbnail: File;
+  thumbnail: string;
   description: string;
   renew_key: '0' | '1';
 }
 
 interface UpdateUserFields {
-  banner: File;
-  avatar: File;
+  banner: string;
+  avatar: string;
   first_name: string;
   last_name: string;
   description: string;
@@ -53,15 +53,11 @@ class UserApi {
   }
 
   public updateUser(data: Partial<UpdateUserFields>): Promise<ApiMessage> {
-    return client.patch(`/users/me`, data, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
+    return client.patch(`/users/me`, data);
   }
 
   public updateStream(data: Partial<UpdateStreamFields>): Promise<Stream> {
-    return client.patch(`/users/me/stream`, data, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
+    return client.patch(`/users/me/stream`, data);
   }
 }
 
