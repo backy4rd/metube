@@ -23,6 +23,7 @@ interface PlayerControlProps {
   handleFullscreenClick?: () => any;
   className?: string;
   isLive?: boolean;
+  timeRef?: React.MutableRefObject<number>;
 }
 
 const assumeLiveDurationOffset = 20;
@@ -31,6 +32,7 @@ function PlayerControl({
   target,
   className,
   handleFullscreenClick,
+  timeRef,
   isLive = false,
 }: PlayerControlProps) {
   const [player, setPlayer] = useState<HTMLVideoElement | null>(
@@ -69,6 +71,7 @@ function PlayerControl({
       const { duration, currentTime } = player;
       if (duration - currentTime < assumeLiveDurationOffset && isLive) setProgress(100);
       else setProgress((currentTime / duration) * 100);
+      if (timeRef && currentTime !== 0) timeRef.current = currentTime;
     };
     const setPlayingTrue = () => setPlaying(true);
     const setPlayingFalse = () => setPlaying(false);
@@ -91,7 +94,7 @@ function PlayerControl({
       player.removeEventListener('waiting', setLoadingTrue);
       player.removeEventListener('canplay', setLoadingFalse);
     };
-  }, [isLive, player]);
+  }, [isLive, player, timeRef]);
 
   useEffect(() => {
     if (!player) return;

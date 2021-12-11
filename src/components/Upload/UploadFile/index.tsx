@@ -49,7 +49,7 @@ function UploadFile({ setVideoFile }: Props) {
 
           <input
             type="file"
-            accept="video/*"
+            accept="video/matroska,video/*"
             onChange={(e) => setVideoFile(e.target.files ? e.target.files[0] : null)}
             style={{ display: 'none' }}
           />

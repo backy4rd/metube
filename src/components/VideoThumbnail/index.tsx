@@ -5,7 +5,6 @@ import { numberWithCommas } from '@utils/number';
 import { secondToTime, timeDifference } from '@utils/time';
 import IStream, { isStream } from '@interfaces/IStream';
 import IVideo from '@interfaces/IVideo';
-import videoApi from '@api/videoApi';
 
 import './VideoThumbnail.css';
 
@@ -34,12 +33,15 @@ function VideoThumbnail({ video, className, showViews = true }: VideoThumbnailPr
   }
 
   async function togglePreview(show: boolean) {
+    if (isStream(video)) return;
+
     if (show) {
       if (preview || timer.current) return;
       timer.current = setTimeout(async () => {
-        const _video = await videoApi.getVideo(video.id);
         if (timer.current === null) return;
-        setPreview(_video.videoPath);
+        setPreview(
+          video.video360Path || video.video480Path || video.video720Path || video.video1080Path
+        );
         timer.current = null;
       }, 1200);
     } else {

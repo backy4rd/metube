@@ -11,7 +11,10 @@ export interface IVideoAnalysis {
 export default interface Video {
   id: string;
   title: string;
-  videoPath: string;
+  video360Path: string | null;
+  video480Path: string | null;
+  video720Path: string | null;
+  video1080Path: string | null;
   thumbnailPath: string;
   duration: number;
   views: number;

@@ -1,6 +1,9 @@
-import useOutsideClick from '@hooks/useOutsiteClick';
 import React, { useEffect, useRef, useState } from 'react';
 import { Settings, Check } from '@material-ui/icons';
+
+import useOutsideClick from '@hooks/useOutsiteClick';
+import { useVideo } from '@contexts/VideoContext';
+import { useSetVideoUrl, useVideoUrl } from '@contexts/VideoUrlContext';
 
 import './PlayerSettings.css';
 
@@ -12,21 +15,38 @@ interface PlayerSettingsProps {
 
 function PlayerSettings({ player, style }: PlayerSettingsProps) {
   const [showSetting, setShowSetting] = useState(false);
-  const [playbackRate, setPlaybackRate] = useState(1);
   const [isLoop, setIsLoop] = useState(false);
   const settingRef = useRef<HTMLDivElement>(null);
+
+  const video = useVideo();
+  const videoUrl = useVideoUrl();
+  const setVideoUrl = useSetVideoUrl();
 
   useOutsideClick(settingRef, () => setShowSetting(false));
 
   useEffect(() => {
     if (!player) return;
-    player.playbackRate = playbackRate;
-  }, [player, playbackRate]);
-
-  useEffect(() => {
-    if (!player) return;
     player.loop = isLoop;
   }, [player, isLoop]);
+
+  const videoQualities = [
+    {
+      quality: '1080p',
+      url: video?.video1080Path,
+    },
+    {
+      quality: '720p',
+      url: video?.video720Path,
+    },
+    {
+      quality: '480p',
+      url: video?.video480Path,
+    },
+    {
+      quality: '360p',
+      url: video?.video360Path,
+    },
+  ].filter((q) => q.url);
 
   return (
     <div
@@ -38,13 +58,13 @@ function PlayerSettings({ player, style }: PlayerSettingsProps) {
       <Settings style={{ fontSize: 22 }} />
 
       <div className="PlayerSettings-Menu">
-        {[0.5, 0.75, 1, 1.5, 2].map((pbr) => (
+        {videoQualities.map((q) => (
           <div
-            key={pbr}
-            className={playbackRate === pbr ? 'active' : undefined}
-            onClick={() => setPlaybackRate(pbr)}
+            key={q.quality}
+            className={videoUrl === q.url ? 'active' : undefined}
+            onClick={() => setVideoUrl(q.url as string)}
           >
-            x{pbr}
+            {q.quality}
           </div>
         ))}
 
