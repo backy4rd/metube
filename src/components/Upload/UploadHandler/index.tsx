@@ -62,7 +62,7 @@ function UploadHandler({ videoFile, setVideoFile }: Props) {
         if (axios.isCancel(e)) {
           pushMessage('Đã hủy đăng tải video!', 'info');
         } else {
-          pushMessage('Đăng tải video thất bại!', 'error');
+          pushMessage('Tải lện video thất bại!', 'error');
         }
         cancelUpload.current = null;
       },
@@ -81,7 +81,7 @@ function UploadHandler({ videoFile, setVideoFile }: Props) {
           thumbnail_timestamp: videoRef.current?.currentTime,
           title,
           description,
-          categories,
+          categories ,
         })
         .then(() => {
           pushMessage('Đăng tải video thành công!');

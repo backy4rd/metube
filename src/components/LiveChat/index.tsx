@@ -40,7 +40,7 @@ function LiveChat({ streamId, className, handleLiveCountChange = () => {} }: Liv
   useEffect(() => {
     if (!socket) return;
 
-    socket.on('old messages', (_msgs) => setMessages((msgs) => [...msgs, ..._msgs.reverse()]));
+    socket.once('old messages', (_msgs) => setMessages((msgs) => [...msgs, ..._msgs.reverse()]));
     socket.on('live count', handleLiveCountChange);
     socket.on('new message', (msg) => setMessages((msgs) => [msg, ...msgs]));
     // eslint-disable-next-line

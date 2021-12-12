@@ -63,7 +63,8 @@ class VideoApi {
     categories?: Category[];
     thumbnail_timestamp?: number;
   }): Promise<Video> {
-    return client.post('/videos', data);
+    const categories = data.categories?.map((c) => c.category).join(',');
+    return client.post('/videos', { ...data, categories });
   }
 
   public updateVideo(videoId: string, data: Partial<PatchVideoPayload>): Promise<ApiMessage> {
