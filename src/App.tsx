@@ -11,6 +11,7 @@ import { ConfirmProvider } from '@contexts/ConfirmContext';
 import { PlaylistPopupProvider } from '@contexts/PlaylistPopupContext';
 import { ReportPopupProvider } from '@contexts/ReportPopupContext';
 import { ThemeProvider } from '@contexts/ThemeContext';
+import { AppConfigProvider } from '@contexts/AppConfigContext';
 
 import Header from '@components/Header';
 import PopupWrapper from '@components/PopupWrapper';
@@ -21,25 +22,27 @@ import './App.css';
 
 function AppContextWrapper({ children }: { children: React.ReactNode }) {
   return (
-    <AuthProvider>
-      <ShowAuthFormProvider>
-        <ShowSidebarProvider>
-          <LoadingProvider>
-            <SubscriptionsProvider>
-              <PlaylistsProvider>
-                <MessageQueueProvider timeout={5000}>
-                  <ConfirmProvider>
-                    <PlaylistPopupProvider>
-                      <ReportPopupProvider>{children}</ReportPopupProvider>
-                    </PlaylistPopupProvider>
-                  </ConfirmProvider>
-                </MessageQueueProvider>
-              </PlaylistsProvider>
-            </SubscriptionsProvider>
-          </LoadingProvider>
-        </ShowSidebarProvider>
-      </ShowAuthFormProvider>
-    </AuthProvider>
+    <AppConfigProvider>
+      <AuthProvider>
+        <ShowAuthFormProvider>
+          <ShowSidebarProvider>
+            <LoadingProvider>
+              <SubscriptionsProvider>
+                <PlaylistsProvider>
+                  <MessageQueueProvider timeout={5000}>
+                    <ConfirmProvider>
+                      <PlaylistPopupProvider>
+                        <ReportPopupProvider>{children}</ReportPopupProvider>
+                      </PlaylistPopupProvider>
+                    </ConfirmProvider>
+                  </MessageQueueProvider>
+                </PlaylistsProvider>
+              </SubscriptionsProvider>
+            </LoadingProvider>
+          </ShowSidebarProvider>
+        </ShowAuthFormProvider>
+      </AuthProvider>
+    </AppConfigProvider>
   );
 }
 

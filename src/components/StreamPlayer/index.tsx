@@ -24,7 +24,7 @@ function StreamPlayer({ stream, className }: StreamPlayerProps) {
 
   useEffect(() => {
     if (!stream || !playerRef.current) return;
-    const liveUrl = `${process.env.REACT_APP_LIVE_URL}/${stream?.id}/index.m3u8`;
+    const liveUrl = `${(window as any).config.liveHost}/${stream?.id}/index.m3u8`;
     const hls = new Hls(playerConfig);
     hls.loadSource(liveUrl);
     hls.attachMedia(playerRef.current);

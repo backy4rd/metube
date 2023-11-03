@@ -14,7 +14,7 @@ class MediaApi {
     form.append('video', video);
 
     axios
-      .post(process.env.REACT_APP_STATIC_URL + '/videos', form, {
+      .post((window as any).config.mediaHost + '/videos', form, {
         headers: { 'Content-Type': 'multipart/form-data' },
         onUploadProgress: options?.onUploadProgress,
         cancelToken: source.token,
@@ -30,7 +30,7 @@ class MediaApi {
     form.append('photo', photo);
 
     return axios
-      .post(process.env.REACT_APP_STATIC_URL + '/photos', form, {
+      .post((window as any).config.mediaHost + '/photos', form, {
         headers: { 'Content-Type': 'multipart/form-data' },
       })
       .then((res) => res.data.data);

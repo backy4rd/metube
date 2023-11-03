@@ -4,7 +4,6 @@ import qs from 'query-string';
 const token = window.localStorage.getItem('token');
 
 const client = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded',
   },
@@ -49,7 +48,7 @@ function processResponse(obj: { [key: string]: any }): any {
 
     // append static url to media resource
     if (key.includes('Path') && obj[key] !== null) {
-      obj[key] = process.env.REACT_APP_STATIC_URL + obj[key];
+      obj[key] = (window as any).config.mediaHost + obj[key];
     }
 
     // parse string date -> Date

@@ -171,7 +171,7 @@ function ChannelStream() {
             className="App-TextInput"
             type="text"
             placeholder="Stream title"
-            value={process.env.REACT_APP_RTMP_URL}
+            value={(window as any).config.rtmpHost}
             readOnly
           />
           <div className="ChannelStream__Info-Label">Stream key:</div>

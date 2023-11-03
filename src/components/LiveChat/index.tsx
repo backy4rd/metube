@@ -26,8 +26,8 @@ function LiveChat({ streamId, className, handleLiveCountChange = () => {} }: Liv
   useEffect(() => {
     if (user === undefined) return;
 
-    const socket = io(process.env.REACT_APP_CHAT_HOST || 'http://127.0.0.1', {
-      path: process.env.REACT_APP_CHAT_PATH,
+    const socket = io((window as any).config.chatHost || 'http://127.0.0.1', {
+      path: (window as any).config.chatPath,
       auth: { room: streamId, token: user?.token },
     });
     setMessages([]);
